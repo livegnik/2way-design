@@ -42,6 +42,8 @@ In summary, 2WAY offers a groundbreaking approach to electronic identity and rep
 
 # 1. Frontend
 
+<br>
+
 ## 1.1 Introduction to the Frontend
 
 The frontend of the 2WAY system serves as the user-facing interface, providing a gateway to interact with the platform's features and functionalities.
@@ -111,6 +113,8 @@ Overall, custom plugins play a crucial role in extending the functionality and v
 <br><br>
 
 # 2. Backend
+
+<br>
 
 ## 2.1 Introduction to the Backend
 
@@ -407,11 +411,265 @@ JSON document example for establishing an ACL:
 
 ## 2.4 Database Schema
 
+### 2.4.1 Introduction to the Database Schema
+
+### 2.4.2 Database Schema Design
+
+### 2.4.3 Replicating the Database Schema per Plugin
+
 <br>
 
 ## 2.5 Message Manager
 
+### 2.5.1 Introduction to the Message Manager
+
+### 2.5.2 Message Engine
+
+#### 2.5.2.1 Creating Objects
+
+#### 2.5.2.2 Querying Objects
+
+#### 2.5.2.3 Filtering Objects
+
 <br>
+
+## 2.6 Graph Manager
+
+### 2.6.1 Introduction to the Graph Manager
+
+### 2.6.2 RAM Graph Engine
+
+#### 2.6.2.1 Storage and Retrieval
+
+#### 2.6.2.2 Changes to Graph in RAM
+
+#### 2.6.2.3 Querying Nodes from RAM
+
+<br>
+
+## 2.7 Storage Manager
+
+### 2.7.1 Introduction to the Storage Manager
+
+### 2.7.2 Storage Engine
+
+#### 2.7.2.1 Create Database and Tables
+
+#### 2.7.2.2 Storage and Retrieval
+
+<br>
+
+## 2.8 Key Manager
+
+### 2.8.1 Introduction to the Key Manager
+
+### 2.8.2 Key Engine
+
+#### 2.8.2.1 Generate Keys
+
+#### 2.8.2.2 Verify Signatures
+
+#### 2.8.2.3 Sign Messages
+
+#### 2.8.2.4 Encrypt Messages
+
+#### 2.8.2.5 Decrypt Messages
+
+### 2.8.3 Revocation and Re-Issuance
+
+<br>
+
+## 2.9 ACL Manager
+
+### 2.9.1 Introduction to the ACL Manager
+
+### 2.9.2 ACL Engine
+
+#### 2.9.2.1 Receiving Instructions
+
+#### 2.9.2.2 Creating ACLs
+
+#### 2.9.2.3 Removing ACLs
+
+#### 2.9.2.4 Querying ACLs
+
+#### 2.9.2.5 Verifying ACLs
+
+<br>
+
+## 2.10 State Manager
+
+### 2.10.1 Introduction to the State Manager
+
+### 2.10.2 State Engine
+
+#### 2.10.2.1 Receiving Requests
+
+#### 2.10.2.2 Querying States
+
+<br>
+
+## 2.11 Network Manager
+
+### 2.11.1 Introduction to the Network Manager
+
+### 2.11.2 Networking
+
+Tor integration, etc
+
+### 2.11.3 Establishing Connections
+
+### 2.11.4 Data Synchronization
+
+### 2.11.5 Network Engine
+
+#### 2.11.5.1 Introduction to the Network Engine
+
+#### 2.11.5.2 Creating Onion Services
+
+#### 2.11.5.3 Starting Onion Services
+
+#### 2.11.5.4 Stopping Onion Services
+
+#### 2.11.5.5 Revoking Onion Services
+
+#### 2.11.5.6 Closing Sockets
+
+#### 2.11.5.7 Receiving Messages
+
+#### 2.11.5.8 Sending Messages
+
+### 2.11.6 Client Puzzle Engine
+
+#### 2.11.6.1 Introduction to the Client Puzzle Engine
+
+#### 2.11.6.2 Creating and Solving Client Puzzles
+
+#### 2.11.6.3 Querying and Verifying Client Puzzle Challenges and Solutions
+
+### 2.11.7 Bastion Engine
+
+#### 2.11.7.1 Introduction to the Bastion Engine
+
+#### 2.11.7.2 Receiving Messages
+
+### 2.11.8 Incoming Engine
+
+#### 2.11.8.1 Introduction to the Incoming Engine
+
+#### 2.11.8.2 Receiving Messages
+
+### 2.11.9 Outgoing Engine
+
+#### 2.11.9.1 Introduction to the Outgoing Engine
+
+#### 2.11.9.2 Sending Messages
+
+### 2.11.10 Network Startup Engine
+
+#### 2.11.10.1 Introduction to the Network Startup Engine
+
+#### 2.11.10.2 Creating and Solving Client Puzzles
+
+#### 2.11.10.3 Starting Onion Services
+
+#### 2.11.10.4 Connecting with First Degree Connections
+
+<br>
+
+## 2.12 DoS Guard Manager
+
+### 2.12.1 Introduction to the DoS Guard Manager
+
+### 2.12.2 DoS Guard Engine
+
+#### 2.12.2.1 Receiving Bastion Alarms
+
+<br>
+
+## 2.13 Log Manager
+
+### 2.13.1 Introduction to the Log Manager
+
+### 2.13.2 Log Engine
+
+#### 2.13.2.1 Logging Failed Operations
+
+#### 2.13.2.2 Logging Failed Bastion Messages
+
+#### 2.13.2.3 Logging Failed Incoming Messages
+
+<br>
+
+## 2.14 Installation Manager
+
+### 2.14.1 Introduction to the Installation Manager
+
+### 2.14.2 Installation Engine
+
+#### 2.14.2.1 Create Database and Tables
+
+#### 2.14.2.2 Generate Key-Pairs
+
+#### 2.14.2.3 Create Onion Services
+
+#### 2.14.2.4 Create Client Puzzles
+
+#### 2.14.2.5 Create Required Objects
+
+<br>
+
+## 2.15 Startup Manager
+
+### 2.15.1 Introduction to the Startup Manager
+
+### 2.15.2 Startup Engine
+
+#### 2.15.2.1 Starting the Graph Manager
+
+#### 2.15.2.2 Starting the Network Manager
+
+<br><br>
+
+# 3 Practical Examples
+
+<br>
+
+## 3.1 Introduction to the Practical Examples
+
+<br>
+
+## 3.2 Managing Contacts
+
+<br>
+
+## 3.3 Messaging
+
+<br>
+
+## 3.4 Social
+
+<br>
+
+## 3.5 Solving for Sybil Attacks
+
+<br>
+
+## 3.6 Markets
+
+<br>
+
+## 3.7 Verifying Binaries
+
+<br>
+
+## 3.8 Key Revocation, Re-Issuance, and Propagation
+
+<br>
+
+## 
+
+
 
 
 
