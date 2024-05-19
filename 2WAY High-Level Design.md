@@ -322,17 +322,17 @@ JSON document example for establishing a parent-child edge:
 
 ~~~
 {
-  "id": 1,												# INT
-  "version": 1,											# INT
+  "id": 1,								# INT
+  "version": 1,								# INT
   "type": "defined by system or plugin",				# TEXT
   "signing_key": "Alice's public key",					# TEXT
-  "parent_id": "4",										# INT
-  "parent_version": "2",								# INT
-  "child_ids": "5,9,12,13,14",							# TEXT
-  "child_versions": "1,1,2,1,1",						# INT
-  "vote": "1",											# INT
-  "timestamp": "1648062000",							# INT
-  "hash": "hash of the document",						# TEXT
+  "parent_id": "4",							# INT
+  "parent_version": "2",						# INT
+  "child_ids": "5,9,12,13,14",						# TEXT
+  "child_versions": "1,1,2,1,1",					# INT
+  "vote": "1",								# INT
+  "timestamp": "1648062000",						# INT
+  "hash": "hash of the document",					# TEXT
   "signature": "cryptographic signature"				# TEXT
 }
 ~~~
