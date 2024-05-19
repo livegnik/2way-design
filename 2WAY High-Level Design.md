@@ -322,18 +322,18 @@ JSON document example for establishing a parent-child edge:
 
 ~~~
 {
-  "id": 1,								# INT
-  "version": 1,								# INT
-  "type": "defined by system or plugin",				# TEXT
-  "signing_key": "Alice's public key",					# TEXT
-  "parent_id": "4",							# INT
-  "parent_version": "2",						# INT
-  "child_ids": "5,9,12,13,14",						# TEXT
-  "child_versions": "1,1,2,1,1",					# INT
-  "vote": "1",								# INT
-  "timestamp": "1648062000",						# INT
-  "hash": "hash of the document",					# TEXT
-  "signature": "cryptographic signature"				# TEXT
+  "id": 1,
+  "version": 1,
+  "type": "defined by system or plugin",
+  "signing_key": "Alice's public key",
+  "parent_id": "4",
+  "parent_version": "2",
+  "child_ids": "5,9,12,13,14",
+  "child_versions": "1,1,2,1,1",
+  "vote": "1",
+  "timestamp": "1648062000",
+  "hash": "hash of the document",
+  "signature": "cryptographic signature"
 }
 ~~~
 
@@ -357,21 +357,21 @@ JSON document example for establishing a rating:
 
 ~~~
 {
-  "id": 1,												# INT
-  "version": 1,											# INT
-  "type": "defined by system or plugin",				# TEXT
-  "signing_key": "Alice's public key",					# TEXT
-  "attribute_id": "1",									# INT
-  "attribute_version": "1",								# INT
-  "parent_id": "",										# INT
-  "parent_version": "",									# INT
-  "comment": "wow this is really great!",				# TEXT
-  "score": "13",										# TEXT
-  "scale": "out-of-10-but-up-to-13",					# TEXT
-  "vote": "1",											# INT
-  "timestamp": "1648062000",							# INT
-  "hash": "hash of the document",						# TEXT
-  "signature": "cryptographic signature"				# TEXT
+  "id": 1,
+  "version": 1,
+  "type": "defined by system or plugin",
+  "signing_key": "Alice's public key",
+  "attribute_id": "1",
+  "attribute_version": "1",
+  "parent_id": "",
+  "parent_version": "",
+  "comment": "wow this is really great!",
+  "score": "13",
+  "scale": "out-of-10-but-up-to-13",
+  "vote": "1",
+  "timestamp": "1648062000",
+  "hash": "hash of the document",
+  "signature": "cryptographic signature"
 }
 ~~~
 
@@ -395,15 +395,15 @@ JSON document example for establishing an ACL:
 
 ~~~
 {
-  "id": 1,												# INT
-  "version": 1,											# INT
-  "signing_key": "Alice's public key",					# TEXT
-  "pubkey_id": "1",										# INT
-  "permissions": "3,5",									# TEXT
-  "vote": "1",											# INT
-  "timestamp": "1648062000",							# INT
-  "hash": "hash of the document",						# TEXT
-  "signature": "cryptographic signature"				# TEXT
+  "id": 1,
+  "version": 1,
+  "signing_key": "Alice's public key",
+  "pubkey_id": "1",
+  "permissions": "3,5",
+  "vote": "1",
+  "timestamp": "1648062000",
+  "hash": "hash of the document",
+  "signature": "cryptographic signature"
 }
 ~~~
 
