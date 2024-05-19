@@ -182,20 +182,6 @@ Furthermore, the Graph in RAM can be dynamically extended with additional 2WAY o
 
 However, it's essential to note that maintaining a Graph in RAM comes at a relatively high cost compared to directly retrieving data from the SQL database. While in-memory operations are faster, they consume system resources and memory, potentially impacting overall system performance. Therefore, the Graph in RAM should be used conservatively and selectively, focusing on caching frequently accessed data or optimizing specific query patterns to enhance overall responsiveness and user experience within the 2WAY system.
 
-### 2.2.6 Graph Manager
-
-The Graph Manager in the 2WAY system acts as an intermediary layer responsible for managing the Graph in RAM and facilitating its synchronization with the persistent disk-based Server Graph. It oversees the storage, retrieval, and manipulation of graph data, ensuring efficient access and maintenance of the system's graph structure.
-
-One of the primary functions of the Graph Manager is to store and retrieve the in-memory graph to and from disk. When the system initializes or shuts down, or when there are significant updates to the graph data, the Graph Manager handles the transfer of graph data between RAM and disk storage. This ensures that the Graph in RAM remains synchronized with the persistent Server Graph, enabling seamless data access and manipulation.
-
-Additionally, the Graph Manager serves as a gateway for processing changes received from the message manager, a component responsible for handling incoming messages and updates from users. When a change is received, such as the addition, removal, or update of nodes and edges within the graph, the Graph Manager processes the change and updates the relevant nodes and edges in the Graph in RAM accordingly.
-
-For example, if a new connection with another user is created by a user, the Graph Manager adds the corresponding node/edge with the table record ID that stores the attribute of their pubkey to the Graph in RAM. Conversely, if a node or edge is deleted or modified, the Graph Manager performs the necessary adjustments to maintain data consistency within the Graph in RAM.
-
-Furthermore, the Graph Manager facilitates query operations by providing methods to retrieve nodes by degree of separation from the user's zeroth degree within the Server Graph. Users can query the message manager, who then calls the Graph Manager to obtain table record IDs of relevant nodes within their User Graph, enabling efficient exploration and analysis of graph data.
-
-Overall, the Graph Manager plays a critical role in ensuring the integrity, accessibility, and responsiveness of the graph data within the 2WAY system. By managing the synchronization between the Graph in RAM and the persistent Server Graph, as well as handling incoming changes and query requests, the Graph Manager facilitates efficient data management and interaction within the platform.
-
 <br>
 
 ## 2.3 2WAY Objects
@@ -429,10 +415,26 @@ JSON document example for establishing an ACL:
 
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
 
+
+### 2.2.6 Graph Manager
+
+The Graph Manager in the 2WAY system acts as an intermediary layer responsible for managing the Graph in RAM and facilitating its synchronization with the persistent disk-based Server Graph. It oversees the storage, retrieval, and manipulation of graph data, ensuring efficient access and maintenance of the system's graph structure.
+
+One of the primary functions of the Graph Manager is to store and retrieve the in-memory graph to and from disk. When the system initializes or shuts down, or when there are significant updates to the graph data, the Graph Manager handles the transfer of graph data between RAM and disk storage. This ensures that the Graph in RAM remains synchronized with the persistent Server Graph, enabling seamless data access and manipulation.
+
+Additionally, the Graph Manager serves as a gateway for processing changes received from the Message Manager, a component responsible for handling incoming messages and updates from users. When a change is received, such as the addition, removal, or update of nodes and edges within the graph, the Graph Manager processes the change and updates the relevant nodes and edges in the Graph in RAM accordingly.
+
+For example, if a new connection with another user is created by a user, the Graph Manager adds the corresponding node/edge with the table record ID that stores the attribute of their pubkey to the Graph in RAM. Conversely, if a node or edge is deleted or modified, the Graph Manager performs the necessary adjustments to maintain data consistency within the Graph in RAM.
+
+Furthermore, the Graph Manager facilitates query operations by providing methods to retrieve nodes by degree of separation from the user's zeroth degree within the Server Graph. Users can query the Message Manager, who then calls the Graph Manager to obtain table record IDs of relevant nodes within their User Graph, enabling efficient exploration and analysis of graph data.
+
+Overall, the Graph Manager plays a critical role in ensuring the integrity, accessibility, and responsiveness of the graph data within the 2WAY system. By managing the synchronization between the Graph in RAM and the persistent Server Graph, as well as handling incoming changes and query requests, the Graph Manager facilitates efficient data management and interaction within the platform.
+
+<br><br>
 
 
 # 3. Storage & Querying
@@ -443,7 +445,7 @@ JSON document example for establishing an ACL:
 
 <br>
 
-The storage manager component of the current model leverages SQLAlchemy, a popular Object-Relational Mapping (ORM) tool in Python, to interact with the underlying database. SQLAlchemy simplifies database operations by providing a high-level abstraction layer that allows developers to work with databases using Python objects and methods.
+The Storage Manager component of the current model leverages SQLAlchemy, a popular Object-Relational Mapping (ORM) tool in Python, to interact with the underlying database. SQLAlchemy simplifies database operations by providing a high-level abstraction layer that allows developers to work with databases using Python objects and methods.
 
 However, it may be advantageous to forego the use of SQLAlchemy and instead manually code all the necessary SQL instructions directly within Python.
 
@@ -457,13 +459,13 @@ The design for this proof-of-concept only ever appends new records to the databa
 
 <br>
 
-In the 2WAY system, the message manager serves as a central hub for creating and querying all the objects discussed earlier, including attributes, parents, edges, reputation data, and access control lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's message manager.
+In the 2WAY system, the Message Manager serves as a central hub for creating and querying all the objects discussed earlier, including attributes, parents, edges, reputation data, and access control lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's Message Manager.
 
-When creating objects such as attributes or parents, users interact with the frontend interface, which in turn communicates with the backend's message manager via API calls. These API calls contain the necessary data to create the desired object, such as attribute key-value pairs or parent-child relationships. Upon receiving these requests, the message manager processes the data, passes it to the key manager for signing, and executes the corresponding database operations to create the requested objects within the system. It then passes any relevant changes to the ACL manager, Graph Manager, and state manager.
+When creating objects such as attributes or parents, users interact with the frontend interface, which in turn communicates with the backend's Message Manager via API calls. These API calls contain the necessary data to create the desired object, such as attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Message Manager processes the data, passes it to the Key Manager for signing, and executes the corresponding database operations to create the requested objects within the system. It then passes any relevant changes to the ACL Manager, Graph Manager, and State Manager.
 
-Similarly, when querying objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's message manager via API calls. These API calls specify the parameters for the desired query, by degree of separation from the user's zeroth degree (their public key), for the object type being queried. The message manager then retrieves the relevant nodes from the Graph Manager (Graph in RAM) and uses the resulting record IDs to query data from the database, and returns it to the frontend.
+Similarly, when querying objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls specify the parameters for the desired query, by degree of separation from the user's zeroth degree (their public key), for the object type being queried. The Message Manager then retrieves the relevant nodes from the Graph Manager (Graph in RAM) and uses the resulting record IDs to query data from the database, and returns it to the frontend.
 
-By centralizing object creation and querying functionality within the message manager and exposing it through APIs, the 2WAY system ensures consistency, security, and scalability in managing various types of objects and data within the system. This approach abstracts the complexities of database interactions and provides a unified interface for interacting with the system's objects, enhancing usability and maintainability.
+By centralizing object creation and querying functionality within the Message Manager and exposing it through APIs, the 2WAY system ensures consistency, security, and scalability in managing various types of objects and data within the system. This approach abstracts the complexities of database interactions and provides a unified interface for interacting with the system's objects, enhancing usability and maintainability.
 
 It is outside of the scope of this proof-of-concept to have messages signed on the frontend. In a future version, messages could theoretically be signed on the frontend or with hardware keys.
 
@@ -626,7 +628,7 @@ Overall, replicating the database schema per plugin ensures modularity, flexibil
 
 In the 2WAY system, establishing secure connections between users distributed across the network and ensuring synchronized data exchange are paramount for seamless communication and collaboration.
 
-Leveraging Tor for secure communication beyond local servers and employing a robust state manager for efficient data synchronization, the 2WAY system prioritizes privacy, anonymity, and data integrity to facilitate seamless interaction and collaboration among users.
+Leveraging Tor for secure communication beyond local servers and employing a robust State Manager for efficient data synchronization, the 2WAY system prioritizes privacy, anonymity, and data integrity to facilitate seamless interaction and collaboration among users.
 
 <br>
 
@@ -670,7 +672,7 @@ Moreover, the incorporation of Tor into the connection establishment process add
 
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
 
@@ -846,14 +848,3 @@ Moreover, the incorporation of Tor into the connection establishment process add
 		Verifying Binaries
 
 		Key Revocation, Re-Issuance, and Propagation
-
-
-
-
-
-
-
-
-
-
-
