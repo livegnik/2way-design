@@ -130,7 +130,7 @@ The Key Manager is vital for handling the signing and verification of messages, 
 
 Additional components enhance the backend's robustness and reliability. The Storage Manager handles the physical storage of data, while the Network Manager manages the network connections between nodes, ensuring efficient data exchange. The Denial of Service (DoS) Guard Manager protects the system from malicious attacks, maintaining network performance and availability. The Log Manager records system activities for auditing and troubleshooting, and the Installation and Startup Managers facilitate the deployment and initialization of the 2WAY system.
 
-In essence, the 2WAY backend is a sophisticated and modular system that provides the secure and decentralized foundation needed for the 2WAY platform's operations. It integrates various components and data structures to create a resilient and efficient framework for managing digital identities and reputations in a P2P network. This section explains each element in detail, offering a comprehensive understanding of the backend architecture and its critical role within the 2WAY system.
+In essence, the 2WAY backend is a sophisticated and modular system that provides the secure and decentralized foundation needed for the 2WAY platform's operations. It integrates various components and data structures to create a resilient and efficient framework for managing digital identities and user data in a P2P network. This section explains each element in detail, offering a comprehensive understanding of the backend architecture and its critical role within the 2WAY system.
 
 <br>
 
