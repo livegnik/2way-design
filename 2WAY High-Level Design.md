@@ -2,7 +2,7 @@
 
 
 
-# 2WAY: High-Level Design Document
+# 2WAY Protocol: Architecture and Implementation Blueprint
 
 <br><br>
 
@@ -18,7 +18,7 @@ Decentralizing identity and reputation management can mitigate these risks and c
 
 For service providers, decentralizing applications can streamline operations and reduce overhead costs associated with data management and security. Leveraging decentralized technologies like distributed graphs and peer-to-peer (P2P) networks enhances data privacy, reduces regulatory burdens, and mitigates the risk of cyber attacks.
 
-Enter 2WAY, a proposal for a proof-of-concept (PoC) offering a purely P2P version of electronic identity and reputation. At its core, 2WAY empowers users to issue their own cryptographic identities, control linked data, and establish secure communication channels without trusted intermediaries. Through digital signatures, a graph, and a P2P network, 2WAY enables users to curate their digital personas, filter information for relevancy, and interact directly with trusted parties securely.
+Enter 2WAY, a proposal for a proof-of-concept (PoC) offering a purely P2P version of electronic identity and reputation. At its core, 2WAY empowers users to issue their own cryptographic identities, control linked data, and establish secure communication channels without trusted intermediaries. Through digital signatures, a graph, and a P2P network, 2WAY enables users to curate their digital personas, filter information for relevancy, and interact directly with trusted parties securely, all through interfaces that already feel familiar to them.
 
 Designed to be lightweight, 2WAY can run both the frontend (client) and backend (server) on a desktop computer, making it accessible and practical for a wide range of users. Although the main goal of the 2WAY PoC is to demonstrate the 2WAY protocol, the platform leverages the Flask framework for both the frontend and backend, merging them into a single application. This integrated approach simplifies development and deployment. Once the PoC has proven effective, the backend could be implemented as a daemon or service in a low-level language, and the frontend could be developed using any language or framework.
 
