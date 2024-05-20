@@ -214,7 +214,7 @@ An attribute consists of a key-value pair, in the form of a "type" and a "value,
 
 The two discussed example attributes:
 
-~~~
+```json
 {
 	"type": "name",
 	"value": "Alice"
@@ -224,19 +224,20 @@ The two discussed example attributes:
 	"type": "pubkey",
 	"value": "really long pubkey here"
 }
-~~~
+```
 
 Whenever a user initiates an action on the frontend that generates an attribute, it is transmitted to the backend's Message Manager API as a JSON document:
 
-~~~
+```json
 {
+  "type": "attribute",
+  "signing_key": "user_public_key",
   "app_id": "2WAY, Contacts",
   "attribute_type": "name",
   "attribute_value": "Alice",
   "vote": "1",
-  "timestamp": "1648062000"
 }
-~~~
+```
 
 Here, the "app_id" serves as the identifier for the frontend application, "2WAY," along with one of the application's sub-IDs, "Contacts." The backend uses this information to determine where to store the data. The attribute's key-value pair is defined as "name" for type, and "Alice" as its value. The vote is boolean. The value of "1" signifies that the object is relevant, whereas the value "0" indicates that the object is not relevant (any longer). When the latest version of an object contains the value "0" for "vote," the object is disregarded during future queries, unless specifically requested. The latest version of an object is the one returned when queried for, by default.
 
@@ -246,7 +247,7 @@ Moreover, the Message Manager facilitates attribute querying, allowing for filte
 
 Once the data is stored, the following result is returned when the newly created object is queried:
 
-~~~
+```json
 {
   "id": 1,
   "version": 1,
@@ -258,13 +259,13 @@ Once the data is stored, the following result is returned when the newly created
   "hash": "document hash",
   "signature": "cryptographic signature"
 }
-~~~
+```
 
 ### 2.3.3 Parent
 
 The parent object consists of a single parent attribute and one or more other attributes and/or parents as its children. An example:
 
-~~~
+```json
 {
   "parent_type": "pubkey",
   "parent_value": "Alice's public key",
@@ -287,7 +288,7 @@ The parent object consists of a single parent attribute and one or more other at
     }
   ]
 }
-~~~
+```
 
 In this example, the parent's type is "pubkey" with the value "Alice's pubkey." The attributes with the types "name," "email," and "address" are child-attributes linking to a single attribute. The links are established outside of the parent as edges. However, note that the child with child_type="group" is a parent that serves as a child-attribute, and that the user who is creating the object(s) could be a part of this group themselves, as a child-attribute of said parent.
 
@@ -297,7 +298,7 @@ To create objects other than users, one simply needs to define the required attr
 
 JSON document example for establishing a parent:
 
-~~~
+```json
 {
   "id": 1,
   "version": 1,
@@ -310,7 +311,7 @@ JSON document example for establishing a parent:
   "hash": "hash of the document",
   "signature": "cryptographic signature"
 }
-~~~
+```
 
 ### 2.3.4 Edge
 
@@ -320,7 +321,7 @@ Only edges between parents and children are stored separately, as edges between 
 
 JSON document example for establishing a parent-child edge:
 
-~~~
+```json
 {
   "id": 1,
   "version": 1,
@@ -335,7 +336,7 @@ JSON document example for establishing a parent-child edge:
   "hash": "hash of the document",
   "signature": "cryptographic signature"
 }
-~~~
+```
 
 ### 2.3.5 Rating (Reputation)
 
@@ -355,7 +356,8 @@ By structuring the data in this manner, it becomes flexible and adaptable to dif
 
 JSON document example for establishing a rating:
 
-~~~
+
+```json
 {
   "id": 1,
   "version": 1,
@@ -373,7 +375,7 @@ JSON document example for establishing a rating:
   "hash": "hash of the document",
   "signature": "cryptographic signature"
 }
-~~~
+```
 
 ### 2.3.6 Access Control List (ACL)
 
@@ -393,7 +395,8 @@ During the synchronization of states between users, the ACL plays a crucial role
 
 JSON document example for establishing an ACL:
 
-~~~
+
+```json
 {
   "id": 1,
   "version": 1,
@@ -405,7 +408,7 @@ JSON document example for establishing an ACL:
   "hash": "hash of the document",
   "signature": "cryptographic signature"
 }
-~~~
+```
 
 <br>
 
@@ -413,9 +416,97 @@ JSON document example for establishing an ACL:
 
 ### 2.4.1 Introduction to the Database Schema
 
+The database schema for the 2WAY system is designed to reflect the structure and relationships of the various objects discussed earlier, using SQLite3 as the chosen database. SQLite3 was selected for its versatility and ability to run on almost any (embedded) system, making it ideal for the lightweight and accessible nature of 2WAY. While future implementations could use other relational databases, graph databases, or alternative solutions, demonstrating the protocol's effectiveness at scale with SQLite3 will highlight its potential for increased efficiency as the system evolves and is deployed on more powerful hardware.
+
+By organizing data into separate tables and establishing relationships between them through foreign keys, the schema ensures data integrity and enables efficient querying and retrieval operations within the SQLite3 database. Additionally, incorporating versioning fields allows for tracking changes over time and managing data revisions effectively. This schema design supports the creation, storage, and querying of various objects within the 2WAY system, providing a solid foundation for managing user data, reputation metrics, access controls, and other relevant information in a structured and organized manner.
+
+In the 2WAY system, each plugin is responsible for creating its own set of tables within the backend database, adhering to the schema outlined in section 2.4.2, "Database Schema Design." Not only does this approach prevent plugins from interfering with each other, but it also enables plugins to access and utilize data from other plugins, fostering interoperability and collaboration within the system.
+
+To achieve this, each plugin is assigned a unique "app_id" and can optionally have one or more "app_sub_id" identifiers. These identifiers are used to name the tables within the database, ensuring that each plugin's tables are distinct and identifiable. For instance, the default Contacts plugin in 2WAY might have the app_id "twoway" and the app_sub_id "connections," resulting in table names such as "twoway_connections_attributes," "twoway_connections_parents," "twoway_connections_edges," "twoway_connections_ratings," and "twoway_connections_acl."
+
+The schema design for plugins is crafted to enable interoperability and seamless integration between different plugins within the system. Each plugin's tables follow the same structure and naming conventions, making it easy for plugins to interact with one another and share data as needed. By following a consistent schema design, plugins can leverage common functionalities and utilities provided by the core system, such as access control lists (ACLs), data indexing, and query optimization. This promotes code reusability and simplifies plugin development, allowing developers to focus on implementing unique features and functionalities without worrying about low-level database management tasks.
+
+Additionally, the use of app_id and app_sub_id identifiers allows plugins to coexist within the same database environment while maintaining isolation and encapsulation of data. This approach enables developers to mix and match plugins according to their specific requirements, creating customized configurations tailored to their unique use cases.
+
+Overall, replicating the database schema per plugin ensures modularity, flexibility, and interoperability within the 2WAY system. It empowers developers to build and extend the platform with new functionalities and features while maintaining consistency and compatibility across different plugins.
+
 ### 2.4.2 Database Schema Design
 
-### 2.4.3 Replicating the Database Schema per Plugin
+Here are the core tables in the schema:
+
+1. **Attributes Table**:
+   - **id** INT: Unique identifier for the attribute.
+   - **version** INT: Version number for the attribute.
+   - **type** TEXT: Type of the attribute.
+   - **signing_key** TEXT: Key used to sign the attribute.
+   - **attribute_key** TEXT: Key of the attribute.
+   - **attribute_value** TEXT: Value of the attribute.
+   - **vote** INT: Vote count for the attribute.
+   - **timestamp** INT: Timestamp of the attribute creation or modification.
+   - **hash** TEXT: Hash of the attribute.
+   - **signature** TEXT: Signature of the attribute.
+   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
+
+2. **Parents Table**:
+   - **id** INT: Unique identifier for the parent.
+   - **version** INT: Version number for the parent.
+   - **type** TEXT: Type of the parent.
+   - **signing_key** TEXT: Key used to sign the parent.
+   - **parent_id** INT: Identifier of the parent.
+   - **parent_version** INT: Version number of the parent.
+   - **vote** INT: Vote count for the parent.
+   - **timestamp** INT: Timestamp of the parent creation or modification.
+   - **hash** TEXT: Hash of the parent.
+   - **signature** TEXT: Signature of the parent.
+   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
+   - **FOREIGN KEY (parent_id, parent_version) REFERENCES twoway_connections_attributes(id, version)**: Ensures referential integrity with the Attributes table.
+
+3. **Edges Table**:
+   - **id** INT: Unique identifier for the edge.
+   - **version** INT: Version number for the edge.
+   - **type** TEXT: Type of the edge.
+   - **signing_key** TEXT: Key used to sign the edge.
+   - **parent_id** INT: Identifier of the parent node.
+   - **parent_version** INT: Version number of the parent node.
+   - **child_ids** TEXT: Comma-separated list of child node IDs.
+   - **child_versions** TEXT: Comma-separated list of child node versions.
+   - **vote** INT: Vote count for the edge.
+   - **timestamp** INT: Timestamp of the edge creation or modification.
+   - **hash** TEXT: Hash of the edge.
+   - **signature** TEXT: Signature of the edge.
+   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
+   - **FOREIGN KEY (parent_id, parent_version) REFERENCES twoway_connections_parents(id, version)**: Ensures referential integrity with the Parents table.
+
+4. **Rating Table**:
+   - **id** INT: Unique identifier for the rating entry.
+   - **version** INT: Version number for the rating entry.
+   - **type** TEXT: Type of the rating entry.
+   - **signing_key** TEXT: Key used to sign the rating entry.
+   - **attribute_id** INT: Identifier of the related attribute.
+   - **attribute_version** INT: Version number of the related attribute.
+   - **parent_id** INT: Identifier of the related parent.
+   - **parent_version** INT: Version number of the related parent.
+   - **comment** TEXT: Comment associated with the rating entry.
+   - **score** TEXT: Score given in the rating entry.
+   - **scale** TEXT: Scale of the score.
+   - **timestamp** INT: Timestamp of the rating entry creation or modification.
+   - **hash** TEXT: Hash of the rating entry.
+   - **signature** TEXT: Signature of the rating entry.
+   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
+   - **FOREIGN KEY (attribute_id, attribute_version) REFERENCES twoway_connections_attributes(id, version)**: Ensures referential integrity with the Attributes table.
+   - **FOREIGN KEY (parent_id, parent_version) REFERENCES twoway_connections_parents(id, version)**: Ensures referential integrity with the Parents table.
+
+5. **ACL Table**:
+   - **id** INT: Unique identifier for the ACL entry.
+   - **version** INT: Version number for the ACL entry.
+   - **signing_key** TEXT: Key used to sign the ACL entry.
+   - **pubkey_id** INT: Identifier of the public key.
+   - **permissions** TEXT: Permissions associated with the ACL entry.
+   - **timestamp** INT: Timestamp of the ACL entry creation or modification.
+   - **hash** TEXT: Hash of the ACL entry.
+   - **signature** TEXT: Signature of the ACL entry.
+   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
+   - **FOREIGN KEY (pubkey_id) REFERENCES twoway_connections_attributes(id, version)**: Ensures referential integrity with the Attributes table.
 
 <br>
 
@@ -423,13 +514,121 @@ JSON document example for establishing an ACL:
 
 ### 2.5.1 Introduction to the Message Manager
 
-### 2.5.2 Message Engine
+In the 2WAY system, the Message Manager serves as the central hub for creating and querying all the core objects, including Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's Message Manager, ensuring a streamlined and efficient handling of data interactions.
 
-#### 2.5.2.1 Creating Objects
+When users create objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain the necessary data to create the desired object, such as attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Message Manager processes the data, passes it to the Key Manager for signing, and executes the corresponding database operations to create the requested objects within the system. Additionally, it informs the ACL Manager, Graph Manager, and State Manager of any relevant changes, ensuring that the system remains up-to-date and consistent.
 
-#### 2.5.2.2 Querying Objects
+Similarly, querying objects within the 2WAY system is initiated through the frontend interface, which sends API calls to the backend's Message Manager. These API calls specify the parameters for the desired query, including the degree of separation from the user's zeroth degree (their public key) and the type of object being queried. The Message Manager retrieves the relevant nodes from the Graph Manager (which manages the Graph in RAM), then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The queried data is then returned to the frontend for user interaction.
 
-#### 2.5.2.3 Filtering Objects
+By centralizing object creation and querying functionality within the Message Manager and exposing it through APIs, the 2WAY system ensures consistency, security, and scalability in managing various types of objects and data. This approach abstracts the complexities of database interactions and provides a unified interface for interacting with the system's objects, enhancing usability and maintainability.
+
+It is important to note that for this proof-of-concept, messages are not signed on the frontend. In future versions, messages could potentially be signed on the frontend or with hardware keys, providing an additional layer of security and flexibility.
+
+### 2.5.2 Creating Objects
+
+To create objects within the 2WAY system, users interact with the frontend interface, which communicates with the backend's Message Manager through API calls. These API calls contain JSON documents specifying the details of the objects to be created. Below are examples of JSON documents for creating different types of objects based on the database schema:
+
+1. **Creating Attributes:**
+```json
+{
+  "type": "attribute",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_id",
+  "attribute_type": "name",
+  "attribute_value": "Alice",
+  "vote": "1"
+}
+```
+
+2. **Creating Parents:**
+```json
+{
+  "type": "parent",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_id",
+  "parent_id": 123,
+  "parent_version": 1,
+  "vote": "1"
+}
+```
+3. **Creating Edges:**
+```json
+{
+  "type": "edge",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_id",
+  "parent_id": 123,
+  "parent_version": 1,
+  "child_ids": [456, 789],
+  "child_versions": [1, 2],
+  "vote": 1
+}
+```
+
+4. **Creating Ratings:**
+```json
+{
+  "type": "rating",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_id",
+  "attribute_id": 0,
+  "attribute_version": 0,
+  "parent_id": 456,
+  "parent_version": 1,
+  "comment": "Great experience!",
+  "score": "5",
+  "scale": "5",
+  "vote": 1
+}
+```
+
+5. **Creating ACLs:**
+```json
+{
+  "type": "acl",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_id",
+  "pubkey_id": 123,
+  "access_to_id": [456, 789],
+  "access_to_parent": 0,
+  "permissions": 1
+}
+```
+
+Upon receiving these JSON documents, the Message Manager processes the data, signs the message, and executes the corresponding database operations to create the requested objects within the system.
+
+### 2.5.3 Querying Objects
+
+To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). Below is an example of a JSON document for querying objects:
+
+```json
+{
+  "type": "attribute",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_public_key",
+  "degree": 2
+}
+```
+
+Upon receiving this JSON document, the Message Manager retrieves the relevant nodes from the Graph Manager and queries data from the database, based on the specified parameters. The queried data is then returned to the frontend for user interaction.
+
+### 2.5.4 Filtering Objects
+
+In addition to querying objects, users can filter objects within the 2WAY system based on specific criteria. This filtering functionality allows users to narrow down their search results and focus on the most relevant information. Below is an example of a JSON document for filtering objects:
+
+```json
+{
+  "type": "attribute",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_public_key",
+  "criteria": {
+    "attribute_key": "email",
+    "attribute_value": "example@email.com"
+  }
+}
+```
+
+Upon receiving this JSON document, the Message Manager applies the specified filtering criteria to the queried data, returning only the objects that match the given criteria. This enables users to efficiently retrieve and analyze data based on their specific requirements.
 
 <br>
 
@@ -503,9 +702,9 @@ JSON document example for establishing an ACL:
 
 ### 2.10.2 State Engine
 
-#### 2.10.2.1 Receiving Requests
+#### 2.10.2.1 Querying States
 
-#### 2.10.2.2 Querying States
+#### 2.10.2.2 Sharing States
 
 <br>
 
