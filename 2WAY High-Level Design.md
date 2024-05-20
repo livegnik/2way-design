@@ -7,13 +7,14 @@
 <br><br>
 
 # Table of Contents
-1. [Frontend](#frontend)
-2. [Backend](#backend)
-3. [Practical Examples](#practical-examples)
+1. [Introduction](#introduction)
+2. [Frontend](#frontend)
+3. [Backend](#backend)
+4. [Practical Examples](#practical-examples)
 
 <br><br>
 
-# Introduction
+# Introduction <a name="introduction"></a>
 
 In today's digital landscape, centralized identity and reputation systems are ubiquitous, serving as the foundation for online interactions. While these systems offer convenience, they also introduce inherent vulnerabilities and limitations that impact both users and third-party service providers. From privacy concerns to regulatory compliance challenges, centralized systems pose significant risks and costs to all stakeholders.
 
@@ -602,7 +603,9 @@ To create objects within the 2WAY system, users interact with the frontend inter
 }
 ```
 
-Upon receiving these JSON documents, the Message Manager processes the data, signs the message, and executes the corresponding database operations to create the requested objects within the system.
+Upon receiving these JSON documents from clients or the backend/system itself, the Message Manager first forwards them to the Key Manager. The Key Manager then signs the messages, timestamps them, and generates a hash for each JSON document. Once signed, the messages are handed over to the Storage Manager, which appends them to the database. If the message pertains to an ACL, it is also relayed to the ACL Manager. Additionally, any necessary updates to the Graph in RAM are handled by passing the message to the Graph Manager.
+
+When the Message Manager receives a message from the Network Manager (i.e., from another server), it directly appends the message by forwarding it to the Storage Manager. If the message involves an ACL, it is likewise relayed to the ACL Manager. Furthermore, any required updates to the Graph in RAM are managed by passing the message to the Graph Manager.
 
 ### 2.5.3 Querying Objects
 
