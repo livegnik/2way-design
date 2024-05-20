@@ -603,7 +603,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 }
 ```
 
-Upon receiving these JSON documents from clients or the backend/system itself, the Message Manager first forwards them to the Key Manager. The Key Manager then signs the messages, timestamps them, and generates a hash for each JSON document. Once signed, the messages are handed over to the Storage Manager, which appends them to the database. If the message pertains to an ACL, it is also relayed to the ACL Manager. Additionally, any necessary updates to the Graph in RAM are handled by passing the message to the Graph Manager.
+Upon receiving these JSON documents from clients or the backend/system itself, the Message Manager first forwards them to the Key Manager. The Key Manager then timestamps them, generates a hash for each JSON document, and then signs the messages. Once signed, the messages are handed over to the Storage Manager, which appends them to the database. If the message pertains to an ACL, it is also relayed to the ACL Manager. Additionally, any necessary updates to the Graph in RAM are handled by passing the message to the Graph Manager.
 
 When the Message Manager receives a message from the Network Manager (i.e., from another server), it directly appends the message by forwarding it to the Storage Manager. If the message involves an ACL, it is likewise relayed to the ACL Manager. Furthermore, any required updates to the Graph in RAM are managed by passing the message to the Graph Manager.
 
