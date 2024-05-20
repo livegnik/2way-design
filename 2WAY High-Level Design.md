@@ -7,8 +7,8 @@
 <br><br>
 
 # Table of Contents
-1. [Example](#Frontend)
-2. [Example2](#example2)
+1. [Frontend](#frontend)
+2. [Backend](#backend)
 
 <br><br>
 
@@ -46,7 +46,7 @@ In summary, 2WAY offers a groundbreaking approach to electronic identity and rep
 
 <br><br>
 
-# 1. Frontend <a name="Frontend"></a>
+# 1. Frontend <a name="frontend"></a>
 
 <br>
 
@@ -118,7 +118,7 @@ Overall, custom plugins play a crucial role in extending the functionality and v
 
 <br><br>
 
-# 2. Backend
+# 2. Backend <a name="frontend"></a>
 
 <br>
 
