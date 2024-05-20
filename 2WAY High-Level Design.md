@@ -6,6 +6,12 @@
 
 <br><br>
 
+# Table of Contents
+1. [Example](#Frontend)
+2. [Example2](#example2)
+
+<br><br>
+
 # Introduction
 
 In today's digital landscape, centralized identity and reputation systems are ubiquitous, serving as the foundation for online interactions. While these systems offer convenience, they also introduce inherent vulnerabilities and limitations that impact both users and third-party service providers. From privacy concerns to regulatory compliance challenges, centralized systems pose significant risks and costs to all stakeholders.
@@ -40,7 +46,7 @@ In summary, 2WAY offers a groundbreaking approach to electronic identity and rep
 
 <br><br>
 
-# 1. Frontend
+# 1. Frontend <a name="Frontend"></a>
 
 <br>
 
@@ -439,7 +445,7 @@ Here are the core tables in the schema:
    - **version** INT: Version number for the attribute.
    - **type** TEXT: Type of the attribute.
    - **signing_key** TEXT: Key used to sign the attribute.
-   - **attribute_key** TEXT: Key of the attribute.
+   - **attribute_type** TEXT: Key of the attribute.
    - **attribute_value** TEXT: Value of the attribute.
    - **vote** INT: Vote count for the attribute.
    - **timestamp** INT: Timestamp of the attribute creation or modification.
