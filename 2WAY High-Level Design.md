@@ -9,6 +9,7 @@
 # Table of Contents
 1. [Frontend](#frontend)
 2. [Backend](#backend)
+3. [Practical Examples](#practical-examples)
 
 <br><br>
 
@@ -118,7 +119,7 @@ Overall, custom plugins play a crucial role in extending the functionality and v
 
 <br><br>
 
-# 2. Backend <a name="frontend"></a>
+# 2. Backend <a name="backend"></a>
 
 <br>
 
@@ -836,7 +837,7 @@ Tor integration, etc
 
 <br><br>
 
-# 3 Practical Examples
+# 3 Practical Examples <a name="practical-examples"></a>
 
 <br>
 
