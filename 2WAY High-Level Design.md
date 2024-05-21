@@ -603,7 +603,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 }
 ```
 
-Upon receiving these JSON documents from clients or the backend/system itself, the Message Manager first forwards them to the Key Manager. The Key Manager then timestamps them, generates a hash for each JSON document, and then signs the messages.
+Upon receiving these JSON documents from clients or the backend/system itself, the Message Manager first forwards them to the Key Manager. The Key Manager timestamps them, generates a hash for each JSON document, and then signs the messages.
 
 ```json
 {
@@ -659,6 +659,8 @@ Upon receiving this JSON document, the Message Manager follows the standard proc
 The signed document is then appended to the database by the Storage Manager. The ACL Manager and Graph Manager are updated as necessary to reflect the down-vote in the Access Control Lists (ACLs) and in the Graph in RAM.
 
 By preserving all objects and utilizing a down-vote mechanism, the 2WAY system allows users to filter and prioritize data according to their own preferences and judgments. This ensures a more personalized and user-centric experience, where each individual can curate their digital environment without permanently removing information that might be relevant to others.
+
+While the current proof-of-concept (PoC) does not support automatic removal of objects, it is conceivable that future implementations could incorporate mechanisms for cleaning up the database. For example, duplicate objects, objects with an older version, or those beyond a certain age threshold could be automatically pruned to maintain database efficiency and manageability. However, such features are outside the scope of this PoC and would require careful consideration of criteria and processes to ensure consistency and data integrity.
 
 ### 2.5.4 Querying Objects
 
