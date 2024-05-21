@@ -190,9 +190,9 @@ One of the key functionalities of the Graph in RAM is to store the table record 
 
 The Graph in RAM is designed to facilitate rapid querying of data from the disk-based Server Graph. When a user initiates a query, the system first retrieves relevant nodes from the in-memory graph based on the degree of separation specified in the query. These nodes serve as starting points for traversing the Server Graph stored on disk, allowing the system to narrow down the scope of the query and retrieve only the necessary data.
 
-Furthermore, the Graph in RAM can be dynamically extended with additional 2WAY objects as needed to speed up querying for certain data. For example, if a user frequently queries for attributes or parents within their immediate network, these objects can be cached in memory to expedite future query operations.
+Furthermore, the Graph in RAM could be dynamically extended with additional 2WAY objects as needed to speed up querying for certain data. For example, if a user frequently queries for attributes or parents within their immediate network, these objects could be cached in memory to expedite future query operations. However, this is outside of the scope of this proof-of-concept.
 
-However, it's essential to note that maintaining a Graph in RAM comes at a relatively high cost compared to directly retrieving data from the SQL database. While in-memory operations are faster, they consume system resources and memory, potentially impacting overall system performance. Therefore, the Graph in RAM should be used conservatively and selectively, focusing on caching frequently accessed data or optimizing specific query patterns to enhance overall responsiveness and user experience within the 2WAY system.
+It's essential to note that maintaining a Graph in RAM comes at a relatively high cost compared to directly retrieving data from the SQL database. While in-memory operations are faster, they consume system resources and memory, potentially impacting overall system performance. Therefore, the Graph in RAM should be used conservatively and selectively, focusing on caching frequently accessed data or optimizing specific query patterns to enhance overall responsiveness and user experience within the 2WAY system.
 
 <br>
 
@@ -539,7 +539,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 1. **Creating Attributes:**
 ```json
 {
-  "type": "attribute",
+  "object": "attribute",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_id",
   "attribute_type": "name",
@@ -551,7 +551,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 2. **Creating Parents:**
 ```json
 {
-  "type": "parent",
+  "object": "parent",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_id",
   "parent_id": 123,
@@ -562,7 +562,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 3. **Creating Edges:**
 ```json
 {
-  "type": "edge",
+  "object": "edge",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_id",
   "parent_id": 123,
@@ -576,7 +576,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 4. **Creating Ratings:**
 ```json
 {
-  "type": "rating",
+  "object": "rating",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_id",
   "attribute_id": 0,
@@ -593,7 +593,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 5. **Creating ACLs:**
 ```json
 {
-  "type": "acl",
+  "object": "acl",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_id",
   "pubkey_id": 123,
@@ -603,11 +603,64 @@ To create objects within the 2WAY system, users interact with the frontend inter
 }
 ```
 
-Upon receiving these JSON documents from clients or the backend/system itself, the Message Manager first forwards them to the Key Manager. The Key Manager then timestamps them, generates a hash for each JSON document, and then signs the messages. Once signed, the messages are handed over to the Storage Manager, which appends them to the database. If the message pertains to an ACL, it is also relayed to the ACL Manager. Additionally, any necessary updates to the Graph in RAM are handled by passing the message to the Graph Manager.
+Upon receiving these JSON documents from clients or the backend/system itself, the Message Manager first forwards them to the Key Manager. The Key Manager then timestamps them, generates a hash for each JSON document, and then signs the messages.
+
+```json
+{
+  "type": "attribute",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_id",
+  "attribute_type": "name",
+  "attribute_value": "Alice",
+  "vote": "1",
+  "timestamp": 1617000000,
+  "hash": "generated_hash",
+  "signature": "generated_signature"
+}
+```
+
+Once signed, the messages are handed over to the Storage Manager, which appends them to the database. If the message pertains to an ACL, it is also relayed to the ACL Manager. Additionally, any necessary updates to the Graph in RAM are handled by passing the message to the Graph Manager.
 
 When the Message Manager receives a message from the Network Manager (i.e., from another server), it directly appends the message by forwarding it to the Storage Manager. If the message involves an ACL, it is likewise relayed to the ACL Manager. Furthermore, any required updates to the Graph in RAM are managed by passing the message to the Graph Manager.
 
-### 2.5.3 Querying Objects
+### 2.5.3 Removing Objects from View
+
+Objects within the 2WAY system are never deleted from the database. Instead, they can only be down-voted, which by default signifies their irrelevance or disapproval by the user. This approach ensures data integrity and historical traceability, as every interaction with an object is preserved. This is crucial because different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
+
+An examples of a JSON document for down-voting an Attribute, to be processed by the Message Manager:
+
+```json
+{
+  "type": "attribute",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_id",
+  "attribute_type": "name",
+  "attribute_value": "Alice",
+  "vote": "0"
+}
+```
+
+Upon receiving this JSON document, the Message Manager follows the standard procedure: it passes the document to the Key Manager for signing, timestamping, and hashing.
+
+```json
+{
+  "type": "attribute",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_id",
+  "attribute_type": "name",
+  "attribute_value": "Alice",
+  "vote": "0",
+  "timestamp": 1618000000,
+  "hash": "generated_hash",
+  "signature": "generated_signature"
+}
+```
+
+The signed document is then appended to the database by the Storage Manager. The ACL Manager and Graph Manager are updated as necessary to reflect the down-vote in the Access Control Lists (ACLs) and in the Graph in RAM.
+
+By preserving all objects and utilizing a down-vote mechanism, the 2WAY system allows users to filter and prioritize data according to their own preferences and judgments. This ensures a more personalized and user-centric experience, where each individual can curate their digital environment without permanently removing information that might be relevant to others.
+
+### 2.5.4 Querying Objects
 
 To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). Below is an example of a JSON document for querying objects:
 
@@ -622,7 +675,7 @@ To query objects within the 2WAY system, users initiate requests through the fro
 
 Upon receiving this JSON document, the Message Manager retrieves the relevant nodes from the Graph Manager and queries data from the database, based on the specified parameters. The queried data is then returned to the frontend for user interaction.
 
-### 2.5.4 Filtering Objects
+### 2.5.5 Filtering Objects
 
 In addition to querying objects, users can filter objects within the 2WAY system based on specific criteria. This filtering functionality allows users to narrow down their search results and focus on the most relevant information. Below is an example of a JSON document for filtering objects:
 
