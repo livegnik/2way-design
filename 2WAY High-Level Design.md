@@ -7,10 +7,12 @@
 <br><br>
 
 # Table of Contents
-1. [Introduction](#introduction)
-2. [Frontend](#frontend)
-3. [Backend](#backend)
-4. [Practical Examples](#practical-examples)
+[Introduction](#introduction)
+1. [Frontend](#frontend)
+
+2. [Backend](#backend)
+
+3. [Practical Examples](#practical-examples)
 
 <br><br>
 
