@@ -240,7 +240,7 @@ Whenever a user initiates an action on the frontend that generates an attribute,
 
 ```json
 {
-  "type": "attribute",
+  "object": "attribute",
   "signing_key": "user_public_key",
   "app_id": "2WAY, Contacts",
   "attribute_type": "name",
@@ -312,7 +312,6 @@ JSON document example for establishing a parent:
 {
   "id": 1,
   "version": 1,
-  "type": "defined by system or plugin",
   "signing_key": "Alice's public key",
   "parent_id": "4",
   "parent_version": "1",
@@ -335,7 +334,6 @@ JSON document example for establishing a parent-child edge:
 {
   "id": 1,
   "version": 1,
-  "type": "defined by system or plugin",
   "signing_key": "Alice's public key",
   "parent_id": "4",
   "parent_version": "2",
@@ -371,7 +369,6 @@ JSON document example for establishing a rating:
 {
   "id": 1,
   "version": 1,
-  "type": "defined by system or plugin",
   "signing_key": "Alice's public key",
   "attribute_id": "1",
   "attribute_version": "1",
@@ -526,7 +523,7 @@ Here are the core tables in the schema:
 
 In the 2WAY system, the Message Manager serves as the central hub for creating and querying all the core objects, including Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's Message Manager, ensuring a streamlined and efficient handling of data interactions.
 
-When users create objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain the necessary data to create the desired object, such as attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Message Manager processes the data, passes it to the Key Manager for signing, and then to the Storage Manager for the corresponding database operations to create the requested objects within the system. Additionally, it informs the ACL Manager, Graph Manager, and State Manager of any relevant changes, ensuring that the system remains up-to-date and consistent.
+When users create objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain the necessary data to create the desired object, such as Attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Message Manager processes the data, passes it to the Key Manager for signing, and then to the Storage Manager for the corresponding database operations to create the requested objects within the system. Additionally, it informs the ACL Manager, Graph Manager, and State Manager of any relevant changes, ensuring that the system remains up-to-date and consistent.
 
 Similarly, querying objects within the 2WAY system is initiated through the frontend interface, which sends API calls to the backend's Message Manager. These API calls specify the parameters for the desired query, including the degree of separation from the user's zeroth degree (their public key) and the type of object being queried. The Message Manager retrieves the relevant nodes from the Graph Manager (which manages the Graph in RAM), then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The queried data is then returned to the frontend for user interaction.
 
@@ -609,7 +606,7 @@ Upon receiving these JSON documents from clients or the backend/system itself, t
 
 ```json
 {
-  "type": "attribute",
+  "object": "attribute",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_id",
   "attribute_type": "name",
@@ -633,7 +630,7 @@ An examples of a JSON document for down-voting an Attribute, to be processed by 
 
 ```json
 {
-  "type": "attribute",
+  "object": "attribute",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_id",
   "attribute_type": "name",
@@ -646,7 +643,7 @@ Upon receiving this JSON document, the Message Manager follows the standard proc
 
 ```json
 {
-  "type": "attribute",
+  "object": "attribute",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_id",
   "attribute_type": "name",
@@ -670,7 +667,7 @@ To query objects within the 2WAY system, users initiate requests through the fro
 
 ```json
 {
-  "type": "attribute",
+  "object": "attribute",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_public_key",
   "degree": 2
@@ -685,7 +682,7 @@ In addition to querying objects, users can filter objects within the 2WAY system
 
 ```json
 {
-  "type": "attribute",
+  "object": "attribute",
   "app_id": "2WAY, Contacts",
   "signing_key": "user_public_key",
   "criteria": {
