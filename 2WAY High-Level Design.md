@@ -2,7 +2,7 @@
 
 
 
-# 2WAY Protocol: Architecture and Implementation Blueprint
+# 2WAY: Protocol Architecture and Flask Implementation Blueprint
 
 <br><br>
 
