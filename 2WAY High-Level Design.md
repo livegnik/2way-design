@@ -680,7 +680,9 @@ Upon receiving this JSON document, the Message Manager retrieves the relevant no
 
 ### 2.5.4 Querying Objects
 
-To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). By default, the system queries and returns the latest/newest up-voted object. Below is an example of a JSON document for querying up-voted objects:
+To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). By default, the system queries and returns the latest version of only the up-voted objects, ensuring that users receive the most relevant and positively rated data.
+
+Here is an example of a JSON document for querying up-voted objects:
 
 ```json
 {
@@ -694,7 +696,7 @@ To query objects within the 2WAY system, users initiate requests through the fro
 
 Upon receiving this JSON document, the Message Manager retrieves the relevant nodes from the Graph Manager and queries data from the database based on the specified parameters. The queried data is then returned to the frontend for user interaction.
 
-To query down-voted objects, the JSON document would specify a vote value of -1. This allows users to retrieve objects that have been marked as less relevant or disapproved, providing a comprehensive view of all data regardless of its popularity. Below is an example of a JSON document for querying down-voted objects:
+If a user wishes to query down-voted objects, they can specify the vote parameter accordingly. Here's an example of a JSON document for querying down-voted objects:
 
 ```json
 {
@@ -702,11 +704,15 @@ To query down-voted objects, the JSON document would specify a vote value of -1.
   "app_id": "2WAY, Contacts",
   "signing_key": "user_public_key",
   "degree": 2,
-  "vote": -1
+  "vote": 0
 }
 ```
 
-By including the "vote" parameter, users can filter objects based on their relevance and approval within the network. This flexibility ensures that users can access a wide range of data, tailored to their specific needs and preferences. The backend processes these queries by retrieving the relevant nodes from the Graph Manager, querying the database with the help of the Storage Manager, and returning the appropriate data to the frontend.
+By setting the vote parameter to "0", the system will retrieve the latest versions of down-voted objects, allowing users to access data that others might have found less relevant or disagreed with. This functionality provides a comprehensive view of the data landscape within the 2WAY system, accommodating different perspectives and preferences.
+
+Upon receiving these JSON documents, the Message Manager processes the request by first interacting with the Graph Manager to identify the relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The system ensures that the queried objects match the specified parameters, including object type, degree of separation, and vote status, before returning the data to the frontend.
+
+This approach to querying objects ensures that users can access the most relevant and up-to-date information by default, while still providing the flexibility to explore a broader range of data as needed. By supporting queries for both up-voted and down-voted objects, the 2WAY system offers a balanced and user-centric method for data retrieval, enhancing overall user experience and data discoverability.
 
 ### 2.5.5 Filtering Objects
 
