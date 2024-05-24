@@ -205,7 +205,7 @@ It's essential to note that maintaining a Graph in RAM comes at a relatively hig
 In 2WAY, a small set of simple data structures are used to construct objects. These objects, represented as nodes and edges within the 2WAY graph, encompass all of the data stored within the system. The following objects are used to construct the system in its entirety:
 
 ~~~
-1. "Attribute": Key-value pair, consisting of a type and a value.
+1. "Attribute": Key-value pair, consisting of a "type" (the key, not to be confused with any cryptographic keys) and a "value."
 
 2. "Parent": Parent attribute, to be connected to one or more child attributes via edges.
 
