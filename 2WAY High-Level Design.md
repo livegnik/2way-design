@@ -663,24 +663,7 @@ While the current proof-of-concept (PoC) does not support automatic removal of o
 
 ### 2.5.4 Querying Objects
 
-(Describe querying the latest / newest object, by default, and up and down-votes.)
-
-To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). Below is an example of a JSON document for querying objects:
-
-```json
-{
-  "object": "attribute",
-  "app_id": "2WAY, Contacts",
-  "signing_key": "user_public_key",
-  "degree": 2
-}
-```
-
-Upon receiving this JSON document, the Message Manager retrieves the relevant nodes from the Graph Manager and queries data from the database, based on the specified parameters. The queried data is then returned to the frontend for user interaction.
-
-### 2.5.4 Querying Objects
-
-To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). By default, the system queries and returns the latest version of only the up-voted objects, ensuring that users receive the most relevant and positively rated data.
+To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). By default, the system queries and returns the latest version of only the up-voted objects, ensuring that users receive the most relevant data.
 
 Here is an example of a JSON document for querying up-voted objects:
 
@@ -708,7 +691,7 @@ If a user wishes to query down-voted objects, they can specify the vote paramete
 }
 ```
 
-By setting the vote parameter to "0", the system will retrieve the latest versions of down-voted objects, allowing users to access data that others might have found less relevant or disagreed with. This functionality provides a comprehensive view of the data landscape within the 2WAY system, accommodating different perspectives and preferences.
+By setting the vote parameter to "0," the system will retrieve the latest versions of down-voted objects, allowing users to access data that they or others might have found less relevant or disagreed with. This functionality provides a comprehensive view of the data landscape within the 2WAY system, accommodating different perspectives and preferences.
 
 Upon receiving these JSON documents, the Message Manager processes the request by first interacting with the Graph Manager to identify the relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The system ensures that the queried objects match the specified parameters, including object type, degree of separation, and vote status, before returning the data to the frontend.
 
