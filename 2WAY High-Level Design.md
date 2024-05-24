@@ -663,6 +663,8 @@ While the current proof-of-concept (PoC) does not support automatic removal of o
 
 ### 2.5.4 Querying Objects
 
+(Describe querying the latest / newest object, by default, and up and down-votes.)
+
 To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). Below is an example of a JSON document for querying objects:
 
 ```json
@@ -675,6 +677,36 @@ To query objects within the 2WAY system, users initiate requests through the fro
 ```
 
 Upon receiving this JSON document, the Message Manager retrieves the relevant nodes from the Graph Manager and queries data from the database, based on the specified parameters. The queried data is then returned to the frontend for user interaction.
+
+### 2.5.4 Querying Objects
+
+To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). By default, the system queries and returns the latest/newest up-voted object. Below is an example of a JSON document for querying up-voted objects:
+
+```json
+{
+  "object": "attribute",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_public_key",
+  "degree": 2,
+  "vote": 1
+}
+```
+
+Upon receiving this JSON document, the Message Manager retrieves the relevant nodes from the Graph Manager and queries data from the database based on the specified parameters. The queried data is then returned to the frontend for user interaction.
+
+To query down-voted objects, the JSON document would specify a vote value of -1. This allows users to retrieve objects that have been marked as less relevant or disapproved, providing a comprehensive view of all data regardless of its popularity. Below is an example of a JSON document for querying down-voted objects:
+
+```json
+{
+  "object": "attribute",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_public_key",
+  "degree": 2,
+  "vote": -1
+}
+```
+
+By including the "vote" parameter, users can filter objects based on their relevance and approval within the network. This flexibility ensures that users can access a wide range of data, tailored to their specific needs and preferences. The backend processes these queries by retrieving the relevant nodes from the Graph Manager, querying the database with the help of the Storage Manager, and returning the appropriate data to the frontend.
 
 ### 2.5.5 Filtering Objects
 
