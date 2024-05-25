@@ -699,7 +699,9 @@ This approach to querying objects ensures that users can access the most relevan
 
 ### 2.5.5 Filtering Objects
 
-In addition to querying objects, users can filter objects within the 2WAY system based on specific criteria. This filtering functionality allows users to narrow down their search results and focus on the most relevant information. Below is an example of a JSON document for filtering objects:
+In addition to querying objects, users can filter objects within the 2WAY system based on specific criteria. This filtering functionality allows users to narrow down their search results and focus on the most relevant information. Filtering can be applied to Attributes, Ratings, and other object types within the system, with the ability to specify voting status (1 for up-voted, 0 for down-voted). 
+
+Below is an example of a JSON document for filtering objects based on specific criteria:
 
 ```json
 {
@@ -707,13 +709,88 @@ In addition to querying objects, users can filter objects within the 2WAY system
   "app_id": "2WAY, Contacts",
   "signing_key": "user_public_key",
   "criteria": {
-    "attribute_key": "email",
-    "attribute_value": "example@email.com"
+    "attribute_type": "email",
+    "attribute_value": "example@email.com",
+    "degree": 3,
+    "vote": 1
   }
 }
 ```
 
 Upon receiving this JSON document, the Message Manager applies the specified filtering criteria to the queried data, returning only the objects that match the given criteria. This enables users to efficiently retrieve and analyze data based on their specific requirements.
+
+### Example of Filtering by Ratings
+
+To filter objects based on Ratings, users can specify criteria for Ratings in their query. Below is an example of a JSON document for filtering objects that have positive ratings:
+
+```json
+{
+  "object": "rating",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_public_key",
+  "criteria": {
+    "min_score": "1",
+    "scale": "out-of-10",
+    "degree": 1,
+    "vote": 1
+  }
+}
+```
+
+### Comprehensive Filtering Example
+
+Here is a more extensive and UX-friendly search query example that demonstrates filtering based on various criteria, including Attributes, Ratings, and relationships:
+
+**Goal:** Retrieve all "phone numbers" (Attributes with type=”phone_number” and any value) of "restaurants" (Parent object), apart from "The French Cock" (attribute; type="restaurant" and value="The French Cock"), with "positive ratings" (Rating object) from "Friends" (Parent object) and "Family" (Parent object), but not "people with bad taste in food" (Parent object) in zeroth degree, and signed by anyone within 2 degrees of separation or less.
+
+**JSON Document for Filtering:**
+
+```json
+{
+  "object": "attribute",
+  "app_id": "2WAY, Contacts",
+  "signing_key": "user_public_key",
+  "degree": 2,
+  "criteria": {
+    "attribute_type": "phone_number",
+    "vote": 1,
+    "parent": {
+      "type": "restaurant",
+      "exclude_value": "The French Cock"
+    },
+    "ratings": {
+      "min_score": "1.75",
+      "scale": "out-of-5-stars",
+      "vote": 1,
+      "signed_by": ["Friends", "Family"]
+    },
+    "exclude_parents": ["people with bad taste in food"],
+    "degree": 0
+  }
+}
+```
+
+**Breakdown of Filtering Criteria:**
+
+- **object**: Specifies the type of object to filter, which is "attribute" in this case.
+- **app_id**: Specifies the application context, here it's "2WAY, Contacts."
+- **signing_key**: The public key of the user initiating the query.
+- **degree**: Limits the query to objects signed by anyone within 2 degrees of separation.
+- **criteria**: Contains the filtering parameters:
+  - **attribute_type**: "phone_number," indicating we want attributes of this type.
+  - **vote**: 1, indicating we only want up-voted objects.
+  - **parent**: Specifies the type of parent object we are interested in ("restaurant"), and excludes a specific value ("The French Cock").
+  - **ratings**: Specifies criteria for ratings:
+    - **min_score**: "1.75," indicating we want objects with a minimum score of 1.75.
+    - **scale**: "out-of-5-stars," specifying the scale of the ratings.
+    - **vote**: 1, indicating only up-voted ratings.
+    - **signed_by**: Specifies that we want ratings from "Friends" and "Family."
+  - **exclude_parents**: Excludes objects associated with specific parents ("people with bad taste in food").
+  - **degree**: 0, limiting "exclude_parents" objects to those signed by the user, in the zeroth degree.
+
+Upon receiving this JSON document, the Message Manager processes the request by first interacting with the Graph Manager to identify relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager, applying all specified filtering criteria before returning the data to the frontend.
+
+This approach to filtering objects ensures that users can refine their queries to retrieve the most relevant and useful information, tailored to their specific needs and preferences. By supporting complex filtering criteria, the 2WAY system offers a robust and flexible method for data retrieval, enhancing overall user experience and data discoverability.
 
 <br>
 
