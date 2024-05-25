@@ -42,7 +42,7 @@ This document navigates through the intricate layers of the 2WAY system, beginni
 
 Within the Frontend section, we explain the Flask framework, the backbone of 2WAY's frontend, and examine the concept of plugins, from pre-installed options to the development of custom plugins.
 
-Transitioning to the Backend section, we uncover the foundational elements of the 2WAY Graph, alongside the management of core 2WAY Objects such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Additionally, we describe the Database Schema and dive deep into the functionalities of essential backend components, including the Message Manager, Graph Manager, Storage Manager, and more.
+Transitioning to the Backend section, we uncover the foundational elements of the 2WAY Graph, alongside the management of core 2WAY Objects such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Additionally, we describe the Database Schema and dive deep into the functionalities of essential backend components, including the Object Manager, Graph Manager, Storage Manager, and more.
 
 Finally, within the Practical Examples section, we illustrate the real-world applications of 2WAY across various scenarios, demonstrating its versatility and efficacy in managing contacts, messaging, social interactions, addressing security challenges like Sybil attacks, navigating markets, verifying binaries, and handling key management tasks.
 
@@ -78,15 +78,15 @@ Through its integration into the 2WAY system, Flask provides a robust foundation
 
 ## 1.3 Plugins
 
-Within the 2WAY system, Flask plugins are utilized on the frontend to facilitate communication with the Message Manager on the backend. These plugins serve as intermediary components that enable seamless interaction between the user interface and the backend services, allowing for efficient retrieval and display of data within the frontend application.
+Within the 2WAY system, Flask plugins are utilized on the frontend to facilitate communication with the Object Manager on the backend. These plugins serve as intermediary components that enable seamless interaction between the user interface and the backend services, allowing for efficient retrieval and display of data within the frontend application.
 
 The Flask plugins encapsulate various functionalities and features designed to enhance the user experience and streamline interactions with the backend systems. These plugins are integrated into the frontend application built on the Flask framework, providing a modular and extensible architecture for managing data and user interactions.
 
-At their core, Flask plugins leverage the Flask ecosystem's capabilities to establish connections with the backend's Message Manager, which serves as the central hub for handling all data operations within the system. Through these connections, the frontend can send requests and receive responses from the backend, enabling real-time updates and synchronization of data between the user interface and the underlying server infrastructure.
+At their core, Flask plugins leverage the Flask ecosystem's capabilities to establish connections with the backend's Object Manager, which serves as the central hub for handling all data operations within the system. Through these connections, the frontend can send requests and receive responses from the backend, enabling real-time updates and synchronization of data between the user interface and the underlying server infrastructure.
 
-The Message Manager on the backend is responsible for processing incoming requests from the frontend, executing the necessary operations to retrieve, manipulate, or query data stored within the Server Graph, and returning the results to the frontend for display. This includes tasks such as retrieving user attributes, updating graph structures, querying for relevant information, and managing access control and permissions.
+The Object Manager on the backend is responsible for processing incoming requests from the frontend, executing the necessary operations to retrieve, manipulate, or query data stored within the Server Graph, and returning the results to the frontend for display. This includes tasks such as retrieving user attributes, updating graph structures, querying for relevant information, and managing access control and permissions.
 
-By leveraging Flask plugins, the frontend application can seamlessly interact with the Message Manager and access the full range of functionalities offered by the backend services. This enables users to perform various actions within the application, such as creating new objects, updating existing data, querying for information, and collaborating with other users, all while maintaining a responsive and intuitive user experience.
+By leveraging Flask plugins, the frontend application can seamlessly interact with the Object Manager and access the full range of functionalities offered by the backend services. This enables users to perform various actions within the application, such as creating new objects, updating existing data, querying for information, and collaborating with other users, all while maintaining a responsive and intuitive user experience.
 
 Overall, Flask plugins play a crucial role in bridging the gap between the frontend and backend components of the 2WAY system, enabling efficient communication and data exchange between the user interface and the underlying server infrastructure. Through their integration into the Flask framework, these plugins empower developers to build rich, interactive applications that leverage the full capabilities of the 2WAY platform while providing a seamless and intuitive user experience.
 
@@ -134,7 +134,7 @@ At the core of the backend lies the 2WAY Graph, a comprehensive data structure t
 
 The backend is responsible for managing various types of 2WAY Objects, which are fundamental to the system's operation. These objects include Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Attributes are key-value pairs consisting of a "type" and a "value." Ratings are specific objects used to store reputation scores. Parents can have one or more Attributes as children, and the relationships between a Parent and its children are established through Edges. ACLs are used to define and manage access permissions within the system. Each object can be up or down-voted, indefinitely, by means of a newer message, influencing its visible presence in the graph.
 
-Several crucial components support the functionality and security of the 2WAY backend. The Database Schema ensures data is organized and structured efficiently. The Message Manager handles the reception of messages from the frontend, backend, or any connected application or device with access to the backend’s APIs, ensuring secure and reliable communication. The Graph Manager oversees the Graph in RAM only, maintaining the integrity and updates of the active data structure, while the overall 2WAY Graph encompasses the entire Server Graph, and is stored to disk.
+Several crucial components support the functionality and security of the 2WAY backend. The Database Schema ensures data is organized and structured efficiently. The Object Manager handles the reception of messages from the frontend, backend, or any connected application or device with access to the backend’s APIs, ensuring secure and reliable communication. The Graph Manager oversees the Graph in RAM only, maintaining the integrity and updates of the active data structure, while the overall 2WAY Graph encompasses the entire Server Graph, and is stored to disk.
 
 The Key Manager is vital for handling the signing and verification of messages, as well as the encryption and decryption of communications. The ACL Manager oversees permissions and access rights, ensuring secure and authorized data access. The State Manager tracks the data that has been synchronized with other servers and manages data pending synchronization on the next connection.
 
@@ -236,7 +236,7 @@ The two discussed example attributes:
 }
 ```
 
-Whenever a user initiates an action on the frontend that generates an attribute, it is transmitted to the backend's Message Manager API as a JSON document:
+Whenever a user initiates an action on the frontend that generates an attribute, it is transmitted to the backend's Object Manager API as a JSON document:
 
 ```json
 {
@@ -251,9 +251,9 @@ Whenever a user initiates an action on the frontend that generates an attribute,
 
 Here, the "app_id" serves as the identifier for the frontend application, "2WAY," along with one of the application's sub-IDs, "Contacts." The backend uses this information to determine where to store the data. The attribute's key-value pair is defined as "name" for type, and "Alice" as its value. The vote is boolean. The value of "1" signifies that the object is relevant, whereas the value "0" indicates that the object is not relevant (any longer). When the latest version of an object contains the value "0" for "vote," the object is disregarded during future queries, unless specifically requested. The latest version of an object is the one returned when queried for, by default.
 
-After the Message Manager receives a new object from the frontend application, the process starts that enables the creation of various object types within the system by authorized users. The newly created attribute is linked to the user's public key through an edge. This edge does not have to be stored separately, as the public key is also stored as an attribute (node within the graph), and the newly created attribute contains the signer's public key and signature. The message is signed by being passed to the Key Manager, that runs on the backend as well. This is where all key-management takes place, in an automated fashion.
+After the Object Manager receives a new object from the frontend application, the process starts that enables the creation of various object types within the system by authorized users. The newly created attribute is linked to the user's public key through an edge. This edge does not have to be stored separately, as the public key is also stored as an attribute (node within the graph), and the newly created attribute contains the signer's public key and signature. The message is signed by being passed to the Key Manager, that runs on the backend as well. This is where all key-management takes place, in an automated fashion.
 
-Moreover, the Message Manager facilitates attribute querying, allowing for filtering based on the degree of separation and additional contextual criteria.
+Moreover, the Object Manager facilitates attribute querying, allowing for filtering based on the degree of separation and additional contextual criteria.
 
 Once the data is stored, the following result is returned when the newly created object is queried:
 
@@ -517,23 +517,23 @@ Here are the core tables in the schema:
 
 <br>
 
-## 2.5 Message Manager
+## 2.5 Object Manager
 
-### 2.5.1 Introduction to the Message Manager
+### 2.5.1 Introduction to the Object Manager
 
-In the 2WAY system, the Message Manager serves as the central hub for creating and querying all the core objects, including Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's Message Manager, ensuring a streamlined and efficient handling of data interactions.
+In the 2WAY system, the Object Manager serves as the central hub for creating and querying all the core objects, including Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's Object Manager, ensuring a streamlined and efficient handling of data interactions.
 
-When users create objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain the necessary data to create the desired object, such as Attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Message Manager processes the data, passes it to the Key Manager for signing, and then to the Storage Manager for the corresponding database operations to create the requested objects within the system. Additionally, it informs the ACL Manager, Graph Manager, and State Manager of any relevant changes, ensuring that the system remains up-to-date and consistent.
+When users create objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Object Manager via API calls. These API calls contain the necessary data to create the desired object, such as Attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Object Manager processes the data, passes it to the Key Manager for signing, and then to the Storage Manager for the corresponding database operations to create the requested objects within the system. Additionally, it informs the ACL Manager, Graph Manager, and State Manager of any relevant changes, ensuring that the system remains up-to-date and consistent.
 
-Similarly, querying objects within the 2WAY system is initiated through the frontend interface, which sends API calls to the backend's Message Manager. These API calls specify the parameters for the desired query, including the degree of separation from the user's zeroth degree (their public key) and the type of object being queried. The Message Manager retrieves the relevant nodes from the Graph Manager (which manages the Graph in RAM), then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The queried data is then returned to the frontend for user interaction.
+Similarly, querying objects within the 2WAY system is initiated through the frontend interface, which sends API calls to the backend's Object Manager. These API calls specify the parameters for the desired query, including the degree of separation from the user's zeroth degree (their public key) and the type of object being queried. The Object Manager retrieves the relevant nodes from the Graph Manager (which manages the Graph in RAM), then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The queried data is then returned to the frontend for user interaction.
 
-By centralizing object creation and querying functionality within the Message Manager and exposing it through APIs, the 2WAY system ensures consistency, security, and scalability in managing various types of objects and data. This approach abstracts the complexities of database interactions and provides a unified interface for interacting with the system's objects, enhancing usability and maintainability.
+By centralizing object creation and querying functionality within the Object Manager and exposing it through APIs, the 2WAY system ensures consistency, security, and scalability in managing various types of objects and data. This approach abstracts the complexities of database interactions and provides a unified interface for interacting with the system's objects, enhancing usability and maintainability.
 
 It is important to note that for this proof-of-concept, messages are not signed on the frontend. In future versions, messages could potentially be signed on the frontend or with hardware keys, providing an additional layer of security and flexibility.
 
 ### 2.5.2 Creating Objects
 
-To create objects within the 2WAY system, users interact with the frontend interface, which communicates with the backend's Message Manager through API calls. These API calls contain JSON documents specifying the details of the objects to be created. Below are examples of JSON documents for creating different types of objects based on the database schema:
+To create objects within the 2WAY system, users interact with the frontend interface, which communicates with the backend's Object Manager through API calls. These API calls contain JSON documents specifying the details of the objects to be created. Below are examples of JSON documents for creating different types of objects based on the database schema:
 
 1. **Creating Attributes:**
 ```json
@@ -602,7 +602,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 }
 ```
 
-Upon receiving these JSON documents from clients or the backend/system itself, the Message Manager first forwards them to the Key Manager. The Key Manager timestamps them, generates a hash for each JSON document, and then signs the messages.
+Upon receiving these JSON documents from clients or the backend/system itself, the Object Manager first forwards them to the Key Manager. The Key Manager timestamps them, generates a hash for each JSON document, and then signs the messages.
 
 ```json
 {
@@ -620,13 +620,13 @@ Upon receiving these JSON documents from clients or the backend/system itself, t
 
 Once signed, the messages are handed over to the Storage Manager, which appends them to the database. If the message pertains to an ACL, it is also relayed to the ACL Manager. Additionally, any necessary updates to the Graph in RAM are handled by passing the message to the Graph Manager.
 
-When the Message Manager receives a message from the Network Manager (i.e., from another server), it directly appends the message by forwarding it to the Storage Manager. If the message involves an ACL, it is likewise relayed to the ACL Manager. Furthermore, any required updates to the Graph in RAM are managed by passing the message to the Graph Manager.
+When the Object Manager receives a message from the Network Manager (i.e., from another server), it directly appends the message by forwarding it to the Storage Manager. If the message involves an ACL, it is likewise relayed to the ACL Manager. Furthermore, any required updates to the Graph in RAM are managed by passing the message to the Graph Manager.
 
 ### 2.5.3 Hiding Objects
 
 Objects within the 2WAY system are never deleted from the database. Instead, they can only be down-voted, which by default signifies their irrelevance or disapproval by the user. This approach ensures data integrity and historical traceability, as every interaction with an object is preserved. This is crucial because different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
 
-An examples of a JSON document for down-voting an Attribute, to be processed by the Message Manager:
+An examples of a JSON document for down-voting an Attribute, to be processed by the Object Manager:
 
 ```json
 {
@@ -639,7 +639,7 @@ An examples of a JSON document for down-voting an Attribute, to be processed by 
 }
 ```
 
-Upon receiving this JSON document, the Message Manager follows the standard procedure: it passes the document to the Key Manager for signing, timestamping, and hashing.
+Upon receiving this JSON document, the Object Manager follows the standard procedure: it passes the document to the Key Manager for signing, timestamping, and hashing.
 
 ```json
 {
@@ -663,7 +663,7 @@ While the current proof-of-concept (PoC) does not support automatic removal of o
 
 ### 2.5.4 Querying Objects
 
-To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Message Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). By default, the system queries and returns the latest version of only the up-voted objects, ensuring that users receive the most relevant data.
+To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Object Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). By default, the system queries and returns the latest version of only the up-voted objects, ensuring that users receive the most relevant data.
 
 Here is an example of a JSON document for querying up-voted objects:
 
@@ -678,7 +678,7 @@ Here is an example of a JSON document for querying up-voted objects:
 }
 ```
 
-Upon receiving this JSON document, the Message Manager retrieves the relevant nodes from the Graph Manager and queries data from the database based on the specified parameters. The queried data is then returned to the frontend for user interaction.
+Upon receiving this JSON document, the Object Manager retrieves the relevant nodes from the Graph Manager and queries data from the database based on the specified parameters. The queried data is then returned to the frontend for user interaction.
 
 If a user wishes to query down-voted objects, they can specify the vote parameter accordingly. Here's an example of a JSON document for querying down-voted objects:
 
@@ -695,7 +695,7 @@ If a user wishes to query down-voted objects, they can specify the vote paramete
 
 By setting the "vote" parameter to "0," the system will retrieve the latest versions of down-voted objects, allowing users to access data that they or others might have found less relevant or disagreed with. This functionality provides a comprehensive view of the data landscape within the 2WAY system, accommodating different perspectives and preferences.
 
-Upon receiving these JSON documents, the Message Manager processes the request by first interacting with the Graph Manager to identify the relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The system ensures that the queried objects match the specified parameters, including object type, degree of separation, and vote status, before returning the data to the frontend.
+Upon receiving these JSON documents, the Object Manager processes the request by first interacting with the Graph Manager to identify the relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The system ensures that the queried objects match the specified parameters, including object type, degree of separation, and vote status, before returning the data to the frontend.
 
 This approach to querying objects ensures that users can access the most relevant and up-to-date information by default, while still providing the flexibility to explore a broader range of data as needed. By supporting queries for both up-voted and down-voted objects, the 2WAY system offers a balanced and user-centric method for data retrieval, enhancing overall user experience and data discoverability.
 
@@ -719,7 +719,7 @@ Below is an example of a JSON document for filtering objects based on specific c
 }
 ```
 
-Upon receiving this JSON document, the Message Manager applies the specified filtering criteria to the queried data, returning only the objects that match the given criteria. This enables users to efficiently retrieve and analyze data based on their specific requirements.
+Upon receiving this JSON document, the Object Manager applies the specified filtering criteria to the queried data, returning only the objects that match the given criteria. This enables users to efficiently retrieve and analyze data based on their specific requirements.
 
 ### Filtering by Ratings
 
@@ -790,7 +790,7 @@ Here is a more extensive and UX-friendly search query example that demonstrates 
   - **exclude_parents**: Excludes objects associated with specific parents ("people with bad taste in food").
   - **degree**: 0, limiting "exclude_parents" objects to those signed by the user, in the zeroth degree.
 
-Upon receiving this JSON document, the Message Manager processes the request by first interacting with the Graph Manager to identify relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager, applying all specified filtering criteria before returning the data to the frontend.
+Upon receiving this JSON document, the Object Manager processes the request by first interacting with the Graph Manager to identify relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager, applying all specified filtering criteria before returning the data to the frontend.
 
 This approach to filtering objects ensures that users can refine their queries to retrieve the most relevant and useful information, tailored to their specific needs and preferences. By supporting complex filtering criteria, the 2WAY system offers a robust and flexible method for data retrieval, enhancing overall user experience and data discoverability.
 
