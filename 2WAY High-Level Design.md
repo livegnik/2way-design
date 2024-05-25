@@ -719,7 +719,7 @@ Below is an example of a JSON document for filtering objects based on specific c
 
 Upon receiving this JSON document, the Message Manager applies the specified filtering criteria to the queried data, returning only the objects that match the given criteria. This enables users to efficiently retrieve and analyze data based on their specific requirements.
 
-### Example of Filtering by Ratings
+### Filtering by Ratings
 
 To filter objects based on Ratings, users can specify criteria for Ratings in their query. Below is an example of a JSON document for filtering objects that have positive ratings:
 
@@ -737,7 +737,7 @@ To filter objects based on Ratings, users can specify criteria for Ratings in th
 }
 ```
 
-### Comprehensive Filtering Example
+### Comprehensive Filtering
 
 Here is a more extensive and UX-friendly search query example that demonstrates filtering based on various criteria, including Attributes, Ratings, and relationships:
 
