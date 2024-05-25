@@ -673,7 +673,8 @@ Here is an example of a JSON document for querying up-voted objects:
   "app_id": "2WAY, Contacts",
   "signing_key": "user_public_key",
   "degree": 2,
-  "vote": 1
+  "vote": 1,
+  "latest": 1
 }
 ```
 
@@ -687,11 +688,12 @@ If a user wishes to query down-voted objects, they can specify the vote paramete
   "app_id": "2WAY, Contacts",
   "signing_key": "user_public_key",
   "degree": 2,
-  "vote": 0
+  "vote": 0,
+  "latest": 0
 }
 ```
 
-By setting the vote parameter to "0," the system will retrieve the latest versions of down-voted objects, allowing users to access data that they or others might have found less relevant or disagreed with. This functionality provides a comprehensive view of the data landscape within the 2WAY system, accommodating different perspectives and preferences.
+By setting the "vote" parameter to "0," the system will retrieve the latest versions of down-voted objects, allowing users to access data that they or others might have found less relevant or disagreed with. This functionality provides a comprehensive view of the data landscape within the 2WAY system, accommodating different perspectives and preferences.
 
 Upon receiving these JSON documents, the Message Manager processes the request by first interacting with the Graph Manager to identify the relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The system ensures that the queried objects match the specified parameters, including object type, degree of separation, and vote status, before returning the data to the frontend.
 
