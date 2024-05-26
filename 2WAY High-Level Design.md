@@ -974,6 +974,52 @@ While this PoC primarily focuses on managing connections represented by public k
 
 ### 2.6.4 Querying Nodes from RAM
 
+In the 2WAY system, querying nodes from the Graph in RAM allows users to efficiently retrieve relevant data based on specified criteria. This process involves traversing the in-memory graph to identify nodes that meet the query conditions, providing users with accurate and timely results.
+
+Consider a scenario where a user wants to query nodes representing connections within their network, specifically retrieving Attributes of type "email" associated with their immediate connections. The following JSON document outlines the query parameters:
+
+```json
+{
+  "object": "attribute",
+  "attribute_type": "email",
+  "degree": 1,
+  "signing_key": "user_public_key",
+  "app_id": "twoway",
+  "app_sub_id": "connections"
+}
+```
+
+Upon receiving this query, the Graph Manager utilizes networkx functionalities to traverse the Graph in RAM and identify nodes matching the specified criteria. The following Python code demonstrates how such a query could be executed:
+
+```python
+import networkx as nx
+
+def query_nodes(graph, user_public_key, attribute_type, degree, app_id, app_sub_id):
+    # Initialize list to store query results
+    query_results = []
+    
+    # Traverse graph to identify nodes matching query criteria
+    for node in graph.nodes():
+        # Check if node meets query conditions
+        if graph.nodes[node]['type'] == attribute_type and \
+           nx.shortest_path_length(graph, source=user_public_key, target=node) <= degree and \
+           graph.nodes[node]['app_id'] == app_id and \
+           graph.nodes[node]['app_sub_id'] == app_sub_id:
+            # Add node to query results
+            query_results.append(node)
+    
+    return query_results
+
+# Example usage
+query_results = query_nodes(Graph_in_RAM, "user_public_key", "email", 1, "twoway", "connections")
+```
+
+In this example, the `query_nodes` function traverses the Graph in RAM, checking each node against the specified query criteria. Nodes meeting all conditions, including having the desired attribute type, being within the specified degree of separation from the user, and having the appropriate app_id and app_sub_id, are added to the list of query results.
+
+Once the query is completed, the relevant node identifiers are returned as query results, providing users with the information they requested.
+
+By leveraging the Graph in RAM and networkx functionalities, the 2WAY system enables efficient querying of nodes, empowering users to explore and interact with their network connections effectively.
+
 <br>
 
 ## 2.7 Storage Manager
