@@ -818,39 +818,75 @@ By managing the synchronization between the Graph in RAM and the persistent Serv
 
 ### 2.6.2 Storage and Retrieval
 
-In the 2WAY system, the Graph Manager is responsible for the efficient storage and retrieval of graph data, ensuring seamless synchronization between the Graph in RAM and the persistent disk-based Server Graph. This functionality is critical for maintaining data integrity and enabling quick access to relevant nodes during query operations.
+The "Storage and Retrieval" functionality of the Graph Manager in the 2WAY system is crucial for maintaining the integrity and performance of the Graph in RAM. Leveraging the NetworkX library, the Graph Manager efficiently creates, manages, and synchronizes the in-memory graph with the persistent disk-based Server Graph.
 
 #### Storage
 
-The storage process involves saving the current state of the Graph in RAM to the persistent Server Graph stored on disk. This is essential during system shutdowns, significant updates, or regular intervals to ensure data consistency. The steps involved in storing the graph are as follows:
+Upon system initialization, the Graph Manager is responsible for loading the relevant graph data from the disk-based Server Graph into the Graph in RAM. This process involves:
 
-1. **Serialization**: The Graph in RAM, maintained using the NetworkX library, is serialized into a format suitable for disk storage. This typically involves converting the graph's nodes and edges, along with their attributes, into a structured data format like JSON or a database-friendly format.
+1. **Loading Node Data**: The Graph Manager retrieves the record IDs of public key Attributes from the "twoway_connections_attributes" table in the database. These record IDs serve as nodes within the graph, representing individual users.
 
-2. **Disk Write Operations**: The serialized graph data is written to the disk, updating the persistent Server Graph. This ensures that all changes made to the Graph in RAM are captured and stored, preserving the current state of the graph for future retrieval.
+2. **Loading Edge Data**: The Graph Manager then retrieves the relationships (connections) between these nodes. For each connection stored in the "twoway_connections_parents" and "twoway_connections_edges" tables, the Graph Manager adds an edge between the corresponding nodes in the Graph in RAM.
 
-3. **Logging and Checkpointing**: To maintain data integrity and facilitate recovery in case of failures, logging mechanisms and checkpoints are implemented. These ensure that even if the system encounters an unexpected shutdown, the graph data can be restored to a consistent state.
+Example of initializing nodes and edges using NetworkX:
+```python
+import networkx as nx
+
+G = nx.Graph()
+
+# Adding nodes
+nodes = get_nodes_from_db()  # Fetches nodes from the database
+for node_id in nodes:
+    G.add_node(node_id)
+
+# Adding edges
+edges = get_edges_from_db()  # Fetches edges from the database
+for parent_id, child_id in edges:
+    G.add_edge(parent_id, child_id)
+```
 
 #### Retrieval
 
-Retrieval is the process of loading the graph data from the persistent Server Graph on disk into the Graph in RAM during system initialization or when required. The steps involved in retrieval are as follows:
+When the system is in operation, the Graph Manager provides mechanisms to retrieve and update the in-memory graph efficiently:
 
-1. **Deserialization**: The stored graph data on disk is deserialized into the NetworkX graph format. This involves converting the structured data back into nodes and edges, along with their associated attributes, to reconstitute the Graph in RAM.
+1. **Query Operations**: Users initiate queries through the frontend interface. The Object Manager processes these queries and interacts with the Graph Manager to retrieve relevant nodes by degree of separation. The Graph Manager uses the in-memory graph to quickly find the relevant nodes and edges, enabling efficient traversal and exploration of the graph.
 
-2. **Loading into RAM**: The deserialized graph data is loaded into RAM, re-establishing the in-memory representation of the Server Graph. This allows for quick access and manipulation of the graph data during query operations and other system activities.
+Example of querying nodes by degree of separation:
+```python
+def get_nodes_by_degree(G, start_node, degree):
+    return nx.single_source_shortest_path_length(G, start_node, cutoff=degree).keys()
+```
 
-3. **Consistency Checks**: To ensure the integrity of the loaded graph data, consistency checks are performed. These checks verify that the nodes and edges in the Graph in RAM accurately reflect the state of the persistent Server Graph on disk.
+2. **Updating the Graph**: When new connections are created, or existing connections are down-voted, the Graph Manager updates the Graph in RAM accordingly. This involves adding or removing nodes and edges based on the received changes. The updated graph is then synchronized with the persistent Server Graph on disk.
+
+Example of updating the graph:
+```python
+def add_connection(G, parent_id, child_id):
+    G.add_edge(parent_id, child_id)
+
+def remove_connection(G, parent_id, child_id):
+    if G.has_edge(parent_id, child_id):
+        G.remove_edge(parent_id, child_id)
+```
 
 #### Synchronization
 
-Synchronization between the Graph in RAM and the persistent Server Graph is crucial for maintaining data accuracy and consistency. The Graph Manager handles this synchronization through the following mechanisms:
+The Graph Manager ensures that the Graph in RAM is consistently synchronized with the disk-based Server Graph:
 
-1. **Real-time Updates**: During system operations, any changes to the graph (such as additions, deletions, or modifications of nodes and edges) are immediately reflected in both the Graph in RAM and the persistent Server Graph. This ensures that the in-memory and disk-based representations of the graph remain synchronized.
+1. **Periodic Synchronization**: At regular intervals, the Graph Manager saves the current state of the Graph in RAM to disk. This involves updating the database with any new nodes and edges added since the last synchronization.
 
-2. **Batch Updates**: In scenarios where real-time updates may not be feasible, batch updates are performed at regular intervals. Changes accumulated in the Graph in RAM are periodically written to the disk, ensuring that the persistent Server Graph is updated with the latest state of the graph.
+2. **On-Demand Synchronization**: During significant events, such as system shutdowns or major updates, the Graph Manager performs immediate synchronization to ensure that no data is lost and the Graph in RAM is accurately reflected in the persistent Server Graph.
 
-3. **Conflict Resolution**: In cases where inconsistencies arise between the Graph in RAM and the persistent Server Graph, the Graph Manager employs conflict resolution strategies. These may involve merging changes, prioritizing certain updates, or rolling back to a previous consistent state to ensure data integrity.
+Example of saving the graph state:
+```python
+def save_graph_to_db(G):
+    nodes = list(G.nodes)
+    edges = list(G.edges)
+    save_nodes_to_db(nodes)
+    save_edges_to_db(edges)
+```
 
-By managing the storage and retrieval processes effectively, the Graph Manager ensures that the 2WAY system maintains a consistent and reliable graph structure. This enables efficient querying, manipulation, and analysis of graph data, enhancing the overall functionality and user experience within the platform.
+By efficiently managing the storage and retrieval of the graph data using NetworkX, the Graph Manager ensures that the 2WAY system can quickly access and manipulate graph data, providing a responsive and robust platform for managing user connections and relationships. This approach balances the speed of in-memory operations with the reliability of persistent storage, maintaining the integrity and performance of the graph data within the 2WAY system.
 
 ### 2.6.3 Changes to Graph in RAM
 
