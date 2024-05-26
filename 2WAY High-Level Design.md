@@ -794,7 +794,7 @@ Upon receiving this JSON document, the Object Manager processes the request by f
 
 This approach to filtering objects ensures that users can refine their queries to retrieve the most relevant and useful information, tailored to their specific needs and preferences. By supporting complex filtering criteria, the 2WAY system offers a robust and flexible method for data retrieval, enhancing overall user experience and data discoverability.
 
-<br>
+<br><br>
 
 ## 2.6 Graph Manager
 
@@ -815,6 +815,8 @@ The design of the Graph Manager for this PoC specifically focuses on storing onl
 In future versions of 2WAY, custom instructions could allow the addition and removal of other Attributes or Parents to and from the Graph in RAM, but this is outside the scope of the PoC.
 
 By managing the synchronization between the Graph in RAM and the persistent Server Graph, as well as handling incoming changes and query requests, the Graph Manager ensures the integrity, accessibility, and responsiveness of the graph data within the 2WAY system.
+
+<br>
 
 ### 2.6.2 Storage and Retrieval
 
@@ -839,6 +841,8 @@ At any point, the Graph in RAM can be verified against the Server Graph to confi
 Additionally, if the Graph in RAM becomes corrupted or needs to be reconstructed from scratch, the Graph Manager can rebuild it using data from the Server Graph. This reconstruction process involves fetching the relevant data from the Server Graph and populating the in-memory graph accordingly.
 
 In summary, the Graph Manager handles the storage and retrieval of the Graph in RAM, ensuring its alignment with the persistent Server Graph. By utilizing serialization and deserialization techniques provided by the networkx library, the Graph Manager enables efficient data management and synchronization within the 2WAY system.
+
+<br>
 
 ### 2.6.3 Changes to Graph in RAM
 
@@ -931,6 +935,8 @@ While the current Proof of Concept (PoC) focuses on managing public key Attribut
 
 The Graph Manager in the 2WAY system effectively manages the Graph in RAM by dynamically adding and removing nodes and edges based on user interactions and database changes. This approach ensures that the in-memory graph remains up-to-date and accurately reflects the active connections within the system. By focusing on public key Attributes for this PoC, the Graph Manager lays the groundwork for potential future enhancements that could extend its capabilities to other types of data.
 
+<br>
+
 ### 2.6.4 Querying Nodes from RAM
 
 In the 2WAY system, querying nodes from the Graph in RAM allows users to efficiently retrieve relevant data based on specified criteria. This process involves traversing the in-memory graph to identify nodes that meet the query conditions, providing users with accurate and timely results.
@@ -979,7 +985,7 @@ Once the query is completed, the relevant node identifiers are returned as query
 
 By leveraging the Graph in RAM and networkx functionalities, the 2WAY system enables efficient querying of nodes, empowering users to explore and interact with their network connections effectively.
 
-<br>
+<br><br>
 
 ## 2.7 Storage Manager
 
