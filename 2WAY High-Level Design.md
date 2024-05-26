@@ -818,6 +818,40 @@ By managing the synchronization between the Graph in RAM and the persistent Serv
 
 ### 2.6.2 Storage and Retrieval
 
+In the 2WAY system, the Graph Manager is responsible for the efficient storage and retrieval of graph data, ensuring seamless synchronization between the Graph in RAM and the persistent disk-based Server Graph. This functionality is critical for maintaining data integrity and enabling quick access to relevant nodes during query operations.
+
+#### Storage
+
+The storage process involves saving the current state of the Graph in RAM to the persistent Server Graph stored on disk. This is essential during system shutdowns, significant updates, or regular intervals to ensure data consistency. The steps involved in storing the graph are as follows:
+
+1. **Serialization**: The Graph in RAM, maintained using the NetworkX library, is serialized into a format suitable for disk storage. This typically involves converting the graph's nodes and edges, along with their attributes, into a structured data format like JSON or a database-friendly format.
+
+2. **Disk Write Operations**: The serialized graph data is written to the disk, updating the persistent Server Graph. This ensures that all changes made to the Graph in RAM are captured and stored, preserving the current state of the graph for future retrieval.
+
+3. **Logging and Checkpointing**: To maintain data integrity and facilitate recovery in case of failures, logging mechanisms and checkpoints are implemented. These ensure that even if the system encounters an unexpected shutdown, the graph data can be restored to a consistent state.
+
+#### Retrieval
+
+Retrieval is the process of loading the graph data from the persistent Server Graph on disk into the Graph in RAM during system initialization or when required. The steps involved in retrieval are as follows:
+
+1. **Deserialization**: The stored graph data on disk is deserialized into the NetworkX graph format. This involves converting the structured data back into nodes and edges, along with their associated attributes, to reconstitute the Graph in RAM.
+
+2. **Loading into RAM**: The deserialized graph data is loaded into RAM, re-establishing the in-memory representation of the Server Graph. This allows for quick access and manipulation of the graph data during query operations and other system activities.
+
+3. **Consistency Checks**: To ensure the integrity of the loaded graph data, consistency checks are performed. These checks verify that the nodes and edges in the Graph in RAM accurately reflect the state of the persistent Server Graph on disk.
+
+#### Synchronization
+
+Synchronization between the Graph in RAM and the persistent Server Graph is crucial for maintaining data accuracy and consistency. The Graph Manager handles this synchronization through the following mechanisms:
+
+1. **Real-time Updates**: During system operations, any changes to the graph (such as additions, deletions, or modifications of nodes and edges) are immediately reflected in both the Graph in RAM and the persistent Server Graph. This ensures that the in-memory and disk-based representations of the graph remain synchronized.
+
+2. **Batch Updates**: In scenarios where real-time updates may not be feasible, batch updates are performed at regular intervals. Changes accumulated in the Graph in RAM are periodically written to the disk, ensuring that the persistent Server Graph is updated with the latest state of the graph.
+
+3. **Conflict Resolution**: In cases where inconsistencies arise between the Graph in RAM and the persistent Server Graph, the Graph Manager employs conflict resolution strategies. These may involve merging changes, prioritizing certain updates, or rolling back to a previous consistent state to ensure data integrity.
+
+By managing the storage and retrieval processes effectively, the Graph Manager ensures that the 2WAY system maintains a consistent and reliable graph structure. This enables efficient querying, manipulation, and analysis of graph data, enhancing the overall functionality and user experience within the platform.
+
 ### 2.6.3 Changes to Graph in RAM
 
 ### 2.6.4 Querying Nodes from RAM
