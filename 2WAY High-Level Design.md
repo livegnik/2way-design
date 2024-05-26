@@ -818,8 +818,6 @@ By managing the synchronization between the Graph in RAM and the persistent Serv
 
 ### 2.6.2 Storage and Retrieval
 
-### 2.6.2 Storage and Retrieval
-
 The Graph Manager in the 2WAY system is responsible for the storage and retrieval of the Graph in RAM, ensuring its synchronization with the persistent Server Graph. This process involves constructing the Graph in RAM from the Server Graph, storing it to disk, and retrieving it when necessary.
 
 #### Construction of the Graph in RAM
