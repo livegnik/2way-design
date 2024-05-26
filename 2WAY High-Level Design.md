@@ -999,3 +999,23 @@ Tor integration, etc
 ## 
 
 <br>
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+[ ] 2.5.4 "latest" not described, 1 = latest object version and 0 = all object versions
+[ ] Add "latest" to "2.5.5 Filtering Objects"
+[ ] Querying Objects --> Vote = empty to query both up and down-voted objects
+[ ] Add user_id description
+[ ] Change user_public_key to user_id where needed
+[ ] Rename Message Manager to Object Manager
+[ ] Breakdown all the JSON documents like under "2.5.5 Filtering Objects"
+[ ] Improve "2.3 2WAY Objects"
+[ ] Change "2WAY" to "twoway" where needed
+[ ] Change "Contacts" to "connections" where needed
+[ ] Change database schema to prevent plugin name collision in table name
