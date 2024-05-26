@@ -824,39 +824,13 @@ The Graph Manager in the 2WAY system is responsible for the storage and retrieva
 
 The Graph in RAM is initially constructed from the Server Graph, utilizing the networkx library to create and manage graph data structures in Python. During initialization, the Graph Manager populates the in-memory graph with relevant nodes and edges based on the data stored in the Server Graph. These nodes represent various objects such as Attributes, Parents, and connections between users.
 
-```python
-import networkx as nx
-
-# Constructing the Graph in RAM from Server Graph data
-def construct_graph_from_server_data(server_data):
-    graph = nx.Graph()
-    # Populate graph with nodes and edges from server data
-    for node in server_data['nodes']:
-        graph.add_node(node['id'], data=node['data'])
-    for edge in server_data['edges']:
-        graph.add_edge(edge['source'], edge['target'], data=edge['data'])
-    return graph
-```
-
 #### Storage to Disk
 
 Once constructed, the Graph in RAM can be stored to disk for persistence using the "nx.write_gpickle" function provided by networkx. This serialization process saves the graph data structure in a binary format, allowing it to be efficiently written to disk for long-term storage. Storing the graph to disk ensures that the latest state of the Graph in RAM is preserved even when the system is restarted or shut down.
 
-```python
-# Storing the Graph in RAM to disk
-def store_graph_to_disk(graph, file_path):
-    nx.write_gpickle(graph, file_path)
-```
-
 #### Retrieval from Disk
 
 When the system is initialized or when the Graph in RAM needs to be reconstructed, the Graph Manager retrieves the serialized graph data from disk using the "nx.read_gpickle" function. This deserialization process loads the graph structure back into memory, restoring it to its previous state. The retrieved graph can then be verified against the Server Graph to ensure consistency and accuracy.
-
-```python
-# Retrieving the Graph in RAM from disk
-def retrieve_graph_from_disk(file_path):
-    return nx.read_gpickle(file_path)
-```
 
 #### Verification and Reconstruction
 
@@ -864,113 +838,100 @@ At any point, the Graph in RAM can be verified against the Server Graph to confi
 
 Additionally, if the Graph in RAM becomes corrupted or needs to be reconstructed from scratch, the Graph Manager can rebuild it using data from the Server Graph. This reconstruction process involves fetching the relevant data from the Server Graph and populating the in-memory graph accordingly.
 
-Here's the full code for the verification and reconstruction functions:
-
-```python
-import networkx as nx
-
-# Verifying the Graph in RAM against the Server Graph
-def verify_graph(graph, server_data):
-    # Get nodes and edges from the server data
-    server_nodes = server_data['nodes']
-    server_edges = server_data['edges']
-    
-    # Get nodes and edges from the graph
-    graph_nodes = list(graph.nodes(data=True))
-    graph_edges = list(graph.edges(data=True))
-    
-    # Compare nodes
-    for node_id, node_data in graph_nodes:
-        if node_id not in [node['id'] for node in server_nodes]:
-            print(f"Node {node_id} in the graph but not in the server data.")
-            # Resolve the discrepancy, e.g., by removing the node from the graph
-            graph.remove_node(node_id)
-    
-    for node in server_nodes:
-        if node['id'] not in [node_id for node_id, _ in graph_nodes]:
-            print(f"Node {node['id']} in the server data but not in the graph.")
-            # Resolve the discrepancy, e.g., by adding the node to the graph
-    
-    # Compare edges
-    for source, target, edge_data in graph_edges:
-        if (source, target, edge_data) not in [(edge['source'], edge['target'], edge['data']) for edge in server_edges]:
-            print(f"Edge ({source}, {target}) in the graph but not in the server data.")
-            # Resolve the discrepancy, e.g., by removing the edge from the graph
-            graph.remove_edge(source, target)
-    
-    for edge in server_edges:
-        if (edge['source'], edge['target'], edge['data']) not in [(source, target, data) for source, target, data in graph_edges]:
-            print(f"Edge ({edge['source']}, {edge['target']}) in the server data but not in the graph.")
-            # Resolve the discrepancy, e.g., by adding the edge to the graph
-
-# Reconstructing the Graph in RAM from Server Graph data
-def reconstruct_graph_from_server_data(server_data):
-    graph = nx.Graph()
-    # Populate graph with nodes and edges from server data
-    for node in server_data['nodes']:
-        graph.add_node(node['id'], data=node['data'])
-    for edge in server_data['edges']:
-        graph.add_edge(edge['source'], edge['target'], data=edge['data'])
-    return graph
-```
-
 In summary, the Graph Manager handles the storage and retrieval of the Graph in RAM, ensuring its alignment with the persistent Server Graph. By utilizing serialization and deserialization techniques provided by the networkx library, the Graph Manager enables efficient data management and synchronization within the 2WAY system.
 
 ### 2.6.3 Changes to Graph in RAM
 
-In the Graph Manager of the 2WAY system, the Graph in RAM dynamically adapts to modifications in the Server Graph, particularly focusing on the addition or removal of nodes and edges. However, the Graph Manager in this PoC concentrates on storing only the record IDs of public key Attributes with specific identifiers in the database.
+### 2.6.3 Changes to Graph in RAM
 
-Consider the following scenario, where Alice engages with the system by signing her own public key, resulting in the creation of an Attribute with a unique record ID, say "1", stored in the "twoway_connections_attributes" table. This action prompts the addition of a corresponding node with the value "1" to the Graph in RAM, representing Alice's public key.
+The Graph Manager in the 2WAY system is designed to handle dynamic changes to the Graph in RAM, reflecting updates from user interactions and ensuring that the in-memory representation remains consistent with the database. This process involves adding and removing nodes and edges based on public key Attributes stored in the database.
 
-```json
-{
-  "id": 1,
-  "version": 1,
-  "signing_key": "Alice's public key",
-  "attribute_type": "pubkey",
-  "attribute_value": "Alice's public key",
-  "vote": 1,
-  "timestamp": 1648062000,
-  "hash": "hash of the document",
-  "signature": "cryptographic signature"
-}
-```
+#### Adding Nodes and Edges
 
-Now, if Alice includes someone else's public key, let's say "Bob", as an attribute, designated with type="pubkey" and value="Bob", resulting in a record ID of "34", then a new node with the value "34" is appended to the Graph in RAM. Additionally, an edge is established between node "1" (representing Alice) and node "34" (representing Bob), indicating a connection between the two users.
+When a new connection is created, the Graph Manager updates the Graph in RAM by adding the corresponding nodes and edges. Here’s how it works:
 
-```json
-{
-  "id": 34,
-  "version": 1,
-  "signing_key": "Alice's public key",
-  "attribute_type": "pubkey",
-  "attribute_value": "Bob's public key",
-  "vote": 1,
-  "timestamp": 1648062000,
-  "hash": "hash of the document",
-  "signature": "cryptographic signature"
-}
-```
+1. **Storing Public Key Attributes**: When a user, such as Alice, signs her own public key, an Attribute record is created in the `twoway_connections_attributes` table with a unique record ID. For instance, if Alice's public key is assigned the record ID "1", a node with the value "1" is added to the Graph in RAM.
+   
+   Example:
+   ```json
+   {
+     "id": 1,
+     "version": 1,
+     "type": "pubkey",
+     "signing_key": "Alice's public key",
+     "attribute_key": "public_key",
+     "attribute_value": "Alice's public key",
+     "vote": 1,
+     "timestamp": 1648062000,
+     "hash": "hash_of_the_document",
+     "signature": "cryptographic_signature"
+   }
+   ```
 
-However, to maintain the integrity and relevance of the Graph in RAM, down-voted "pubkey" Attributes or connections are promptly removed. Suppose Alice or another user down-votes the connection with Bob, indicating a loss of relevance or trust. In that case, both the node associated with the down-voted Attribute and any edges connected to it are eliminated from the in-memory graph.
+2. **Adding Connections**: If Alice then adds another user's public key (e.g., Bob's) as an Attribute, a new record is created with a unique ID, say "34". The Graph Manager adds a node with the value "34" and establishes an edge between nodes "1" and "34".
+   
+   Example:
+   ```json
+   {
+     "id": 34,
+     "version": 1,
+     "type": "pubkey",
+     "signing_key": "Alice's public key",
+     "attribute_key": "public_key",
+     "attribute_value": "Bob's public key",
+     "vote": 1,
+     "timestamp": 1648062100,
+     "hash": "hash_of_the_document",
+     "signature": "cryptographic_signature"
+   }
+   ```
 
-```python
-import networkx as nx
+   The Graph Manager updates the Graph in RAM as follows:
+   ```python
+   import networkx as nx
 
-# Remove node and associated edges from Graph in RAM
-def remove_node_and_edges(graph, node_id):
-    if graph.has_node(node_id):
-        graph.remove_node(node_id)
-        # Additionally, remove associated edges
-        graph.remove_edges_from(graph.edges(node_id))
+   graph = nx.Graph()
+   graph.add_node(1)
+   graph.add_node(34)
+   graph.add_edge(1, 34)
+   ```
 
-# Example usage
-remove_node_and_edges(Graph_in_RAM, 34)
-```
+#### Removing Nodes and Edges
 
-This process ensures that only active and trusted connections are represented in the Graph in RAM, promoting data accuracy and efficiency in query operations.
+Nodes and edges can be removed from the Graph in RAM when connections are down-voted. This ensures that the in-memory graph accurately reflects active and relevant connections.
 
-While this PoC primarily focuses on managing connections represented by public key Attributes, future iterations of 2WAY could potentially extend the functionality of the Graph Manager. Such enhancements would be subject to the requirements and objectives of the system beyond the scope of the current PoC.
+1. **Down-voting Connections**: If a connection (public key Attribute) is down-voted, the Graph Manager removes the corresponding node and edge from the Graph in RAM. For example, if the connection between Alice (node "1") and Bob (node "34") is down-voted, the edge and potentially the node (if it is not connected to other nodes) are removed.
+
+   Example of a down-voted Attribute:
+   ```json
+   {
+     "id": 34,
+     "version": 2,
+     "type": "pubkey",
+     "signing_key": "Alice's public key",
+     "attribute_key": "public_key",
+     "attribute_value": "Bob's public key",
+     "vote": 0,  # Down-vote
+     "timestamp": 1648062200,
+     "hash": "hash_of_the_document",
+     "signature": "cryptographic_signature"
+   }
+   ```
+
+   The Graph Manager updates the Graph in RAM:
+   ```python
+   graph.remove_edge(1, 34)
+   if not list(graph.neighbors(34)):  # If node 34 has no other connections
+       graph.remove_node(34)
+   ```
+
+#### Future Enhancements
+
+While the current Proof of Concept (PoC) focuses on managing public key Attributes in the Graph in RAM, future versions of the 2WAY system could allow custom instructions to add or remove other types of Attributes or Parent objects. These enhancements would provide more flexibility and functionality in managing the in-memory graph, but they are beyond the scope of this PoC.
+
+#### Summary
+
+The Graph Manager in the 2WAY system effectively manages the Graph in RAM by dynamically adding and removing nodes and edges based on user interactions and database changes. This approach ensures that the in-memory graph remains up-to-date and accurately reflects the active connections within the system. By focusing on public key Attributes for this PoC, the Graph Manager lays the groundwork for potential future enhancements that could extend its capabilities to other types of data.
 
 ### 2.6.4 Querying Nodes from RAM
 
