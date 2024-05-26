@@ -842,8 +842,6 @@ In summary, the Graph Manager handles the storage and retrieval of the Graph in 
 
 ### 2.6.3 Changes to Graph in RAM
 
-### 2.6.3 Changes to Graph in RAM
-
 The Graph Manager in the 2WAY system is designed to handle dynamic changes to the Graph in RAM, reflecting updates from user interactions and ensuring that the in-memory representation remains consistent with the database. This process involves adding and removing nodes and edges based on public key Attributes stored in the database.
 
 #### Adding Nodes and Edges
