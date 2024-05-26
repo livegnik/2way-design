@@ -842,155 +842,107 @@ This approach to filtering objects ensures that users can refine their queries t
 
 <br>
 
-## 2.9 ACL Manager
+## 2.9 State Manager
 
-### 2.9.1 Introduction to the ACL Manager
+### 2.9.1 Introduction to the State Manager
 
-### 2.9.2 ACL Engine
+### 2.9.2 State Engine
 
-#### 2.9.2.1 Receiving Instructions
+#### 2.9.2.1 Querying States
 
-#### 2.9.2.2 Creating ACLs
-
-#### 2.9.2.3 Removing ACLs
-
-#### 2.9.2.4 Querying ACLs
-
-#### 2.9.2.5 Verifying ACLs
+#### 2.9.2.2 Sharing States
 
 <br>
 
-## 2.10 State Manager
+## 2.10 Network Manager
 
-### 2.10.1 Introduction to the State Manager
+### 2.10.1 Introduction to the Network Manager
 
-### 2.10.2 State Engine
-
-#### 2.10.2.1 Querying States
-
-#### 2.10.2.2 Sharing States
-
-<br>
-
-## 2.11 Network Manager
-
-### 2.11.1 Introduction to the Network Manager
-
-### 2.11.2 Networking
+### 2.10.2 Networking
 
 Tor integration, etc
 
-### 2.11.3 Establishing Connections
+### 2.10.3 Establishing Connections
 
-### 2.11.4 Data Synchronization
+### 2.10.4 Data Synchronization
 
-### 2.11.5 Network Engine
+### 2.10.5 Network Engine
 
-#### 2.11.5.1 Introduction to the Network Engine
+#### 2.10.5.1 Introduction to the Network Engine
 
-#### 2.11.5.2 Creating Onion Services
+#### 2.10.5.2 Creating Onion Services
 
-#### 2.11.5.3 Starting Onion Services
+#### 2.10.5.3 Starting Onion Services
 
-#### 2.11.5.4 Stopping Onion Services
+#### 2.10.5.4 Stopping Onion Services
 
-#### 2.11.5.5 Revoking Onion Services
+#### 2.10.5.5 Revoking Onion Services
 
-#### 2.11.5.6 Closing Sockets
+#### 2.10.5.6 Closing Sockets
 
-#### 2.11.5.7 Receiving Messages
+#### 2.10.5.7 Receiving Messages
 
-#### 2.11.5.8 Sending Messages
+#### 2.10.5.8 Sending Messages
 
-### 2.11.6 Client Puzzle Engine
+### 2.10.6 Client Puzzle Engine
 
-#### 2.11.6.1 Introduction to the Client Puzzle Engine
+#### 2.10.6.1 Introduction to the Client Puzzle Engine
 
-#### 2.11.6.2 Creating and Solving Client Puzzles
+#### 2.10.6.2 Creating and Solving Client Puzzles
 
-#### 2.11.6.3 Querying and Verifying Client Puzzle Challenges and Solutions
+#### 2.10.6.3 Querying and Verifying Client Puzzle Challenges and Solutions
 
-### 2.11.7 Bastion Engine
+### 2.10.7 Bastion Engine
 
-#### 2.11.7.1 Introduction to the Bastion Engine
+#### 2.10.7.1 Introduction to the Bastion Engine
 
-#### 2.11.7.2 Receiving Messages
+#### 2.10.7.2 Receiving Messages
 
-### 2.11.8 Incoming Engine
+### 2.10.8 Incoming Engine
 
-#### 2.11.8.1 Introduction to the Incoming Engine
+#### 2.10.8.1 Introduction to the Incoming Engine
 
-#### 2.11.8.2 Receiving Messages
+#### 2.10.8.2 Receiving Messages
 
-### 2.11.9 Outgoing Engine
+### 2.10.9 Outgoing Engine
 
-#### 2.11.9.1 Introduction to the Outgoing Engine
+#### 2.10.9.1 Introduction to the Outgoing Engine
 
-#### 2.11.9.2 Sending Messages
+#### 2.10.9.2 Sending Messages
 
-### 2.11.10 Network Startup Engine
+### 2.10.10 Network Startup Engine
 
-#### 2.11.10.1 Introduction to the Network Startup Engine
+#### 2.10.10.1 Introduction to the Network Startup Engine
 
-#### 2.11.10.2 Creating and Solving Client Puzzles
+#### 2.10.10.2 Creating and Solving Client Puzzles
 
-#### 2.11.10.3 Starting Onion Services
+#### 2.10.10.3 Starting Onion Services
 
-#### 2.11.10.4 Connecting with First Degree Connections
-
-<br>
-
-## 2.12 DoS Guard Manager
-
-### 2.12.1 Introduction to the DoS Guard Manager
-
-### 2.12.2 DoS Guard Engine
-
-#### 2.12.2.1 Receiving Bastion Alarms
+#### 2.10.10.4 Connecting with First Degree Connections
 
 <br>
 
-## 2.13 Log Manager
+## 2.11 DoS Guard Manager
 
-### 2.13.1 Introduction to the Log Manager
+### 2.11.1 Introduction to the DoS Guard Manager
 
-### 2.13.2 Log Engine
+### 2.11.2 DoS Guard Engine
 
-#### 2.13.2.1 Logging Failed Operations
-
-#### 2.13.2.2 Logging Failed Bastion Messages
-
-#### 2.13.2.3 Logging Failed Incoming Messages
+#### 2.11.2.1 Receiving Bastion Alarms
 
 <br>
 
-## 2.14 Installation Manager
+## 2.12 Log Manager
 
-### 2.14.1 Introduction to the Installation Manager
+### 2.12.1 Introduction to the Log Manager
 
-### 2.14.2 Installation Engine
+### 2.12.2 Log Engine
 
-#### 2.14.2.1 Create Database and Tables
+#### 2.12.2.1 Logging Failed Operations
 
-#### 2.14.2.2 Generate Key-Pairs
+#### 2.12.2.2 Logging Failed Bastion Messages
 
-#### 2.14.2.3 Create Onion Services
-
-#### 2.14.2.4 Create Client Puzzles
-
-#### 2.14.2.5 Create Required Objects
-
-<br>
-
-## 2.15 Startup Manager
-
-### 2.15.1 Introduction to the Startup Manager
-
-### 2.15.2 Startup Engine
-
-#### 2.15.2.1 Starting the Graph Manager
-
-#### 2.15.2.2 Starting the Network Manager
+#### 2.12.2.3 Logging Failed Incoming Messages
 
 <br><br>
 
