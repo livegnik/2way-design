@@ -800,8 +800,6 @@ This approach to filtering objects ensures that users can refine their queries t
 
 ### 2.6.1 Introduction to the Graph Manager
 
-### 2.6.1 Introduction to the Graph Manager
-
 The Graph Manager in the 2WAY system acts as an intermediary layer responsible for managing the Graph in RAM and facilitating its synchronization with the persistent disk-based Server Graph. It oversees the storage, retrieval, and manipulation of graph data, ensuring efficient access and maintenance of the system's graph structure.
 
 One of the primary functions of the Graph Manager is to handle the storage and retrieval of the in-memory graph to and from disk. During system initialization or shutdown, as well as when significant updates occur to the graph data, the Graph Manager orchestrates the transfer of graph data between RAM and disk storage. This synchronization ensures that the Graph in RAM remains aligned with the persistent Server Graph, enabling seamless data access and manipulation.
@@ -818,13 +816,11 @@ In future versions of 2WAY, custom instructions could allow the addition and rem
 
 By managing the synchronization between the Graph in RAM and the persistent Server Graph, as well as handling incoming changes and query requests, the Graph Manager ensures the integrity, accessibility, and responsiveness of the graph data within the 2WAY system.
 
-### 2.6.2 RAM Graph Engine
+### 2.6.2 Storage and Retrieval
 
-#### 2.6.2.1 Storage and Retrieval
+### 2.6.3 Changes to Graph in RAM
 
-#### 2.6.2.2 Changes to Graph in RAM
-
-#### 2.6.2.3 Querying Nodes from RAM
+### 2.6.4 Querying Nodes from RAM
 
 <br>
 
