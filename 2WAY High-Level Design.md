@@ -800,21 +800,35 @@ This approach to filtering objects ensures that users can refine their queries t
 
 ### 2.6.1 Introduction to the Graph Manager
 
-The Graph Manager in the 2WAY system acts as an intermediary layer responsible for managing the Graph in RAM and facilitating its synchronization with the persistent disk-based Server Graph. It oversees the storage, retrieval, and manipulation of graph data, ensuring efficient access and maintenance of the system's graph structure.
+The Graph Manager in the 2WAY system serves as an intermediary layer that manages the in-memory Graph and ensures its synchronization with the persistent disk-based Server Graph. It oversees the storage, retrieval, and manipulation of graph data, ensuring efficient access and maintenance of the system's graph structure.
 
-One of the primary functions of the Graph Manager is to handle the storage and retrieval of the in-memory graph to and from disk. During system initialization or shutdown, as well as when significant updates occur to the graph data, the Graph Manager orchestrates the transfer of graph data between RAM and disk storage. This synchronization ensures that the Graph in RAM remains aligned with the persistent Server Graph, enabling seamless data access and manipulation.
+#### Key Functions
 
-Additionally, the Graph Manager serves as a gateway for processing changes received from the Object Manager, which is responsible for handling the creation and querying of objects by users. When changes occur, such as the addition or removal of nodes and edges (not to be confused with the Edge object) within the graph, the Graph Manager processes these changes and updates the corresponding nodes and edges in the Graph in RAM accordingly.
+**Storage and Retrieval:**  
+The Graph Manager handles the transfer of graph data between RAM and disk storage during system initialization, shutdown, and significant updates. This process ensures that the in-memory Graph remains aligned with the persistent Server Graph for seamless data access and manipulation.
 
-For example, when a user creates a new connection with another user, the Graph Manager adds the corresponding node and edge with the table record ID that stores the Attribute of their public key to the Graph in RAM. Conversely, if a connection ("pubkey" Attribute) is down-voted, the Graph Manager removes the relevant node and the associated edge from the Graph in RAM.
+**Processing Changes:**  
+The Graph Manager processes changes received from the Object Manager, which manages object creation and querying by users. When changes such as node and edge additions or removals occur, the Graph Manager updates the in-memory Graph accordingly.
 
-Furthermore, the Graph Manager facilitates query operations by providing methods to retrieve nodes by degree of separation from the user's zeroth degree within the Server Graph. Users can query the Object Manager, which then calls the Graph Manager to obtain table record IDs of relevant nodes within their User Graph, enabling efficient exploration and analysis of graph data.
+- **Example:**  
+  - **Addition:** When a user creates a new connection, the Graph Manager adds the corresponding node and edge to the in-memory Graph using the record ID of the public key Attribute.
+  - **Removal:** If a connection is down-voted, the Graph Manager removes the relevant node and edge from the in-memory Graph.
 
-The design of the Graph Manager for this PoC specifically focuses on storing only the record IDs of public key Attributes with app_id="twoway" and app_sub_id="connections" in the table "twoway_connections_attributes". For example, if Alice's first interaction is to sign her own public key, thereby storing it as an Attribute with the record ID "1" in the table "twoway_connections_attributes", a corresponding node with the value "1" is added to the Graph in RAM. If Alice adds Bob's public key as an attribute, such as type="pubkey" and value="bobs_public_key", resulting in a record ID of "34", then a node with the value "34" is added to the Graph in RAM, and an edge is established between node "1" and "34". When a "pubkey" Attribute, or connection, is down-voted, it is removed from the Graph in RAM along with the edge between the two nodes.
+**Query Operations:**  
+The Graph Manager provides methods to retrieve nodes by degree of separation from the user's zeroth degree within the Server Graph. Users query the Object Manager, which in turn calls the Graph Manager to obtain table record IDs of relevant nodes, facilitating efficient exploration and analysis of graph data.
 
-In future versions of 2WAY, custom instructions could allow the addition and removal of other Attributes or Parents to and from the Graph in RAM, but this is outside the scope of the PoC.
+#### Design Focus
 
-By managing the synchronization between the Graph in RAM and the persistent Server Graph, as well as handling incoming changes and query requests, the Graph Manager ensures the integrity, accessibility, and responsiveness of the graph data within the 2WAY system.
+For this proof of concept (PoC), the Graph Manager stores only the record IDs of public key Attributes with `app_id="twoway"` and `app_sub_id="connections"` in the `twoway_connections_attributes` table.
+
+- **Example:**  
+  - **Alice's Interaction:** Alice signs her own public key, creating an Attribute with record ID "1". A node with value "1" is added to the in-memory Graph.
+  - **Connecting to Bob:** If Alice adds Bob's public key, resulting in a record ID "34", a node with value "34" is added, and an edge is established between nodes "1" and "34".
+  - **Down-vote:** If a connection is down-voted, the node and its edge are removed from the in-memory Graph.
+
+Future versions may include custom instructions for adding and removing other Attributes or Parents from the in-memory Graph, but this is outside the scope of the PoC.
+
+By managing synchronization between the in-memory Graph and the persistent Server Graph, as well as handling changes and query requests, the Graph Manager ensures the integrity, accessibility, and responsiveness of graph data within the 2WAY system.
 
 <br>
 
