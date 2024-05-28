@@ -806,7 +806,7 @@ One of the primary functions of the Graph Manager is to handle the storage and r
 
 Additionally, the Graph Manager serves as a gateway for processing changes received from the Object Manager, which is responsible for handling the creation and querying of objects by users. When changes occur, such as the addition or removal of nodes and edges within the graph, the Graph Manager processes these changes and updates the corresponding nodes and edges in the Graph in RAM accordingly.
 
-For example, when a user creates a new connection with another user, the Graph Manager adds the corresponding node and edge with the table record ID that stores the attribute of their pubkey to the Graph in RAM. Conversely, if a connection (pubkey attribute) is down-voted, the Graph Manager removes the relevant node and the associated edge from the Graph in RAM.
+For example, when a user creates a new connection with another user, the Graph Manager adds the corresponding node and edge (not to be confused with the Edge object) with the table record ID that stores the Attribute of their public key to the Graph in RAM. Conversely, if a connection ("pubkey" Attribute) is down-voted, the Graph Manager removes the relevant node and the associated edge from the Graph in RAM.
 
 Furthermore, the Graph Manager facilitates query operations by providing methods to retrieve nodes by degree of separation from the user's zeroth degree within the Server Graph. Users can query the Object Manager, which then calls the Graph Manager to obtain table record IDs of relevant nodes within their User Graph, enabling efficient exploration and analysis of graph data.
 
