@@ -802,7 +802,7 @@ This approach to filtering objects ensures that users can refine their queries t
 
 The Graph Manager in the 2WAY system serves as an intermediary layer that manages the in-memory Graph and ensures its synchronization with the persistent disk-based Server Graph. It oversees the storage, retrieval, and manipulation of graph data, ensuring efficient access and maintenance of the system's graph structure.
 
-#### Key Functions
+### Key Functions
 
 **Storage and Retrieval:**  
 The Graph Manager handles the transfer of graph data between RAM and disk storage during system initialization, shutdown, and significant updates. This process ensures that the in-memory Graph remains aligned with the persistent Server Graph for seamless data access and manipulation.
