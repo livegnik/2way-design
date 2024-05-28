@@ -824,11 +824,11 @@ The Graph Manager in the 2WAY system is responsible for the storage and retrieva
 
 #### Construction of the Graph in RAM
 
-The Graph in RAM is initially constructed from the Server Graph, utilizing the networkx library to create and manage graph data structures in Python. During initialization, the Graph Manager populates the in-memory graph with relevant nodes and edges based on the data stored in the Server Graph. These nodes represent various objects such as Attributes, Parents, and connections between users.
+The Graph in RAM is initially constructed from the Server Graph, utilizing the NetworkX library to create and manage graph data structures in Python. During initialization, the Graph Manager populates the in-memory graph with relevant nodes and edges based on the data stored in the Server Graph. These nodes represent various objects such as Attributes, Parents, and connections between users.
 
 #### Storage to Disk
 
-Once constructed, the Graph in RAM can be stored to disk for persistence using the "nx.write_gpickle" function provided by networkx. This serialization process saves the graph data structure in a binary format, allowing it to be efficiently written to disk for long-term storage. Storing the graph to disk ensures that the latest state of the Graph in RAM is preserved even when the system is restarted or shut down.
+Once constructed, the Graph in RAM can be stored to disk for persistence using the "nx.write_gpickle" function provided by NetworkX. This serialization process saves the graph data structure in a binary format, allowing it to be efficiently written to disk for long-term storage. Storing the graph to disk ensures that the latest state of the Graph in RAM is preserved even when the system is restarted or shut down.
 
 #### Retrieval from Disk
 
@@ -840,7 +840,7 @@ At any point, the Graph in RAM can be verified against the Server Graph to confi
 
 Additionally, if the Graph in RAM becomes corrupted or needs to be reconstructed from scratch, the Graph Manager can rebuild it using data from the Server Graph. This reconstruction process involves fetching the relevant data from the Server Graph and populating the in-memory graph accordingly.
 
-In summary, the Graph Manager handles the storage and retrieval of the Graph in RAM, ensuring its alignment with the persistent Server Graph. By utilizing serialization and deserialization techniques provided by the networkx library, the Graph Manager enables efficient data management and synchronization within the 2WAY system.
+In summary, the Graph Manager handles the storage and retrieval of the Graph in RAM, ensuring its alignment with the persistent Server Graph. By utilizing serialization and deserialization techniques provided by the NetworkX library, the Graph Manager enables efficient data management and synchronization within the 2WAY system.
 
 <br>
 
@@ -890,7 +890,7 @@ When a new connection is created, the Graph Manager updates the Graph in RAM by 
 
    The Graph Manager updates the Graph in RAM as follows:
    ```python
-   import networkx as nx
+   import NetworkX as nx
 
    graph = nx.Graph()
    graph.add_node(1)
@@ -954,10 +954,10 @@ Consider a scenario where a user wants to query nodes representing connections w
 }
 ```
 
-Upon receiving this query, the Graph Manager utilizes networkx functionalities to traverse the Graph in RAM and identify nodes matching the specified criteria. The following Python code demonstrates how such a query could be executed:
+Upon receiving this query, the Graph Manager utilizes NetworkX functionalities to traverse the Graph in RAM and identify nodes matching the specified criteria. The following Python code demonstrates how such a query could be executed:
 
 ```python
-import networkx as nx
+import NetworkX as nx
 
 def query_nodes(graph, user_public_key, attribute_type, degree, app_id, app_sub_id):
     # Initialize list to store query results
@@ -983,7 +983,7 @@ In this example, the `query_nodes` function traverses the Graph in RAM, checking
 
 Once the query is completed, the relevant node identifiers are returned as query results, providing users with the information they requested.
 
-By leveraging the Graph in RAM and networkx functionalities, the 2WAY system enables efficient querying of nodes, empowering users to explore and interact with their network connections effectively.
+By leveraging the Graph in RAM and NetworkX functionalities, the 2WAY system enables efficient querying of nodes, empowering users to explore and interact with their network connections effectively.
 
 <br><br>
 
