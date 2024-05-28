@@ -804,7 +804,7 @@ The Graph Manager in the 2WAY system manages the Graph in RAM and synchronizes i
 
 The Graph Manager handles the storage and retrieval of the in-memory graph to and from disk. During system initialization, shutdown, or significant updates, it transfers graph data between RAM and disk storage. This synchronization keeps the Graph in RAM aligned with the Server Graph for seamless data access and manipulation.
 
-Additionally, the Graph Manager processes changes from the Object Manager, which handles object creation and querying by users. When changes occur, such as adding or removing nodes and edges, the Graph Manager updates the corresponding nodes and edges in the Graph in RAM.
+Additionally, the Graph Manager processes changes from the Object Manager, which handles object creation and querying by users. When changes occur, such as adding or removing nodes and edges (not to be confused with the Edge object), the Graph Manager updates the corresponding nodes and edges in the Graph in RAM.
 
 For example, when a user creates a new connection, the Graph Manager adds the corresponding node and edge with the table record ID that stores the Attribute of their public key to the Graph in RAM. Conversely, if a connection ("pubkey" Attribute) is down-voted, the Graph Manager removes the relevant node and edge from the Graph in RAM.
 
