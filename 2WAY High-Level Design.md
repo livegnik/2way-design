@@ -935,7 +935,7 @@ If a "pubkey" Attribute or connection is down-voted, it signifies that the conne
 }
 ```
 
-Upon processing this JSON document, the Graph Manager removes the node "34" and the edge between nodes "1" and "34" from the Graph in RAM. This ensures that the in-memory graph only reflects active and trusted connections.
+Upon processing this JSON document, the Graph Manager queries the old Attributes for Bob's "pubkey", to then remove the node "34" and the edge between nodes "1" and "34" from the Graph in RAM. This ensures that the in-memory graph only reflects active and trusted connections.
 
 #### Future Extensions
 
