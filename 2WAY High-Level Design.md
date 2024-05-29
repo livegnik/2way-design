@@ -11,8 +11,19 @@
 1. [Frontend](#frontend)<br>
   1.1 [Introduction to the Frontend](#11-introduction-to-the-frontend)<br>
   1.2 [Flask](#12-flask)
+  1.3 [Plugins](#13-plugins)
+  1.4 [Pre-Installed Plugins](#14-pre-installed-plugins)
+  1.5 [Custom Plugins](#15-custom-plugins)
 
-2. [Backend](#backend)
+2. [Backend](#backend)<br>
+  2.1 [](#)<br>
+  2.2 [](#)<br>
+  2.3 [](#)<br>
+  2.4 [](#)<br>
+  2.5 [](#)<br>
+  2.6 [](#)<br>
+  2.7 [](#)<br>
+  2.8 [](#)<br>
 
 3. [Practical Examples](#practical-examples)
 
@@ -78,7 +89,7 @@ Through its integration into the 2WAY system, Flask provides a robust foundation
 
 <br>
 
-## 1.3 Plugins
+## 1.3 Plugins <a name="13-plugins"></a>
 
 Within the 2WAY system, Flask plugins are utilized on the frontend to facilitate communication with the Object Manager on the backend. These plugins serve as intermediary components that enable seamless interaction between the user interface and the backend services, allowing for efficient retrieval and display of data within the frontend application.
 
@@ -94,7 +105,7 @@ Overall, Flask plugins play a crucial role in bridging the gap between the front
 
 <br>
 
-## 1.4 Pre-Installed Plugins
+## 1.4 Pre-Installed Plugins <a name="14-pre-installed-plugins"></a>
 
 Within the 2WAY system, the frontend comes equipped with several out-of-the-box plugins designed to enhance user experience and provide essential functionality. These plugins serve as integral components of the frontend application, offering seamless integration with the backend services and facilitating various interactions within the platform.
 
@@ -108,7 +119,7 @@ Together, these out-of-the-box plugins provide users with essential functionalit
 
 <br>
 
-## 1.5 Custom Plugins
+## 1.5 Custom Plugins <a name="15-custom-plugins"></a>
 
 In addition to the out-of-the-box functionality provided by the default plugins, the 2WAY system offers support for custom plugins, empowering developers to extend the platform's capabilities and tailor the user experience to specific requirements. Custom plugins enable developers to introduce new features, integrate third-party services, and customize the frontend interface according to the unique needs of their users.
 
