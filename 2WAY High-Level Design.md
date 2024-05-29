@@ -362,7 +362,7 @@ JSON document example for establishing a parent-child edge:
 
 <br>
 
-### 2.3.5 Rating (Reputation)
+### 2.3.5 Rating
 
 In the context of 2WAY, the reputation of users or entities can be represented and managed through a JSON document structured to include various details related to reputation metrics, or, ratings. These metrics could encompass factors such as comments, scores, and scales, all of which contribute to the overall reputation score of users and entities within the system.
 
