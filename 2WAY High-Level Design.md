@@ -922,7 +922,7 @@ If a "pubkey" Attribute or connection is down-voted, it signifies that the conne
 
 ```json
 {
-  "id": 34,
+  "id": 45,
   "version": 2,
   "type": "pubkey",
   "signing_key": "Alice's public key",
