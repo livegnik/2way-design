@@ -874,94 +874,74 @@ In summary, the Graph Manager handles the storage and retrieval of the Graph in 
 
 ### 2.6.3 Changes to Graph in RAM
 
-The Graph Manager in the 2WAY system is designed to handle dynamic changes to the Graph in RAM, reflecting updates from user interactions and ensuring that the in-memory representation remains consistent with the database. This process involves adding and removing nodes and edges based on public key Attributes stored in the database.
+The 2WAY system's Graph Manager is designed to manage dynamic changes in the Graph in RAM, primarily focusing on the record IDs of public key Attributes with specific identifiers. This section details how nodes and edges are added or removed based on interactions within the 2WAY system, using JSON document examples to illustrate these changes.
 
 #### Adding Nodes and Edges
 
-When a new connection is created, the Graph Manager updates the Graph in RAM by adding the corresponding nodes and edges. Here’s how it works:
+When a user, such as Alice, first signs her own public key, an Attribute is created with a unique record ID stored in the `twoway_connections_attributes` table. This is represented by the following JSON document:
 
-1. **Storing Public Key Attributes**: When a user, such as Alice, signs her own public key, an Attribute record is created in the `twoway_connections_attributes` table with a unique record ID. For instance, if Alice's public key is assigned the record ID "1", a node with the value "1" is added to the Graph in RAM.
-   
-   Example:
-   ```json
-   {
-     "id": 1,
-     "version": 1,
-     "type": "pubkey",
-     "signing_key": "Alice's public key",
-     "attribute_key": "public_key",
-     "attribute_value": "Alice's public key",
-     "vote": 1,
-     "timestamp": 1648062000,
-     "hash": "hash_of_the_document",
-     "signature": "cryptographic_signature"
-   }
-   ```
+```json
+{
+  "id": 1,
+  "version": 1,
+  "type": "pubkey",
+  "signing_key": "Alice's public key",
+  "attribute_key": "pubkey",
+  "attribute_value": "Alice's public key",
+  "vote": 1,
+  "timestamp": 1648062000,
+  "hash": "hash of the document",
+  "signature": "cryptographic signature"
+}
+```
 
-2. **Adding Connections**: If Alice then adds another user's public key (e.g., Bob's) as an Attribute, a new record is created with a unique ID, say "34". The Graph Manager adds a node with the value "34" and establishes an edge between nodes "1" and "34".
-   
-   Example:
-   ```json
-   {
-     "id": 34,
-     "version": 1,
-     "type": "pubkey",
-     "signing_key": "Alice's public key",
-     "attribute_key": "public_key",
-     "attribute_value": "Bob's public key",
-     "vote": 1,
-     "timestamp": 1648062100,
-     "hash": "hash_of_the_document",
-     "signature": "cryptographic_signature"
-   }
-   ```
+Upon receiving this JSON document, the Graph Manager adds a node with the value "1" to the Graph in RAM, representing Alice's public key.
 
-   The Graph Manager updates the Graph in RAM as follows:
-   ```python
-   import NetworkX as nx
+Next, if Alice adds Bob's public key as an attribute, another Attribute is created, resulting in a new record ID:
 
-   graph = nx.Graph()
-   graph.add_node(1)
-   graph.add_node(34)
-   graph.add_edge(1, 34)
-   ```
+```json
+{
+  "id": 34,
+  "version": 1,
+  "type": "pubkey",
+  "signing_key": "Alice's public key",
+  "attribute_key": "pubkey",
+  "attribute_value": "Bob's public key",
+  "vote": 1,
+  "timestamp": 1648062010,
+  "hash": "hash of the document",
+  "signature": "cryptographic signature"
+}
+```
+
+The Graph Manager then adds a node with the value "34" to the Graph in RAM and creates an edge between nodes "1" (Alice) and "34" (Bob), establishing a connection between the two users.
 
 #### Removing Nodes and Edges
 
-Nodes and edges can be removed from the Graph in RAM when connections are down-voted. This ensures that the in-memory graph accurately reflects active and relevant connections.
+If a "pubkey" Attribute or connection is down-voted, it signifies that the connection is no longer relevant or trusted. This down-vote action is represented by the following JSON document:
 
-1. **Down-voting Connections**: If a connection (public key Attribute) is down-voted, the Graph Manager removes the corresponding node and edge from the Graph in RAM. For example, if the connection between Alice (node "1") and Bob (node "34") is down-voted, the edge and potentially the node (if it is not connected to other nodes) are removed.
+```json
+{
+  "id": 34,
+  "version": 2,
+  "type": "pubkey",
+  "signing_key": "Alice's public key",
+  "attribute_key": "pubkey",
+  "attribute_value": "Bob's public key",
+  "vote": 0,
+  "timestamp": 1648062020,
+  "hash": "hash of the document",
+  "signature": "cryptographic signature"
+}
+```
 
-   Example of a down-voted Attribute:
-   ```json
-   {
-     "id": 34,
-     "version": 2,
-     "type": "pubkey",
-     "signing_key": "Alice's public key",
-     "attribute_key": "public_key",
-     "attribute_value": "Bob's public key",
-     "vote": 0,  # Down-vote
-     "timestamp": 1648062200,
-     "hash": "hash_of_the_document",
-     "signature": "cryptographic_signature"
-   }
-   ```
+Upon processing this JSON document, the Graph Manager removes the node "34" and the edge between nodes "1" and "34" from the Graph in RAM. This ensures that the in-memory graph only reflects active and trusted connections.
 
-   The Graph Manager updates the Graph in RAM:
-   ```python
-   graph.remove_edge(1, 34)
-   if not list(graph.neighbors(34)):  # If node 34 has no other connections
-       graph.remove_node(34)
-   ```
+#### Future Extensions
 
-#### Future Enhancements
+While the current PoC focuses on managing connections represented by public key Attributes, future versions of 2WAY could potentially allow for the addition and removal of other types of Attributes or Parents from the Graph in RAM. However, these enhancements are beyond the scope of this PoC and would require additional considerations for implementation.
 
-While the current Proof of Concept (PoC) focuses on managing public key Attributes in the Graph in RAM, future versions of the 2WAY system could allow custom instructions to add or remove other types of Attributes or Parent objects. These enhancements would provide more flexibility and functionality in managing the in-memory graph, but they are beyond the scope of this PoC.
-
-#### Summary
-
-The Graph Manager in the 2WAY system effectively manages the Graph in RAM by dynamically adding and removing nodes and edges based on user interactions and database changes. This approach ensures that the in-memory graph remains up-to-date and accurately reflects the active connections within the system. By focusing on public key Attributes for this PoC, the Graph Manager lays the groundwork for potential future enhancements that could extend its capabilities to other types of data.
+In summary, the Graph Manager in the 2WAY system dynamically adjusts the Graph in RAM to reflect changes in connections, ensuring data accuracy and efficient query operations. The use of JSON documents facilitates the management of nodes and edges, highlighting the flexibility and scalability of the system.
 
 <br>
 
