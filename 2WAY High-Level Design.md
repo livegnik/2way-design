@@ -154,6 +154,8 @@ At its essence, the 2WAY Graph embodies a graph-based data model that leverages 
 
 The 2WAY Graph is distinguished by its decentralized and distributed nature, empowering users to create, share, and collaborate on data in a flexible and scalable manner. By embracing a graph-based approach, the system facilitates intuitive navigation, exploration, and discovery of interconnected data, enabling users to traverse relationships and uncover valuable insights within their social or organizational networks.
 
+<br>
+
 ### 2.2.2 User Graph
 
 The User Graph in the 2WAY system represents the individualized network of nodes and edges maintained by the user. It comprises the user's personal data, connections, and interactions, encapsulating their contributions and relationships within the broader context of the Server Graph, which is the combined set of all User Graphs within the system. Each user's graph is unique and reflective of their specific interactions, preferences, and network connections within the system.
@@ -163,6 +165,8 @@ One notable aspect of the User Graph is that users always query data from their 
 From the user's perspective, data in other User Graphs that doesn't overlap with their own User Graph doesn't exist. In other words, users only perceive and interact with data that is within their own User Graph or is directly connected to them through their network connections. Data outside of their immediate network or areas of interest is effectively invisible or inaccessible to them within the Server Graph.
 
 This approach ensures that users maintain a focused and personalized view of the data within the 2WAY system, allowing them to efficiently navigate and interact with information that is directly relevant to their needs and interests. By querying from their zeroth degree within the Server Graph, users can effectively manage their data, discover relevant connections, and collaborate with others within their network while maintaining privacy and control over their personal information.
+
+<br>
 
 ### 2.2.3 Server Graph
 
@@ -174,6 +178,8 @@ The Server Graph is dynamic and continually evolving, reflecting the real-time i
 
 Overall, the Server Graph serves as the backbone of the 2WAY system, embodying the collective intelligence and contributions of its local user base. By consolidating individual User Graphs into a unified framework, the Server Graph enables seamless data management, discovery, and collaboration within the platform, while ensuring privacy, security, and access control based on user-defined permissions and network connections.
 
+<br>
+
 ### 2.2.4 Graph on Disk
 
 The Graph on Disk in the 2WAY system refers to the storage mechanism used to persist the Server Graph, comprising the aggregated data from all individual User Graphs, onto disk. This disk-based representation of the Server Graph ensures durability, accessibility, and scalability of the system's data, enabling efficient storage and retrieval of information across the entire user base.
@@ -183,6 +189,8 @@ The Server Graph, in its entirety, is stored to disk using the SQL schema as dis
 The Graph on Disk serves as the authoritative source of truth for the 2WAY system, housing the complete dataset that encompasses the collective intelligence and contributions of the users. Updates, modifications, and interactions made by users are reflected in real-time within the Server Graph on disk, ensuring that the data remains synchronized and up-to-date with the latest user activity.
 
 Furthermore, the Graph on Disk enables efficient querying, filtering, and analysis of data within the 2WAY system, empowering users to explore connections, discover insights, and collaborate effectively within their network. By persisting the Server Graph to disk using the established SQL schema, the 2WAY system maintains data integrity, consistency, and reliability, while facilitating seamless data management and scalability for future growth and expansion.
+
+<br>
 
 ### 2.2.5 Graph in RAM
 
@@ -217,6 +225,8 @@ In 2WAY, a small set of simple data structures are used to construct objects. Th
 ~~~
 
 Using these objects, any required application can be modeled atop.
+
+<br>
 
 ### 2.3.2 Attribute
 
@@ -271,6 +281,8 @@ Once the data is stored, the following result is returned when the newly created
 }
 ```
 
+<br>
+
 ### 2.3.3 Parent
 
 The parent object consists of a single parent attribute and one or more other attributes and/or parents as its children. An example:
@@ -322,6 +334,8 @@ JSON document example for establishing a parent:
 }
 ```
 
+<br>
+
 ### 2.3.4 Edge
 
 Whenever a new attribute or parent-child relationship is formed, an edge is established between the newly created object and the attribute containing the public key of the signer. Additionally, edges are created between parent and child attributes within the graph to denote their relationship. These edges serve to maintain the structural integrity of the graph and facilitate efficient data retrieval and organization.
@@ -345,6 +359,8 @@ JSON document example for establishing a parent-child edge:
   "signature": "cryptographic signature"
 }
 ```
+
+<br>
 
 ### 2.3.5 Rating (Reputation)
 
@@ -383,6 +399,8 @@ JSON document example for establishing a rating:
   "signature": "cryptographic signature"
 }
 ```
+
+<br>
 
 ### 2.3.6 Access Control List (ACL)
 
@@ -436,6 +454,8 @@ The schema design for plugins is crafted to enable interoperability and seamless
 Additionally, the use of app_id and app_sub_id identifiers allows plugins to coexist within the same database environment while maintaining isolation and encapsulation of data. This approach enables developers to mix and match plugins according to their specific requirements, creating customized configurations tailored to their unique use cases.
 
 Overall, replicating the database schema per plugin ensures modularity, flexibility, and interoperability within the 2WAY system. It empowers developers to build and extend the platform with new functionalities and features while maintaining consistency and compatibility across different plugins.
+
+<br>
 
 ### 2.4.2 Database Schema Design
 
@@ -531,6 +551,8 @@ By centralizing object creation and querying functionality within the Object Man
 
 It is important to note that for this proof-of-concept, messages are not signed on the frontend. In future versions, messages could potentially be signed on the frontend or with hardware keys, providing an additional layer of security and flexibility.
 
+<br>
+
 ### 2.5.2 Creating Objects
 
 To create objects within the 2WAY system, users interact with the frontend interface, which communicates with the backend's Object Manager through API calls. These API calls contain JSON documents specifying the details of the objects to be created. Below are examples of JSON documents for creating different types of objects based on the database schema:
@@ -624,6 +646,8 @@ When the Object Manager receives a message from the Network Manager (i.e., from 
 
 ### 2.5.3 Hiding Objects
 
+<br>
+
 Objects within the 2WAY system are never deleted from the database. Instead, they can only be down-voted, which by default signifies their irrelevance or disapproval by the user. This approach ensures data integrity and historical traceability, as every interaction with an object is preserved. This is crucial because different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
 
 An examples of a JSON document for down-voting an Attribute, to be processed by the Object Manager:
@@ -660,6 +684,8 @@ The signed document is then appended to the database by the Storage Manager. The
 By preserving all objects and utilizing a down-vote mechanism, the 2WAY system allows users to filter and prioritize data according to their own preferences and judgments. This ensures a more personalized and user-centric experience, where each individual can curate their digital environment without permanently removing information that might be relevant to others.
 
 While the current proof-of-concept (PoC) does not support automatic removal of objects, it is conceivable that future implementations could incorporate mechanisms for cleaning up the database. For example, duplicate objects, objects with an older version, or those beyond a certain age threshold could be automatically pruned to maintain database efficiency and manageability. However, such features are outside the scope of this PoC and would require careful consideration of criteria and processes to ensure consistency and data integrity.
+
+<br>
 
 ### 2.5.4 Querying Objects
 
@@ -698,6 +724,8 @@ By setting the "vote" parameter to "0," the system will retrieve the latest vers
 Upon receiving these JSON documents, the Object Manager processes the request by first interacting with the Graph Manager to identify the relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The system ensures that the queried objects match the specified parameters, including object type, degree of separation, and vote status, before returning the data to the frontend.
 
 This approach to querying objects ensures that users can access the most relevant and up-to-date information by default, while still providing the flexibility to explore a broader range of data as needed. By supporting queries for both up-voted and down-voted objects, the 2WAY system offers a balanced and user-centric method for data retrieval, enhancing overall user experience and data discoverability.
+
+<br>
 
 ### 2.5.5 Filtering Objects
 
@@ -824,7 +852,7 @@ The Graph Manager in the 2WAY system is responsible for the storage and retrieva
 
 #### Construction of the Graph in RAM
 
-The Graph in RAM is initially constructed from the Server Graph, utilizing the NetworkX library to create and manage graph data structures in Python. During initialization, the Graph Manager populates the in-memory graph with relevant nodes and edges based on the data stored in the Server Graph. These nodes represent various objects such as Attributes, Parents, and connections between users.
+The Graph in RAM is initially constructed from the Server Graph, utilizing the NetworkX library to create and manage graph data structures in Python. During initialization, the Graph Manager populates the in-memory graph with relevant nodes and edges based on the data stored in the Server Graph. These nodes can represent various objects such as Attributes, Parents, and connections between users.
 
 #### Storage to Disk
 
