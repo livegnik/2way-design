@@ -9,6 +9,8 @@
 # Table of Contents
 [Introduction](#introduction)
 1. [Frontend](#frontend)
+   1. 1.1 Introduction to the Frontend (#11-introduction-to-the-frontend)
+   2. 1.2 Flask (#12-flask)
 
 2. [Backend](#backend)
 
@@ -54,7 +56,7 @@ In summary, 2WAY offers a groundbreaking approach to electronic identity and rep
 
 <br>
 
-## 1.1 Introduction to the Frontend
+## 1.1 Introduction to the Frontend <a name="11-introduction-to-the-frontend"></a>
 
 The frontend of the 2WAY system serves as the user-facing interface, providing a gateway to interact with the platform's features and functionalities.
 
@@ -66,7 +68,7 @@ From pre-installed plugins that come bundled with the system to the possibility 
 
 <br>
 
-## 1.2 Flask
+## 1.2 Flask <a name="12-flask"></a>
 
 Flask serves as the cornerstone of both the frontend and backend architecture in the 2WAY system, offering a versatile and lightweight framework for web application development. Traditionally known for its usage in backend development, Flask is uniquely employed in 2WAY to power not only the server-side components but also the client-side user interface. This approach merges the frontend and backend into a cohesive unit, simplifying development and deployment processes while promoting code reusability and maintainability.
 
