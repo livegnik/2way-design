@@ -12,9 +12,9 @@
   1.1[Introduction to the Frontend](#11-introduction-to-the-frontend)
   1.2[1.2 Flask](#12-flask)
 
-1. [Backend](#backend)
+2. [Backend](#backend)
 
-2. [Practical Examples](#practical-examples)
+3. [Practical Examples](#practical-examples)
 
 <br><br>
 
