@@ -8,8 +8,8 @@
 
 # Table of Contents
 [Introduction](#introduction)
-1. [Frontend](#frontend)
-  1.1[Introduction to the Frontend](#11-introduction-to-the-frontend)
+1. [Frontend](#frontend)<br>
+  1.1[Introduction to the Frontend](#11-introduction-to-the-frontend)<br>
   1.2[1.2 Flask](#12-flask)
 
 2. [Backend](#backend)
