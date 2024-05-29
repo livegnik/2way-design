@@ -16,14 +16,16 @@
   1.5 [Custom Plugins](#15-custom-plugins)
 
 2. [Backend](#backend)<br>
-  2.1 [](#)<br>
-  2.2 [](#)<br>
-  2.3 [](#)<br>
-  2.4 [](#)<br>
-  2.5 [](#)<br>
-  2.6 [](#)<br>
-  2.7 [](#)<br>
-  2.8 [](#)<br>
+  2.1 [Introduction to the Backend](#21-introduction-to-the-backend)<br>
+  2.2 [2WAY Graph](#22-2way-graph)<br>
+  2.3 [2WAY Objects](#23-2way-objects)<br>
+  2.4 [Database Schema](#24-database-schema)<br>
+  2.5 [Object Manager](#25-object-manager)<br>
+  2.6 [Graph Manager](#26-graph-manager)<br>
+  2.7 [Storage Manager](#27-storage-manager)<br>
+  2.8 [Key Manager](#28-key-manager)<br>
+  2.9 [Network Manager](#29-network-manager)<br>
+  2.10 [Log Manager](#210-log-manager)<br>
 
 3. [Practical Examples](#practical-examples)
 
@@ -139,7 +141,7 @@ Overall, custom plugins play a crucial role in extending the functionality and v
 
 <br>
 
-## 2.1 Introduction to the Backend
+## 2.1 Introduction to the Backend <a name="21-introduction-to-the-backend"></a>
 
 The backend of the 2WAY system is the cornerstone of its decentralized identity, reputation, and access management framework. It is meticulously designed to handle the complex processes required to maintain secure, efficient, and reliable operations within the 2WAY ecosystem. This backend infrastructure supports the creation, management, and verification of cryptographic identities and facilitates secure data exchanges between trusted nodes in a peer-to-peer (P2P) network.
 
@@ -157,7 +159,7 @@ In essence, the 2WAY backend is a sophisticated and modular system that provides
 
 <br>
 
-## 2.2 2WAY Graph
+## 2.2 2WAY Graph <a name="22-2way-graph"></a>
 
 ### 2.2.1 Introduction to the 2WAY Graph
 
@@ -219,7 +221,7 @@ It's essential to note that maintaining a Graph in RAM comes at a relatively hig
 
 <br>
 
-## 2.3 2WAY Objects
+## 2.3 2WAY Objects <a name="23-2way-objects"></a>
 
 ### 2.3.1 Introduction to 2WAY Objects
 
@@ -450,7 +452,7 @@ JSON document example for establishing an ACL:
 
 <br>
 
-## 2.4 Database Schema
+## 2.4 Database Schema <a name="24-database-schema"></a>
 
 ### 2.4.1 Introduction to the Database Schema
 
@@ -550,7 +552,7 @@ Here are the core tables in the schema:
 
 <br>
 
-## 2.5 Object Manager
+## 2.5 Object Manager <a name="25-object-manager"></a>
 
 ### 2.5.1 Introduction to the Object Manager
 
@@ -837,7 +839,7 @@ This approach to filtering objects ensures that users can refine their queries t
 
 <br><br>
 
-## 2.6 Graph Manager
+## 2.6 Graph Manager <a name="26-graph-manager"></a>
 
 ### 2.6.1 Introduction to the Graph Manager
 
@@ -1008,7 +1010,7 @@ By leveraging the Graph in RAM and NetworkX functionalities, the 2WAY system ena
 
 <br><br>
 
-## 2.7 Storage Manager
+## 2.7 Storage Manager <a name="27-storage-manager"></a>
 
 ### 2.7.1 Introduction to the Storage Manager
 
@@ -1020,7 +1022,7 @@ By leveraging the Graph in RAM and NetworkX functionalities, the 2WAY system ena
 
 <br>
 
-## 2.8 Key Manager
+## 2.8 Key Manager <a name="28-key-manager"></a>
 
 ### 2.8.1 Introduction to the Key Manager
 
@@ -1052,7 +1054,7 @@ By leveraging the Graph in RAM and NetworkX functionalities, the 2WAY system ena
 
 <br>
 
-## 2.10 Network Manager
+## 2.10 Network Manager <a name="29-network-manager"></a>
 
 ### 2.10.1 Introduction to the Network Manager
 
@@ -1130,7 +1132,7 @@ Tor integration, etc
 
 <br>
 
-## 2.12 Log Manager
+## 2.12 Log Manager <a name="210-log-manager"></a>
 
 ### 2.12.1 Introduction to the Log Manager
 
