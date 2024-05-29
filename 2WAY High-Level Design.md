@@ -4,7 +4,7 @@
 
 # 2WAY: Protocol Architecture and Flask Implementation Blueprint
 
-<br><br>
+<br><br><br>
 
 # Table of Contents
 [Introduction](#introduction)
@@ -29,7 +29,7 @@
 
 3. [Practical Examples](#practical-examples)
 
-<br><br>
+<br><br><br>
 
 # Introduction <a name="introduction"></a>
 
