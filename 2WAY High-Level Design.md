@@ -644,9 +644,9 @@ Once signed, the messages are handed over to the Storage Manager, which appends 
 
 When the Object Manager receives a message from the Network Manager (i.e., from another server), it directly appends the message by forwarding it to the Storage Manager. If the message involves an ACL, it is likewise relayed to the ACL Manager. Furthermore, any required updates to the Graph in RAM are managed by passing the message to the Graph Manager.
 
-### 2.5.3 Hiding Objects
-
 <br>
+
+### 2.5.3 Hiding Objects
 
 Objects within the 2WAY system are never deleted from the database. Instead, they can only be down-voted, which by default signifies their irrelevance or disapproval by the user. This approach ensures data integrity and historical traceability, as every interaction with an object is preserved. This is crucial because different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
 
