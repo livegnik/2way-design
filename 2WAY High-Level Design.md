@@ -10,9 +10,9 @@
 [Introduction](#introduction)
 1. [Frontend](#frontend)<br>
   1.1 [Introduction to the Frontend](#11-introduction-to-the-frontend)<br>
-  1.2 [Flask](#12-flask)
-  1.3 [Plugins](#13-plugins)
-  1.4 [Pre-Installed Plugins](#14-pre-installed-plugins)
+  1.2 [Flask](#12-flask)<br>
+  1.3 [Plugins](#13-plugins)<br>
+  1.4 [Pre-Installed Plugins](#14-pre-installed-plugins)<br>
   1.5 [Custom Plugins](#15-custom-plugins)
 
 2. [Backend](#backend)<br>
