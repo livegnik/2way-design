@@ -962,51 +962,110 @@ In summary, the Graph Manager in the 2WAY system dynamically adjusts the Graph i
 
 ### 2.6.4 Querying Nodes from RAM
 
-In the 2WAY system, querying nodes from the Graph in RAM allows users to efficiently retrieve relevant data based on specified criteria. This process involves traversing the in-memory graph to identify nodes that meet the query conditions, providing users with accurate and timely results.
+In the 2WAY system, querying nodes from the Graph in RAM is an essential operation for efficiently retrieving user connections and relationships. The Graph Manager plays a crucial role in this process by interacting with the Object Manager to handle user queries and return the relevant data. This section explains how nodes are queried from the Graph in RAM using JSON document examples to illustrate the process.
 
-Consider a scenario where a user wants to query nodes representing connections within their network, specifically retrieving Attributes of type "email" associated with their immediate connections. The following JSON document outlines the query parameters:
+#### Query Process Overview
+
+When a user initiates a query, it is done through the frontend interface, which sends a request to the Object Manager. The Object Manager then communicates with the Graph Manager to retrieve the relevant nodes from the Graph in RAM based on the specified parameters.
+
+The query request includes details such as the object type, degree of separation, and any specific filtering criteria. Below is an example of a JSON document representing a query request:
 
 ```json
 {
   "object": "attribute",
-  "attribute_type": "email",
-  "degree": 1,
+  "app_id": "2WAY, Contacts",
   "signing_key": "user_public_key",
-  "app_id": "twoway",
-  "app_sub_id": "connections"
+  "degree": 2,
+  "criteria": {
+    "attribute_type": "pubkey",
+    "vote": 1
+  }
 }
 ```
 
-Upon receiving this query, the Graph Manager utilizes NetworkX functionalities to traverse the Graph in RAM and identify nodes matching the specified criteria. The following Python code demonstrates how such a query could be executed:
+In this example, the user is querying for public key attributes within two degrees of separation from their own public key, with only up-voted attributes considered.
 
-```python
-import NetworkX as nx
+#### Querying Nodes
 
-def query_nodes(graph, user_public_key, attribute_type, degree, app_id, app_sub_id):
-    # Initialize list to store query results
-    query_results = []
-    
-    # Traverse graph to identify nodes matching query criteria
-    for node in graph.nodes():
-        # Check if node meets query conditions
-        if graph.nodes[node]['type'] == attribute_type and \
-           nx.shortest_path_length(graph, source=user_public_key, target=node) <= degree and \
-           graph.nodes[node]['app_id'] == app_id and \
-           graph.nodes[node]['app_sub_id'] == app_sub_id:
-            # Add node to query results
-            query_results.append(node)
-    
-    return query_results
+Upon receiving the query request from the Object Manager, the Graph Manager processes the request by retrieving the relevant nodes from the Graph in RAM. The degree of separation specifies how far the query should traverse from the user's node. For example, if the degree is set to 2, the Graph Manager retrieves nodes that are directly connected to the user's node (first-degree) as well as nodes connected to those nodes (second-degree).
 
-# Example usage
-query_results = query_nodes(Graph_in_RAM, "user_public_key", "email", 1, "twoway", "connections")
+The filtering criteria specified in the query request further refine the results. In the provided example, only nodes representing public key attributes that have been up-voted are retrieved.
+
+The Graph Manager returns a set of nodes, categorized by their degree of separation, to the Object Manager. This set includes record IDs of the nodes along with their respective degrees.
+
+```json
+{
+  "query_result": {
+    "degrees": [
+      {
+        "degree": 1,
+        "nodes": [2, 3, 4]
+      },
+      {
+        "degree": 2,
+        "nodes": [5, 6, 7, 8]
+      },
+      {
+        "degree": 3,
+        "nodes": [9, 10]
+      }
+    ]
+  }
+}
 ```
 
-In this example, the `query_nodes` function traverses the Graph in RAM, checking each node against the specified query criteria. Nodes meeting all conditions, including having the desired attribute type, being within the specified degree of separation from the user, and having the appropriate app_id and app_sub_id, are added to the list of query results.
+In this example, the nodes are grouped by their degree of separation:
 
-Once the query is completed, the relevant node identifiers are returned as query results, providing users with the information they requested.
+- Nodes `2, 3, and 4` are within the first degree of separation.
+- Nodes `5, 6, 7, and 8` are within the second degree of separation.
+- Nodes `9 and 10` are within the third degree of separation.
 
-By leveraging the Graph in RAM and NetworkX functionalities, the 2WAY system enables efficient querying of nodes, empowering users to explore and interact with their network connections effectively.
+This structure allows the Object Manager to efficiently process and query the Storage Manager for the detailed information of the nodes, categorized by their degrees of separation.
+
+#### Example Query Results
+
+The Object Manager then uses this set of node record IDs to query the Storage Manager, which retrieves the full details of each node from the database. The Object Manager formats this data and sends it back to the frontend interface for user interaction. An example of the JSON document representing the query results might look like this:
+
+```json
+{
+  "results": [
+    {
+      "id": 2,
+      "version": 1,
+      "type": "pubkey",
+      "signing_key": "Alice's public key",
+      "attribute_key": "pubkey",
+      "attribute_value": "Bob's public key",
+      "vote": 1,
+      "timestamp": 1648062000,
+      "hash": "hash of the document",
+      "signature": "cryptographic signature",
+      "degree": 1
+    },
+    {
+      "id": 5,
+      "version": 1,
+      "type": "pubkey",
+      "signing_key": "Bob's public key",
+      "attribute_key": "pubkey",
+      "attribute_value": "Carol's public key",
+      "vote": 1,
+      "timestamp": 1648062010,
+      "hash": "hash of the document",
+      "signature": "cryptographic signature",
+      "degree": 2
+    }
+  ]
+}
+```
+
+In this example, the results include nodes for Bob's and Carol's public keys, which are within two degrees of separation from the user's public key and have been up-voted. Each result also includes the degree of separation for clarity.
+
+#### Future Enhancements
+
+While this PoC focuses on querying nodes based on public key attributes and their degrees of separation, future versions of 2WAY could incorporate more advanced querying capabilities. This might include filtering based on additional attributes or incorporating more complex relationship criteria. However, such enhancements are beyond the scope of this PoC.
+
+In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a streamlined process that leverages the Object Manager to handle user queries efficiently. By specifying query parameters and filtering criteria through JSON documents, the system ensures that users receive accurate and relevant data from the in-memory graph, enhancing the overall user experience.
 
 <br><br>
 
