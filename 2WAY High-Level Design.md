@@ -47,6 +47,10 @@ Enter 2WAY, a proposal for a proof-of-concept (PoC) offering a purely P2P versio
 
 Designed to be lightweight, 2WAY can run both the frontend (client) and backend (server) on a desktop computer, making it accessible and practical for a wide range of users. Although the main goal of the 2WAY PoC is to demonstrate the 2WAY protocol, the platform leverages the Flask framework for both the frontend and backend, merging them into a single application. This integrated approach simplifies development and deployment. Once the PoC has proven effective, the backend could be implemented as a daemon or service in a low-level language, and the frontend could be developed using any language or framework.
 
+A key innovation in 2WAY is the Graph in RAM, an in-memory representation of a subset of the Server Graph, facilitating rapid querying and efficient data retrieval. By using the NetworkX library, the Graph in RAM allows for quick access to nodes and edges, significantly enhancing the system's responsiveness and user experience. The Graph Manager plays a crucial role in synchronizing this in-memory graph with the disk-based Server Graph, ensuring data consistency and integrity.
+
+The Object Manager orchestrates interactions between different components, managing the creation and querying of objects. When a user queries the system, the Object Manager retrieves relevant nodes from the Graph Manager based on the specified degree of separation, ensuring efficient and targeted data access.
+
 The foundation of 2WAY lies in its distributed identity, reputation, and access management server, which leverages cryptographic proof to verify message authenticity and establish secure communication channels between servers. Through a decentralized network of trusted nodes, users can exchange data with confidence, knowing that their identities and interactions are protected by robust cryptographic mechanisms.
 
 Furthermore, 2WAY is designed with extensibility in mind, allowing developers to build plugins that serve as applications within the 2WAY system. These plugins can leverage the platform's core functionalities, enabling a diverse range of applications and services to be built on top of the 2WAY infrastructure.
@@ -58,6 +62,10 @@ This document navigates through the intricate layers of the 2WAY system, beginni
 Within the Frontend section, we explain the Flask framework, the backbone of 2WAY's frontend, and examine the concept of plugins, from pre-installed options to the development of custom plugins.
 
 Transitioning to the Backend section, we uncover the foundational elements of the 2WAY Graph, alongside the management of core 2WAY Objects such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Additionally, we describe the Database Schema and dive deep into the functionalities of essential backend components, including the Object Manager, Graph Manager, Storage Manager, and more.
+
+To ensure scalability, 2WAY is designed with a distributed architecture that allows it to efficiently handle larger networks and increasing amounts of data as user demands grow. The system's architecture utilizes decentralized technologies such as distributed graphs and peer-to-peer (P2P) networks, which inherently distribute the workload across multiple nodes. This decentralized approach enables 2WAY to scale horizontally by adding more nodes to the network, ensuring that the system can handle a growing user base and data volume without experiencing performance degradation. Additionally, 2WAY employs efficient data storage and retrieval mechanisms, optimized for handling large datasets, further enhancing scalability while maintaining responsiveness.
+
+Moreover, 2WAY prioritizes a user-friendly experience by focusing on ease of use and intuitive interfaces. The platform is designed with user-centric principles, ensuring that interactions with digital identities and data management are seamless and intuitive. 2WAY employs clear and intuitive interfaces that guide users through the process of managing their identities and data, minimizing the need for technical expertise or extensive training. By prioritizing user experience, 2WAY aims to make identity and reputation management accessible and intuitive for users of all levels of technical proficiency, ultimately fostering greater adoption and engagement with the platform.
 
 Finally, within the Practical Examples section, we illustrate the real-world applications of 2WAY across various scenarios, demonstrating its versatility and efficacy in managing contacts, messaging, social interactions, addressing security challenges like Sybil attacks, navigating markets, verifying binaries, and handling key management tasks.
 
@@ -165,7 +173,7 @@ In essence, the 2WAY backend is a sophisticated and modular system that provides
 
 The 2WAY Graph lies at the core of the 2WAY system, serving as a dynamic and interconnected framework for representing and organizing data.
 
-At its essence, the 2WAY Graph embodies a graph-based data model that leverages nodes and edges to model relationships and interactions between various entities within the system. Nodes represent individual objects such as Attributes, Parents, Ratings, and Access Control Lists (ACLs), while Edges denote the connections and associations between Parent objects and Attributes.
+At its essence, the 2WAY Graph embodies a directed graph-based data model that leverages nodes and edges to model relationships and interactions between various entities within the system. Nodes represent individual objects such as Attributes, Parents, Ratings, and Access Control Lists (ACLs), while Edges denote the connections and associations between Parent objects and Attributes.
 
 The 2WAY Graph is distinguished by its decentralized and distributed nature, empowering users to create, share, and collaborate on data in a flexible and scalable manner. By embracing a graph-based approach, the system facilitates intuitive navigation, exploration, and discovery of interconnected data, enabling users to traverse relationships and uncover valuable insights within their social or organizational networks.
 
@@ -173,7 +181,7 @@ The 2WAY Graph is distinguished by its decentralized and distributed nature, emp
 
 ### 2.2.2 User Graph
 
-The User Graph in the 2WAY system represents the individualized network of nodes and edges maintained by the user. It comprises the user's personal data, connections, and interactions, encapsulating their contributions and relationships within the broader context of the Server Graph, which is the combined set of all User Graphs within the system. Each user's graph is unique and reflective of their specific interactions, preferences, and network connections within the system.
+The User Graph in the 2WAY system represents the individualized network of nodes and edges maintained by the user. It comprises the user's personal data, connections, and interactions, encapsulating their contributions and relationships within the broader context of the Server Graph, which is the combined set of all User Graphs within the system. Each user's directed graph is unique and reflective of their specific interactions, preferences, and network connections within the system.
 
 One notable aspect of the User Graph is that users always query data from their zeroth degree, from their point of view, within the Server Graph. This means that users primarily interact with and retrieve data that directly pertains to them or is within their immediate network connections. When querying the Server Graph, users traverse their own graph, exploring relationships, attributes, and interactions that are directly relevant to them.
 
@@ -185,7 +193,7 @@ This approach ensures that users maintain a focused and personalized view of the
 
 ### 2.2.3 Server Graph
 
-The Server Graph in the 2WAY system represents the collective aggregation of all individual User Graphs stored on the server. Each user within the system maintains their own graph, comprising nodes and edges representing their objects and relationships among them. The Server Graph, therefore, encompasses the totality of these individual User Graphs, consolidating them into a comprehensive network of interconnected data within the system.
+The Server Graph in the 2WAY system represents the collective aggregation of all individual User Graphs stored on the server. Each user within the system maintains their own directed graph, comprising nodes and edges representing their objects and relationships among them. The Server Graph, therefore, encompasses the totality of these individual User Graphs, consolidating them into a comprehensive network of interconnected data within the system.
 
 At its core, the Server Graph serves as a unified repository that encapsulates the entirety of the system's data landscape, encompassing Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs), contributed by users. By consolidating individual User Graphs into a centralized repository, the Server Graph facilitates seamless communication, collaboration, and data sharing among users within the system.
 
@@ -209,7 +217,7 @@ Furthermore, the Graph on Disk enables efficient querying, filtering, and analys
 
 ### 2.2.5 Graph in RAM
 
-The Graph in RAM in the 2WAY system serves as an in-memory representation of a subset of the Server Graph, stored temporarily in the system's Random Access Memory (RAM). This in-memory graph is populated and maintained using the NetworkX library, a powerful tool for analyzing and manipulating graph data structures in Python.
+The Graph in RAM in the 2WAY system serves as an in-memory representation of a subset of the Server Graph, stored temporarily in the system's Random Access Memory (RAM). This in-memory directed graph is populated and maintained using the NetworkX library, a powerful tool for analyzing and manipulating graph data structures in Python.
 
 One of the key functionalities of the Graph in RAM is to store the table record IDs of public key Attributes from the database on disk. These pubkey attributes serve as nodes within the graph, representing individual users within the system. By storing these record IDs in memory, the system can quickly retrieve and access relevant nodes during query operations, enabling efficient traversal and exploration of the Server Graph.
 
@@ -929,7 +937,7 @@ Next, if Alice adds Bob's public key as an attribute, another Attribute is creat
 }
 ```
 
-The Graph Manager then adds a node with the value "34" to the Graph in RAM and creates an edge between nodes "1" (Alice) and "34" (Bob), establishing a connection between the two users.
+The Graph Manager then adds a node with the value "34" to the Graph in RAM and creates a directed edge between nodes "1" (Alice) and "34" (Bob), establishing a connection between the two users, from Alice, to Bob.
 
 #### Removing Nodes and Edges
 
