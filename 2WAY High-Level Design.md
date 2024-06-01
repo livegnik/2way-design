@@ -45,6 +45,8 @@ For service providers, decentralizing applications can streamline operations and
 
 Enter 2WAY, a proposal for a proof-of-concept (PoC) offering a purely P2P version of electronic identity and reputation. At its core, 2WAY empowers users to issue their own cryptographic identities, control linked data, and establish secure communication channels without trusted intermediaries. Through digital signatures, a graph, and a P2P network, 2WAY enables users to curate their digital personas, filter information for relevancy, and interact directly with trusted parties securely, all through interfaces that already feel familiar to them.
 
+<br>
+
 Designed to be lightweight, 2WAY can run both the frontend (client) and backend (server) on a desktop computer, making it accessible and practical for a wide range of users. Although the main goal of the 2WAY PoC is to demonstrate the 2WAY protocol, the platform leverages the Flask framework for both the frontend and backend, merging them into a single application. This integrated approach simplifies development and deployment. Once the PoC has proven effective, the backend could be implemented as a daemon or service in a low-level language, and the frontend could be developed using any language or framework.
 
 A key innovation in 2WAY is the Graph in RAM, an in-memory representation of a subset of the Server Graph, facilitating rapid querying and efficient data retrieval. By using the NetworkX library, the Graph in RAM allows for quick access to nodes and edges, significantly enhancing the system's responsiveness and user experience. The Graph Manager plays a crucial role in synchronizing this in-memory graph with the disk-based Server Graph, ensuring data consistency and integrity.
@@ -58,6 +60,8 @@ Furthermore, 2WAY is designed with extensibility in mind, allowing developers to
 Drawing inspiration from the principles of privacy by design, 2WAY ensures that personally identifiable information is processed minimally, with private messages and data shared only with consent and encrypted for the intended recipient. Public messages can be broadcast on a best-effort basis, though this remains outside the scope of this PoC.
 
 2WAY ensures scalability through a distributed architecture, leveraging decentralized technologies like distributed graphs and P2P networks to distribute workload across multiple nodes. This enables horizontal scaling by adding more nodes, accommodating growing user demands without performance degradation. Efficient data storage and retrieval mechanisms further enhance scalability while maintaining responsiveness. Additionally, 2WAY prioritizes user-friendly interfaces, designed with intuitive principles to simplify digital identity and data management. Clear interfaces guide users through tasks, reducing the need for technical expertise and fostering greater adoption and engagement.
+
+<br>
 
 This document navigates through the intricate layers of the 2WAY system, beginning with an exploration of its frontend infrastructure and extending to its backend architecture.
 
