@@ -45,15 +45,15 @@ For service providers, decentralizing applications can streamline operations and
 
 <br>
 
-Enter 2WAY, a pioneering proof-of-concept (PoC) that reimagines electronic identity and reputation management in a fully peer-to-peer (P2P) environment. At its core, 2WAY empowers users to take control of their digital identities, manage linked data securely, and establish direct communication channels without relying on intermediaries. Through the seamless integration of digital signatures, a graph structure, and a decentralized P2P network, 2WAY offers users the ability to curate their digital personas, filter information for relevance, and engage securely with trusted parties, all within familiar interfaces.
+Enter 2WAY, a pioneering proof-of-concept that reimagines electronic identity and reputation management in a fully peer-to-peer (P2P) environment. At its core, 2WAY empowers users to take control of their digital identities, manage linked data securely, and establish direct communication channels without relying on intermediaries. Through the seamless integration of digital signatures, a graph structure, and a decentralized P2P network, 2WAY offers users the ability to curate their digital personas, filter information for relevance, and engage securely with trusted parties, all within familiar interfaces.
 
 The foundation of 2WAY lies in its distributed identity, reputation, and access management server, which leverages cryptographic proof to verify message authenticity and establish secure communication channels between servers. Through a decentralized network of trusted nodes, users can exchange data with confidence, knowing that their identities and interactions are protected by robust cryptographic mechanisms.
 
 Furthermore, 2WAY is designed with extensibility in mind, allowing developers to build plugins that serve as applications within the 2WAY system. These plugins can leverage the platform's core functionalities, enabling a diverse range of applications and services to be built on top of the 2WAY infrastructure.
 
-Drawing inspiration from the principles of privacy by design, 2WAY ensures that personally identifiable information is processed minimally, with private messages and data shared only with consent and encrypted for the intended recipient. Public messages can be broadcast on a best-effort basis, though this remains outside the scope of this PoC.
+Drawing inspiration from the principles of privacy by design, 2WAY ensures that personally identifiable information is processed minimally, with private messages and data shared only with consent and encrypted for the intended recipient. Public messages can be broadcast on a best-effort basis, though this remains outside the scope of this proof-of-concept.
 
-Designed to be lightweight, 2WAY can run both the frontend (client) and backend (server) on a desktop computer, making it accessible and practical for a wide range of users. Although the main goal of the 2WAY PoC is to demonstrate the 2WAY protocol, the platform leverages the Flask framework for both the frontend and backend, merging them into a single application. This integrated approach simplifies development and deployment. Once the PoC has proven effective, the backend could be implemented as a daemon or service in a low-level language, and the frontend could be developed using any language or framework.
+Designed to be lightweight, 2WAY can run both the frontend (client) and backend (server) on a desktop computer, making it accessible and practical for a wide range of users. Although the main goal of the 2WAY proof-of-concept is to demonstrate the 2WAY protocol, the platform leverages the Flask framework for both the frontend and backend, merging them into a single application. This integrated approach simplifies development and deployment. Once the proof-of-concept has proven effective, the backend could be implemented as a daemon or service in a low-level language, and the frontend could be developed using any language or framework.
 
 A key innovation in 2WAY is the Graph in RAM, an in-memory representation of a subset of the Server Graph, facilitating rapid querying and efficient data retrieval. By using the NetworkX library, the Graph in RAM allows for quick access to nodes and edges, significantly enhancing the system's responsiveness and user experience. The Graph Manager plays a crucial role in synchronizing this in-memory graph with the disk-based Server Graph, ensuring data consistency and integrity.
 
@@ -71,7 +71,7 @@ Transitioning to the Backend section, we uncover the foundational elements of th
 
 Finally, within the Practical Examples section, we illustrate the real-world applications of 2WAY across various scenarios, demonstrating its versatility and efficacy in managing contacts, messaging, social interactions, addressing security challenges like Sybil attacks, navigating markets, verifying binaries, and handling key management tasks.
 
-In summary, 2WAY offers a groundbreaking approach to electronic identity and reputation management by decentralizing these processes and empowering users with greater control and security. By eliminating the need for centralized third parties, 2WAY reduces the risks and costs associated with managing and securing user data, benefiting both users and service providers. This PoC demonstrates the potential of running both frontend and backend on a single desktop computer, leveraging the Flask framework for a seamless, integrated experience. With its extensible plugin architecture, 2WAY provides a versatile platform for developers to create a wide range of applications, fostering a resilient and user-centric digital ecosystem. This document will guide you through the detailed workings of 2WAY, highlighting its potential to revolutionize the way we manage digital identities and interactions in a secure, decentralized manner.
+In summary, 2WAY offers a groundbreaking approach to electronic identity and reputation management by decentralizing these processes and empowering users with greater control and security. By eliminating the need for centralized third parties, 2WAY reduces the risks and costs associated with managing and securing user data, benefiting both users and service providers. This proof-of-concept demonstrates the potential of running both frontend and backend on a single desktop computer, leveraging the Flask framework for a seamless, integrated experience. With its extensible plugin architecture, 2WAY provides a versatile platform for developers to create a wide range of applications, fostering a resilient and user-centric digital ecosystem. This document will guide you through the detailed workings of 2WAY, highlighting its potential to revolutionize the way we manage digital identities and interactions in a secure, decentralized manner.
 
 <br><br>
 
@@ -157,13 +157,11 @@ The backend of the 2WAY system is the cornerstone of its decentralized identity,
 
 At the core of the backend lies the 2WAY Graph, a comprehensive data structure that integrates both the User Graphs and the Server Graph. The User Graph represents the individual user's interactions. In contrast, the Server Graph is the aggregate of all User Graphs on a particular server, thereby encapsulating a subset of the network’s decentralized data.
 
-The backend is responsible for managing various types of 2WAY Objects, which are fundamental to the system's operation. These objects include Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Attributes are key-value pairs consisting of a "type" and a "value." Ratings are specific objects used to store reputation scores. Parents can have one or more Attributes as children, and the relationships between a Parent and its children are established through Edges. ACLs are used to define and manage access permissions within the system. Each object can be up or down-voted, indefinitely, by means of a newer message, influencing its visible presence in the graph.
+The backend is responsible for managing various types of 2WAY Objects, which are fundamental to the system's operation. These objects include Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Attributes are key-value pairs consisting of a "type" and a "value". Ratings are specific objects used to store reputation scores. Parents can have one or more Attributes as children, and the relationships between a Parent and its children are established through Edges. ACLs are used to define and manage access permissions within the system. Each object can be up or down-voted, indefinitely, by means of a newer message, influencing its visible presence in the graph.
 
-Several crucial components support the functionality and security of the 2WAY backend. The Database Schema ensures data is organized and structured efficiently. The Object Manager handles the reception of messages from the frontend, backend, or any connected application or device with access to the backend’s APIs, ensuring secure and reliable communication. The Graph Manager oversees the Graph in RAM only, maintaining the integrity and updates of the active data structure, while the overall 2WAY Graph encompasses the entire Server Graph, and is stored to disk.
+Several crucial components support the functionality and security of the 2WAY backend. The Database Schema ensures data is organized and structured efficiently. The Object Manager handles the reception of messages from the frontend, backend, or any connected application or device with access to the backend’s APIs, ensuring secure and reliable communication. The Graph Manager oversees the Graph in RAM only, maintaining the integrity and updates of the active data structure, while the overall 2WAY Graph encompasses the entire Server Graph, and is stored to disk. The Key Manager is vital for handling the signing and verification of messages, as well as the encryption and decryption of communications.
 
-The Key Manager is vital for handling the signing and verification of messages, as well as the encryption and decryption of communications. The ACL Manager oversees permissions and access rights, ensuring secure and authorized data access. The State Manager tracks the data that has been synchronized with other servers and manages data pending synchronization on the next connection.
-
-Additional components enhance the backend's robustness and reliability. The Storage Manager handles the physical storage of data, while the Network Manager manages the network connections between nodes, ensuring efficient data exchange. The Denial of Service (DoS) Guard Manager protects the system from malicious attacks, maintaining network performance and availability. The Log Manager records system activities for auditing and troubleshooting, and the Installation and Startup Managers facilitate the deployment and initialization of the 2WAY system.
+Additional components enhance the backend's robustness and reliability. The Storage Manager handles the physical storage of data, while the Network Manager manages the network connections between nodes, ensuring efficient data exchange, and tracks the data that has been synchronized with other servers and manages data pending synchronization on the next connection. The Denial of Service (DoS) Guard Manager protects the system from malicious attacks, maintaining network performance and availability. The Log Manager records system activities for auditing and troubleshooting, and the Installation and Startup Managers facilitate the deployment and initialization of the 2WAY system.
 
 In essence, the 2WAY backend is a sophisticated and modular system that provides the secure and decentralized foundation needed for the 2WAY platform's operations. It integrates various components and data structures to create a resilient and efficient framework for managing digital identities and associated data in a P2P network. This section explains each element in detail, offering a comprehensive understanding of the backend architecture and its critical role within the 2WAY system.
 
@@ -209,7 +207,7 @@ Overall, the Server Graph serves as the backbone of the 2WAY system, embodying t
 
 The Graph on Disk in the 2WAY system refers to the storage mechanism used to persist the Server Graph, comprising the aggregated data from all individual User Graphs, onto disk. This disk-based representation of the Server Graph ensures durability, accessibility, and scalability of the system's data, enabling efficient storage and retrieval of information across the entire user base.
 
-The Server Graph, in its entirety, is stored to disk using the SQL schema as discussed in "2.4 Database Schema." This schema design organizes the data into pre-defined separate tables for each plugin, each corresponding to specific object types such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). By leveraging a relational database management system (RDBMS) such as SQLite3, MySQL, or PostgreSQL, the Server Graph can be efficiently persisted and managed on disk, facilitating seamless data storage and retrieval operations.
+The Server Graph, in its entirety, is stored to disk using the SQL schema as discussed in "2.4 Database Schema". This schema design organizes the data into pre-defined separate tables for each plugin, each corresponding to specific object types such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). By leveraging a relational database management system (RDBMS) such as SQLite3, MySQL, or PostgreSQL, the Server Graph can be efficiently persisted and managed on disk, facilitating seamless data storage and retrieval operations.
 
 The Graph on Disk serves as the authoritative source of truth for the 2WAY system, housing the complete dataset that encompasses the collective intelligence and contributions of the users. Updates, modifications, and interactions made by users are reflected in real-time within the Server Graph on disk, ensuring that the data remains synchronized and up-to-date with the latest user activity.
 
@@ -221,7 +219,7 @@ Furthermore, the Graph on Disk enables efficient querying, filtering, and analys
 
 The Graph in RAM in the 2WAY system serves as an in-memory representation of a subset of the Server Graph, stored temporarily in the system's Random Access Memory (RAM). This in-memory directed graph is populated and maintained using the NetworkX library, a powerful tool for analyzing and manipulating graph data structures in Python.
 
-One of the key functionalities of the Graph in RAM is to store the table record IDs of public key Attributes from the database on disk. These pubkey attributes serve as nodes within the graph, representing individual users within the system. By storing these record IDs in memory, the system can quickly retrieve and access relevant nodes during query operations, enabling efficient traversal and exploration of the Server Graph.
+One of the key functionalities of the Graph in RAM is to store the table record IDs of public key Attributes from the database on disk. These public key attributes serve as nodes within the graph, representing individual users within the system. By storing these record IDs in memory, the system can quickly retrieve and access relevant nodes during query operations, enabling efficient traversal and exploration of the Server Graph.
 
 The Graph in RAM is designed to facilitate rapid querying of data from the disk-based Server Graph. When a user initiates a query, the system first retrieves relevant nodes from the in-memory graph based on the degree of separation specified in the query. These nodes serve as starting points for traversing the Server Graph stored on disk, allowing the system to narrow down the scope of the query and retrieve only the necessary data.
 
@@ -238,7 +236,7 @@ It's essential to note that maintaining a Graph in RAM comes at a relatively hig
 In 2WAY, a small set of simple data structures are used to construct objects. These objects, represented as nodes and edges within the 2WAY graph, encompass all of the data stored within the system. The following objects are used to construct the system in its entirety:
 
 ~~~
-1. "Attribute": Key-value pair, consisting of a "type" (the key, not to be confused with any cryptographic keys) and a "value."
+1. "Attribute": Key-value pair, consisting of a "type" (the key, not to be confused with any cryptographic keys) and a "value".
 
 2. "Parent": Parent attribute, to be connected to one or more child attributes via edges.
 
@@ -255,7 +253,7 @@ Using these objects, any required application can be modeled atop.
 
 ### 2.3.2 Attribute
 
-An attribute consists of a key-value pair, in the form of a "type" and a "value," functioning as a node within the server's graph structure. For instance, attributes such as type="name" with a corresponding value="Alice", or type="pubkey" with a lengthy public key value. Any attribute can be defined dynamically, either on the frontend, communicating with the backend through APIs, or by the backend itself.
+An attribute consists of a key-value pair, in the form of a "type" and a "value", functioning as a node within the server's graph structure. For instance, attributes such as type="name" with a corresponding value="Alice", or type="pubkey" with a lengthy public key value. Any attribute can be defined dynamically, either on the frontend, communicating with the backend through APIs, or by the backend itself.
 
 The two discussed example attributes:
 
@@ -267,7 +265,7 @@ The two discussed example attributes:
 
 {
 	"type": "pubkey",
-	"value": "really long pubkey here"
+	"value": "really long public key here"
 }
 ```
 
@@ -277,14 +275,14 @@ Whenever a user initiates an action on the frontend that generates an attribute,
 {
   "object": "attribute",
   "signing_key": "user_public_key",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "attribute_type": "name",
   "attribute_value": "Alice",
   "vote": "1",
 }
 ```
 
-Here, the "app_id" serves as the identifier for the frontend application, "2WAY," along with one of the application's sub-IDs, "Contacts." The backend uses this information to determine where to store the data. The attribute's key-value pair is defined as "name" for type, and "Alice" as its value. The vote is boolean. The value of "1" signifies that the object is relevant, whereas the value "0" indicates that the object is not relevant (any longer). When the latest version of an object contains the value "0" for "vote," the object is disregarded during future queries, unless specifically requested. The latest version of an object is the one returned when queried for, by default.
+Here, the "app_id" serves as the identifier for the frontend application, "twoway", along with one of the application's sub-IDs, "connections". The backend uses this information to determine where to store the data. The attribute's key-value pair is defined as "name" for type, and "Alice" as its value. The vote is boolean. The value of "1" signifies that the object is relevant, whereas the value "0" indicates that the object is not relevant (any longer). When the latest version of an object contains the value "0" for "vote", the object is disregarded during future queries, unless specifically requested. The latest version of an object is the one returned when queried for, by default.
 
 After the Object Manager receives a new object from the frontend application, the process starts that enables the creation of various object types within the system by authorized users. The newly created attribute is linked to the user's public key through an edge. This edge does not have to be stored as a separate Edge object, as the public key is also stored as an attribute (node within the graph), and the newly created attribute contains the signer's public key and signature. The message is signed by being passed to the Key Manager, that runs on the backend as well. This is where all key-management takes place, in an automated fashion.
 
@@ -337,9 +335,9 @@ The parent object consists of a single parent attribute and one or more other at
 }
 ```
 
-In this example, the parent's type is "pubkey" with the value "Alice's pubkey." The attributes with the types "name," "email," and "address" are child-attributes linking to a single attribute. The links are established outside of the parent as edges. However, note that the child with child_type="group" is a parent that serves as a child-attribute, and that the user who is creating the object(s) could be a part of this group themselves, as a child-attribute of said parent.
+In this example, the parent's type is "pubkey" with the value "Alice's public key". The attributes with the types "name", "email", and "address" are child-attributes linking to a single attribute. The links are established outside of the parent as edges. However, note that the child with child_type="group" is a parent that serves as a child-attribute, and that the user who is creating the object(s) could be a part of this group themselves, as a child-attribute of said parent.
 
-In the 2WAY system, users are typically identified within the graph by their public key (pubkey). Consequently, a user's parent attribute might appear as name="pubkey" with a corresponding value="really long pubkey". Subsequently, the user's name or email address can be associated as child attributes, such as type="username" with a value like "Alice", or type="email" with a value like "Alice@gmail.com". This approach enables the establishment of necessary parent-child relationships to organize and retrieve data effectively.
+In the 2WAY system, users are typically identified within the graph by their public key ("pubkey" Attribute). Consequently, a user's parent attribute might appear as name="pubkey" with a corresponding value="really long public key". Subsequently, the user's name or email address can be associated as child attributes, such as type="username" with a value like "Alice", or type="email" with a value like "Alice@gmail.com". This approach enables the establishment of necessary parent-child relationships to organize and retrieve data effectively.
 
 To create objects other than users, one simply needs to define the required attribute. For example, to store blog articles, one could utilize type="Post" with a corresponding value for the post title. Similarly, for building a marketplace and adding products, starting with type="category" and value="Books" could be a first step, followed by adding relevant children attributes. For a blog post, these children could include attributes like title, author name, content, and publication date, while for a book, attributes like author, ISBN code, or content could be added.
 
@@ -429,7 +427,7 @@ JSON document example for establishing a rating:
 
 ### 2.3.6 Access Control List (ACL)
 
-The Access Control List (ACL) in 2WAY serves as a crucial mechanism for managing user permissions within the system. This data structure acts as a link between a user's "pubkey" attribute and the specific attributes or parents for which they possess read permissions.
+The Access Control List (ACL) in 2WAY serves as a crucial mechanism for managing user permissions within the system. This data structure acts as a link between a user's "pubkey" Attribute and the specific attributes or parents for which they possess read permissions.
 
 The ACL document is structured to include entries defining the access permissions granted to each user. These entries typically consist of:
 
@@ -470,9 +468,9 @@ The database schema for the 2WAY system is designed to reflect the structure and
 
 By organizing data into separate tables and establishing relationships between them through foreign keys, the schema ensures data integrity and enables efficient querying and retrieval operations within the SQLite3 database. Additionally, incorporating versioning fields allows for tracking changes over time and managing data revisions effectively. This schema design supports the creation, storage, and querying of various objects within the 2WAY system, providing a solid foundation for managing user data, reputation metrics, access controls, and other relevant information in a structured and organized manner.
 
-In the 2WAY system, each plugin is responsible for creating its own set of tables within the backend database, adhering to the schema outlined in section 2.4.2, "Database Schema Design." Not only does this approach prevent plugins from interfering with each other, but it also enables plugins to access and utilize data from other plugins, fostering interoperability and collaboration within the system.
+In the 2WAY system, each plugin is responsible for creating its own set of tables within the backend database, adhering to the schema outlined in section 2.4.2, "Database Schema Design". Not only does this approach prevent plugins from interfering with each other, but it also enables plugins to access and utilize data from other plugins, fostering interoperability and collaboration within the system.
 
-To achieve this, each plugin is assigned a unique "app_id" and can optionally have one or more "app_sub_id" identifiers. These identifiers are used to name the tables within the database, ensuring that each plugin's tables are distinct and identifiable. For instance, the default Contacts plugin in 2WAY might have the app_id "twoway" and the app_sub_id "connections," resulting in table names such as "twoway_connections_attributes," "twoway_connections_parents," "twoway_connections_edges," "twoway_connections_ratings," and "twoway_connections_acl."
+To achieve this, each plugin is assigned a unique "app_id" and can optionally have one or more "app_sub_id" identifiers. These identifiers are used to name the tables within the database, ensuring that each plugin's tables are distinct and identifiable. For instance, the default Contacts plugin in 2WAY might have the app_id "twoway" and the app_sub_id "connections", resulting in table names such as "twoway_connections_attributes", "twoway_connections_parents", "twoway_connections_edges", "twoway_connections_ratings", and "twoway_connections_acl".
 
 The schema design for plugins is crafted to enable interoperability and seamless integration between different plugins within the system. Each plugin's tables follow the same structure and naming conventions, making it easy for plugins to interact with one another and share data as needed. By following a consistent schema design, plugins can leverage common functionalities and utilities provided by the core system, such as access control lists (ACLs), data indexing, and query optimization. This promotes code reusability and simplifies plugin development, allowing developers to focus on implementing unique features and functionalities without worrying about low-level database management tasks.
 
@@ -568,7 +566,7 @@ Here are the core tables in the schema:
 
 In the 2WAY system, the Object Manager serves as the central hub for creating and querying all the core objects, including Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's Object Manager, ensuring a streamlined and efficient handling of data interactions.
 
-When users create objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Object Manager via API calls. These API calls contain the necessary data to create the desired object, such as Attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Object Manager processes the data, passes it to the Key Manager for signing, and then to the Storage Manager for the corresponding database operations to create the requested objects within the system. Additionally, it informs the ACL Manager, Graph Manager, and State Manager of any relevant changes, ensuring that the system remains up-to-date and consistent.
+When users create objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Object Manager via API calls. These API calls contain the necessary data to create the desired object, such as Attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Object Manager processes the data, passes it to the Key Manager for signing, and then to the Storage Manager for the corresponding database operations to create the requested objects within the system. Additionally, it informs the Graph Manager of any relevant changes, ensuring that the system remains up-to-date and consistent.
 
 Similarly, querying objects within the 2WAY system is initiated through the frontend interface, which sends API calls to the backend's Object Manager. These API calls specify the parameters for the desired query, including the degree of separation from the user's zeroth degree (their public key) and the type of object being queried. The Object Manager retrieves the relevant nodes from the Graph Manager (which manages the Graph in RAM), then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The queried data is then returned to the frontend for user interaction.
 
@@ -586,7 +584,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 ```json
 {
   "object": "attribute",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_id",
   "attribute_type": "name",
   "attribute_value": "Alice",
@@ -598,7 +596,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 ```json
 {
   "object": "parent",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_id",
   "parent_id": 123,
   "parent_version": 1,
@@ -609,7 +607,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 ```json
 {
   "object": "edge",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_id",
   "parent_id": 123,
   "parent_version": 1,
@@ -623,7 +621,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 ```json
 {
   "object": "rating",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_id",
   "attribute_id": 0,
   "attribute_version": 0,
@@ -640,7 +638,7 @@ To create objects within the 2WAY system, users interact with the frontend inter
 ```json
 {
   "object": "acl",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_id",
   "pubkey_id": 123,
   "access_to_id": [456, 789],
@@ -654,7 +652,7 @@ Upon receiving these JSON documents from clients or the backend/system itself, t
 ```json
 {
   "object": "attribute",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_id",
   "attribute_type": "name",
   "attribute_value": "Alice",
@@ -665,9 +663,9 @@ Upon receiving these JSON documents from clients or the backend/system itself, t
 }
 ```
 
-Once signed, the messages are handed over to the Storage Manager, which appends them to the database. If the message pertains to an ACL, it is also relayed to the ACL Manager. Additionally, any necessary updates to the Graph in RAM are handled by passing the message to the Graph Manager.
+Once signed, the messages are handed over to the Storage Manager, which appends them to the database. Additionally, any necessary updates to the Graph in RAM are handled by passing the message to the Graph Manager.
 
-When the Object Manager receives a message from the Network Manager (i.e., from another server), it directly appends the message by forwarding it to the Storage Manager. If the message involves an ACL, it is likewise relayed to the ACL Manager. Furthermore, any required updates to the Graph in RAM are managed by passing the message to the Graph Manager.
+When the Object Manager receives a message from the Network Manager (i.e., from another server), it directly appends the message by forwarding it to the Storage Manager. Furthermore, any required updates to the Graph in RAM are managed by passing the message to the Graph Manager.
 
 <br>
 
@@ -680,7 +678,7 @@ An examples of a JSON document for down-voting an Attribute, to be processed by 
 ```json
 {
   "object": "attribute",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_id",
   "attribute_type": "name",
   "attribute_value": "Alice",
@@ -693,7 +691,7 @@ Upon receiving this JSON document, the Object Manager follows the standard proce
 ```json
 {
   "object": "attribute",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_id",
   "attribute_type": "name",
   "attribute_value": "Alice",
@@ -704,11 +702,11 @@ Upon receiving this JSON document, the Object Manager follows the standard proce
 }
 ```
 
-The signed document is then appended to the database by the Storage Manager. The ACL Manager and Graph Manager are updated as necessary to reflect the down-vote in the Access Control Lists (ACLs) and in the Graph in RAM.
+The signed document is then appended to the database by the Storage Manager. The Graph Manager is updated as necessary to reflect the down-vote in the Graph in RAM.
 
 By preserving all objects and utilizing a down-vote mechanism, the 2WAY system allows users to filter and prioritize data according to their own preferences and judgments. This ensures a more personalized and user-centric experience, where each individual can curate their digital environment without permanently removing information that might be relevant to others.
 
-While the current proof-of-concept (PoC) does not support automatic removal of objects, it is conceivable that future implementations could incorporate mechanisms for cleaning up the database. For example, duplicate objects, objects with an older version, or those beyond a certain age threshold could be automatically pruned to maintain database efficiency and manageability. However, such features are outside the scope of this PoC and would require careful consideration of criteria and processes to ensure consistency and data integrity.
+While the current proof-of-concept does not support automatic removal of objects, it is conceivable that future implementations could incorporate mechanisms for cleaning up the database. For example, duplicate objects, objects with an older version, or those beyond a certain age threshold could be automatically pruned to maintain database efficiency and manageability. However, such features are outside the scope of this proof-of-concept and would require careful consideration of criteria and processes to ensure consistency and data integrity.
 
 <br>
 
@@ -721,7 +719,7 @@ Here is an example of a JSON document for querying up-voted objects:
 ```json
 {
   "object": "attribute",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_public_key",
   "degree": 2,
   "vote": 1,
@@ -736,7 +734,7 @@ If a user wishes to query down-voted objects, they can specify the vote paramete
 ```json
 {
   "object": "attribute",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_public_key",
   "degree": 2,
   "vote": 0,
@@ -744,7 +742,7 @@ If a user wishes to query down-voted objects, they can specify the vote paramete
 }
 ```
 
-By setting the "vote" parameter to "0," the system will retrieve the latest versions of down-voted objects, allowing users to access data that they or others might have found less relevant or disagreed with. This functionality provides a comprehensive view of the data landscape within the 2WAY system, accommodating different perspectives and preferences.
+By setting the "vote" parameter to "0", the system will retrieve the latest versions of down-voted objects, allowing users to access data that they or others might have found less relevant or disagreed with. This functionality provides a comprehensive view of the data landscape within the 2WAY system, accommodating different perspectives and preferences.
 
 Upon receiving these JSON documents, the Object Manager processes the request by first interacting with the Graph Manager to identify the relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The system ensures that the queried objects match the specified parameters, including object type, degree of separation, and vote status, before returning the data to the frontend.
 
@@ -761,7 +759,7 @@ Below is an example of a JSON document for filtering objects based on specific c
 ```json
 {
   "object": "attribute",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_public_key",
   "criteria": {
     "attribute_type": "email",
@@ -781,7 +779,7 @@ To filter objects based on Ratings, users can specify criteria for Ratings in th
 ```json
 {
   "object": "rating",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_public_key",
   "criteria": {
     "min_score": "1",
@@ -803,7 +801,7 @@ Here is a more extensive and UX-friendly search query example that demonstrates 
 ```json
 {
   "object": "attribute",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_public_key",
   "degree": 2,
   "criteria": {
@@ -828,18 +826,18 @@ Here is a more extensive and UX-friendly search query example that demonstrates 
 **Breakdown of Filtering Criteria:**
 
 - **object**: Specifies the type of object to filter, which is "attribute" in this case.
-- **app_id**: Specifies the application context, here it's "2WAY, Contacts."
+- **app_id**: Specifies the application context, here it's "twoway, connections".
 - **signing_key**: The public key of the user initiating the query.
 - **degree**: Limits the query to objects signed by anyone within 2 degrees of separation.
 - **criteria**: Contains the filtering parameters:
-  - **attribute_type**: "phone_number," indicating we want attributes of this type.
+  - **attribute_type**: "phone_number", indicating we want attributes of this type.
   - **vote**: 1, indicating we only want up-voted objects.
   - **parent**: Specifies the type of parent object we are interested in ("restaurant"), and excludes a specific value ("The French Cock").
   - **ratings**: Specifies criteria for ratings:
-    - **min_score**: "1.75," indicating we want objects with a minimum score of 1.75.
-    - **scale**: "out-of-5-stars," specifying the scale of the ratings.
+    - **min_score**: "1.75", indicating we want objects with a minimum score of 1.75.
+    - **scale**: "out-of-5-stars", specifying the scale of the ratings.
     - **vote**: 1, indicating only up-voted ratings.
-    - **signed_by**: Specifies that we want ratings from "Friends" and "Family."
+    - **signed_by**: Specifies that we want ratings from "Friends" and "Family".
   - **exclude_parents**: Excludes objects associated with specific parents ("people with bad taste in food").
   - **degree**: 0, limiting "exclude_parents" objects to those signed by the user, in the zeroth degree.
 
@@ -863,9 +861,9 @@ For example, when a user creates a new connection, the Graph Manager adds the co
 
 The Graph Manager also facilitates query operations by providing methods to retrieve nodes by degree of separation from the user's zeroth degree within the Server Graph. Users query the Object Manager, which then calls the Graph Manager to obtain table record IDs of relevant nodes within their User Graph, enabling efficient exploration and analysis.
 
-The Graph Manager for this PoC focuses on storing record IDs of public key Attributes with app_id="twoway" and app_sub_id="connections" in the table "twoway_connections_attributes". For example, if Alice's first interaction is signing her own public key, storing it as an Attribute with the record ID "1" in the table, a node with the value "1" is added to the Graph in RAM. If Alice adds Bob's public key as an attribute with a record ID of "34", a node with the value "34" is added to the Graph in RAM, and an edge is established between nodes "1" and "34". When a "pubkey" Attribute is down-voted, it is removed from the Graph in RAM along with the edge between the two nodes.
+The Graph Manager for this proof-of-concept focuses on storing record IDs of public key Attributes with app_id="twoway" and app_sub_id="connections" in the table "twoway_connections_attributes". For example, if Alice's first interaction is signing her own public key, storing it as an Attribute with the record ID "1" in the table, a node with the value "1" is added to the Graph in RAM. If Alice adds Bob's public key as an attribute with a record ID of "34", a node with the value "34" is added to the Graph in RAM, and an edge is established between nodes "1" and "34". When a "pubkey" Attribute is down-voted, it is removed from the Graph in RAM along with the edge between the two nodes.
 
-Future versions of 2WAY may allow adding and removing other Attributes or Parents to and from the Graph in RAM, but this is outside the scope of the PoC.
+Future versions of 2WAY may allow adding and removing other Attributes or Parents to and from the Graph in RAM, but this is outside the scope of the proof-of-concept.
 
 By managing synchronization between the Graph in RAM and the Server Graph, as well as handling changes and query requests, the Graph Manager ensures the integrity, accessibility, and responsiveness of the graph data within the 2WAY system.
 
@@ -964,7 +962,7 @@ Upon processing this JSON document, the Graph Manager queries the old Attributes
 
 #### Future Extensions
 
-While the current PoC focuses on managing connections represented by public key Attributes, future versions of 2WAY could potentially allow for the addition and removal of other types of Attributes or Parents from the Graph in RAM. However, these enhancements are beyond the scope of this PoC and would require additional considerations for implementation.
+While the current proof-of-concept focuses on managing connections represented by public key Attributes, future versions of 2WAY could potentially allow for the addition and removal of other types of Attributes or Parents from the Graph in RAM. However, these enhancements are beyond the scope of this proof-of-concept and would require additional considerations for implementation.
 
 In summary, the Graph Manager in the 2WAY system dynamically adjusts the Graph in RAM to reflect changes in connections, ensuring data accuracy and efficient query operations. The use of JSON documents facilitates the management of nodes and edges, highlighting the flexibility and scalability of the system.
 
@@ -983,7 +981,7 @@ The query request includes details such as the object type, degree of separation
 ```json
 {
   "object": "attribute",
-  "app_id": "2WAY, Contacts",
+  "app_id": "twoway, connections",
   "signing_key": "user_public_key",
   "degree": 2,
   "criteria": {
@@ -1073,7 +1071,7 @@ In this example, the results include nodes for Bob's and Carol's public keys, wh
 
 #### Future Enhancements
 
-While this PoC focuses on querying nodes based on public key attributes and their degrees of separation, future versions of 2WAY could incorporate more advanced querying capabilities. This might include filtering based on additional attributes or incorporating more complex relationship criteria. However, such enhancements are beyond the scope of this PoC.
+While this proof-of-concept focuses on querying nodes based on public key attributes and their degrees of separation, future versions of 2WAY could incorporate more advanced querying capabilities. This might include filtering based on additional attributes or incorporating more complex relationship criteria. However, such enhancements are beyond the scope of this proof-of-concept.
 
 In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a streamlined process that leverages the Object Manager to handle user queries efficiently. By specifying query parameters and filtering criteria through JSON documents, the system ensures that users receive accurate and relevant data from the in-memory graph, enhancing the overall user experience.
 
@@ -1262,15 +1260,3 @@ Tor integration, etc
 
 
 
-
-[ ] 2.5.4 "latest" not described, 1 = latest object version and 0 = all object versions
-[ ] Add "latest" to "2.5.5 Filtering Objects"
-[ ] Querying Objects --> Vote = empty to query both up and down-voted objects
-[ ] Add user_id description
-[ ] Change user_public_key to user_id where needed
-[ ] Rename Message Manager to Object Manager
-[ ] Breakdown all the JSON documents like under "2.5.5 Filtering Objects"
-[ ] Improve "2.3 2WAY Objects"
-[ ] Change "2WAY" to "twoway" where needed
-[ ] Change "Contacts" to "connections" where needed
-[ ] Change database schema to prevent plugin name collision in table name
