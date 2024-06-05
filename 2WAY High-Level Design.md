@@ -308,9 +308,7 @@ This JSON response includes details such as the Attribute's ID, version, signing
 
 ### 2.3.3 Parent
 
-In the 2WAY system, a Parent object consists of a single parent attribute connected to one or more child attributes or other parent objects. This structure allows for hierarchical organization of data within the graph.
-
-#### Example of a Parent Object
+A Parent in the 2WAY system consists of a single parent Attribute connected to one or more child Attributes and/or other Parents. This hierarchical structure allows for the organization and management of complex data relationships. For example:
 
 ```json
 {
@@ -330,32 +328,20 @@ In the 2WAY system, a Parent object consists of a single parent attribute connec
       "child_value": "Roadstreet 123"
     },
     {
-      "child_type": "group",
+      "child_parent_type": "group",
       "child_value": "Enterprise LLC"
     }
   ]
 }
 ```
 
-In this example:
-- The parent's type is "pubkey" with the value "Alice's public key".
-- The children include attributes for "name", "email", "address", and "group".
-- The "group" attribute acts as a parent itself, potentially linking to its own children.
+In this example, the parent Attribute has the type "pubkey" and the value "Alice's public key". It has several child Attributes with types such as "name", "email", and "address", each linking specific information to the parent. Additionally, there is a child with the type "group" (e.g., "Enterprise LLC"), which itself can function as a Parent with its own children, illustrating the flexibility and scalability of this structure.
 
-#### Key Concepts
+Typically, users in the 2WAY system are identified by their public key (the "pubkey" Attribute). A user's parent Attribute might thus appear as `{"type": "pubkey", "value": "Alice's public key"}`. Child Attributes like `{"type": "username", "value": "Alice"}` or `{"type": "email", "value": "alice@gmail.com"}` are then associated with this parent, establishing the necessary relationships to organize and retrieve user data effectively.
 
-- **Parent-Child Relationships**: The parent attribute is connected to its children via edges in the graph. These relationships are established externally but are crucial for organizing and retrieving data.
-- **User Identification**: Users are typically identified by their public key ("pubkey" Attribute). For example, a user could have a parent attribute of `{"type": "pubkey", "value": "Alice's public key"}` with child attributes like `{"type": "name", "value": "Alice"}` and `{"type": "email", "value": "alice@email.com"}`.
+To create objects other than users, define the required parent Attribute accordingly. For example, to store blog articles, you might use `{"type": "Post", "value": "Blog Post Title"}`. For a marketplace, start with `{"type": "category", "value": "Books"}`, followed by relevant child Attributes. A blog post could have children like `{"type": "title", "value": "Post Title"}`, `{"type": "author", "value": "Author Name"}`, and `{"type": "content", "value": "Post Content"}`. Similarly, a book might include children like `{"type": "author", "value": "Author Name"}`, `{"type": "ISBN", "value": "ISBN Code"}`, and `{"type": "content", "value": "Book Content"}`.
 
-#### Creating Objects
-
-To create objects other than users, you define the necessary attributes. For instance:
-- **Blog Articles**: Define an attribute with `{"type": "Post", "value": "Post Title"}`. Children might include `{"type": "author", "value": "Author Name"}`, `{"type": "content", "value": "Post Content"}`, and `{"type": "date", "value": "Publication Date"}`.
-- **Marketplace Products**: Start with `{"type": "category", "value": "Books"}` and add relevant child attributes like `{"type": "title", "value": "Book Title"}`, `{"type": "author", "value": "Author Name"}`, and `{"type": "ISBN", "value": "ISBN Code"}`.
-
-#### JSON Document for Creating a Parent
-
-When a parent object is created, it is documented as follows:
+When creating a parent object, the following JSON structure might be used:
 
 ```json
 {
@@ -371,15 +357,16 @@ When a parent object is created, it is documented as follows:
 }
 ```
 
-This JSON document includes:
-- `id` and `version`: Identifiers for the parent object and its version.
-- `signing_key`: The public key of the user creating the parent.
-- `parent_id` and `parent_version`: References to the parent object and its version.
-- `vote`: A boolean indicating the relevance of the object (`1` for relevant, `0` for not relevant).
-- `timestamp`: The time the parent was created.
-- `hash` and `signature`: Cryptographic elements ensuring data integrity and authenticity.
+In this JSON structure:
+- `id` and `version` identify the object and its version.
+- `signing_key` is the public key of the user creating the object.
+- `parent_id` and `parent_version` reference the parent object.
+- `vote` indicates the relevance of the object (`1` for relevant, `0` for irrelevant).
+- `timestamp` records the time of creation.
+- `hash` provides a unique identifier for the document.
+- `signature` ensures the authenticity of the document.
 
-<br>
+This JSON response includes details such as the parent object's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, ensuring data integrity and authenticity within the 2WAY system.
 
 ### 2.3.4 Edge
 
