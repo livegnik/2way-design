@@ -231,15 +231,15 @@ It's essential to note that maintaining a Graph in RAM comes at a relatively hig
 
 ### 2.3.1 Introduction to 2WAY Objects
 
-In 2WAY, a small set of simple data structures are used to construct objects. These objects, represented as nodes and edges within the 2WAY graph, encompass all of the data stored within the system. The flexibility of these objects allows the system to model a wide range of applications and data structures.
+In 2WAY, a small set of simple data structures are used to construct objects. These objects, represented as nodes and edges within the 2WAY graph, encompass all the data stored within the system. The flexibility of these objects allows the system to model a wide range of applications and data structures, with the graph structure facilitating data organization and relationships.
 
 The following objects are used to construct the system in its entirety:
 
-1. **Attribute**: A key-value pair consisting of a "type" (the key, not to be confused with any cryptographic keys) and a "value". Attributes represent the basic units of information. For example, an Attribute could be a public key (`{"type": "pubkey", "value": "ABC123"}`), or a username (`{"type": "username", "value": "alice"}`), or any other required entity.
+1. **Attribute**: A key-value pair consisting of a "type" (the key, not to be confused with any cryptographic keys) and a "value". Attributes represent the basic units of information. For example, an Attribute could be a public key (`{"type": "pubkey", "value": "ABC123"}`), a username (`{"type": "username", "value": "alice"}`), or any other required entity.
 
 2. **Parent**: A Parent Attribute that is connected to one or more child Attributes via Edge objects. This allows the organization of Attributes into hierarchical structures. For instance, a Parent Attribute could represent a user, with child Attributes representing their various properties like public keys and usernames, a group containing members, a category and its products, etc.
 
-3. **Edge**: An Edge represents a connection between a single Parent Attribute and one or more child Attributes. Edges define relationships within the graph, enabling complex data structures. For example, an Edge might connect a user attribute to their various public keys, a group to its members, a category to its products, etc.
+3. **Edge**: An Edge represents a connection between a single Parent Attribute and one or more child Attributes. Edges define relationships within the graph, enabling complex data structures. For example, an Edge might connect a user attribute to their various public keys, a group to its members, or a category to its products.
 
 4. **Rating**: A score with a rating scale and/or comment, assigned to an Attribute or Parent. Ratings provide a way to evaluate and rank Attributes. The specific scores and scales for ratings are defined by the plugins, allowing for customization based on the needs of different applications. For example, one plugin might use ratings to represent a user's reputation score, while another might use ratings to indicate the ranking of a movie or book. This flexibility allows developers to implement any rating system required by their application.
 
