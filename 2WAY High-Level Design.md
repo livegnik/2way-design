@@ -181,7 +181,7 @@ The 2WAY Graph is distinguished by its decentralized and distributed nature, emp
 
 The User Graph in the 2WAY system represents the individualized network of nodes and edges maintained by the user. It comprises the user's personal data, connections, and interactions, encapsulating their contributions and relationships within the broader context of the Server Graph, which is the combined set of all User Graphs within the system. Each user's directed graph is unique and reflective of their specific interactions, preferences, and network connections within the system.
 
-One notable aspect of the User Graph is that users always query data from their zeroth degree, from their point of view, within the Server Graph. This means that users primarily interact with and retrieve data that directly pertains to them or is within their immediate network connections. When querying the Server Graph, users traverse their own graph, exploring relationships, attributes, and interactions that are directly relevant to them.
+One notable aspect of the User Graph is that users always query data from their zeroth degree, from their point of view, within the Server Graph. This means that users primarily interact with and retrieve data that directly pertains to them or is within their immediate network connections. When querying the Server Graph, users traverse their own graph, exploring relationships, application data, and interactions that are directly relevant to them.
 
 From the user's perspective, data in other User Graphs that doesn't overlap with their own User Graph doesn't exist. In other words, users only perceive and interact with data that is within their own User Graph or is directly connected to them through their network connections. Data outside of their immediate network or areas of interest is effectively invisible or inaccessible to them within the Server Graph.
 
@@ -221,7 +221,7 @@ One of the key functionalities of the Graph in RAM is to store the table record 
 
 The Graph in RAM is designed to facilitate rapid querying of data from the disk-based Server Graph. When a user initiates a query, the system first retrieves relevant nodes from the in-memory graph based on the degree of separation specified in the query. These nodes serve as starting points for traversing the Server Graph stored on disk, allowing the system to narrow down the scope of the query and retrieve only the necessary data.
 
-Furthermore, the Graph in RAM could be dynamically extended with additional 2WAY objects as needed to speed up querying for certain data. For example, if a user frequently queries for attributes or parents within their immediate network, these objects could be cached in memory to expedite future query operations. However, this is outside of the scope of this proof-of-concept.
+Furthermore, the Graph in RAM could be dynamically extended with additional 2WAY objects as needed to speed up querying for certain data. For example, if a user frequently queries for Attributes or parents within their immediate network, these objects could be cached in memory to expedite future query operations. However, this is outside of the scope of this proof-of-concept.
 
 It's essential to note that maintaining a Graph in RAM comes at a relatively high cost compared to directly retrieving data from the SQL database. While in-memory operations are faster, they consume system resources and memory, potentially impacting overall system performance. Therefore, the Graph in RAM should be used conservatively and selectively, focusing on caching frequently accessed data or optimizing specific query patterns to enhance overall responsiveness and user experience within the 2WAY system.
 
@@ -239,7 +239,7 @@ The following objects are used to construct the system in its entirety:
 
 2. **Parent**: A Parent Attribute that is connected to one or more child Attributes via an Edge object. This allows the organization of Attributes into hierarchical structures. For instance, a Parent Attribute could represent a user, with child Attributes representing their various properties like public keys and usernames, a group containing members, a category and its products, etc.
 
-3. **Edge**: An Edge represents a connection between a single Parent Attribute and one or more child Attributes. Edges define relationships within the graph, enabling complex data structures. For example, an Edge might connect a user attribute to their various public keys, a group to its members, or a category to its products.
+3. **Edge**: An Edge represents a connection between a single Parent Attribute and one or more child Attributes. Edges define relationships within the graph, enabling complex data structures. For example, an Edge might connect a user Attribute to their various public keys, a group to its members, or a category to its products.
 
 4. **Rating**: A score with a rating scale and/or comment, assigned to an Attribute or Parent. Ratings provide a way to evaluate and rank Attributes. The specific scores and scales for ratings are defined by the plugins, allowing for customization based on the needs of different applications. For example, one plugin might use ratings to represent a user's reputation score, while another might use ratings to indicate the ranking of a movie or book. This flexibility allows developers to implement any rating system required by their application.
 
@@ -251,14 +251,14 @@ Using these objects, any required application can be modeled atop the 2WAY platf
 
 ### 2.3.2 Attribute
 
-An Attribute in the 2WAY system is a key-value pair, consisting of a "type" and a "value". These attributes function as nodes within the server's graph structure, representing the fundamental units of information. For example, an attribute could be:
+An Attribute in the 2WAY system is a key-value pair, consisting of a "type" and a "value". These Attributes function as nodes within the server's graph structure, representing the fundamental units of information. For example, an Attribute could be:
 
 - `{"type": "name", "value": "Alice"}`
-- `{"type": "pubkey", "value": "really long public key here"}`
+- `{"type": "pubkey", "value": "Alice's public key"}`
 
 Attributes can be defined dynamically, either by the frontend through API communication or directly by the backend.
 
-When a user generates an attribute on the frontend, it is transmitted to the backend's Object Manager API as a JSON document. For instance:
+When a user generates an Attribute on the frontend, it is transmitted to the backend's Object Manager API as a JSON document. For instance:
 
 ```json
 {
@@ -272,21 +272,21 @@ When a user generates an attribute on the frontend, it is transmitted to the bac
 ```
 
 In this JSON structure:
-- `object` specifies that this is an attribute.
-- `signing_key` is the public key of the user creating the attribute.
+- `object` specifies that this is an Attribute.
+- `signing_key` is the public key of the user creating the Attribute.
 - `app_id` identifies the frontend application (e.g., "twoway") and a sub-ID (e.g., "connections") to determine where to store the data.
-- `attribute_type` and `attribute_value` define the key-value pair of the attribute.
+- `attribute_type` and `attribute_value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the object (`1` for relevant, `0` for irrelevant).
 
 The `vote` value helps manage object lifecycle; an object with a vote of `0` in its latest version is ignored in future queries unless explicitly requested.
 
-Once the Object Manager receives a new attribute, it starts the process of creating various object types within the system by authorized users. The newly created attribute is linked to the user's public key through an implicit edge. This edge connection is inherent since the public key is also stored as an attribute, and the new attribute contains the signer's public key and signature.
+Once the Object Manager receives a new Attribute, it starts the process of creating various object types within the system by authorized users. The newly created Attribute is linked to the user's public key through an implicit edge. This edge connection is inherent since the public key is also stored as an Attribute, and the new Attribute contains the signer's public key and signature.
 
-The Key Manager, running on the backend, handles the signing of the attribute, ensuring all key management processes are automated and secure.
+The Key Manager, running on the backend, handles the signing of the Attribute, ensuring all key management processes are automated and secure.
 
-The Object Manager also facilitates querying of attributes, allowing users to filter results based on the degree of separation and additional contextual criteria.
+The Object Manager also facilitates querying of Attributes, allowing users to filter results based on the degree of separation and additional contextual criteria.
 
-When the newly created attribute is queried, the following result is returned:
+When the newly created Attribute is queried, the following result is returned:
 
 ```json
 {
@@ -302,7 +302,7 @@ When the newly created attribute is queried, the following result is returned:
 }
 ```
 
-This JSON response includes details such as the attribute's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, ensuring data integrity and authenticity within the 2WAY system.
+This JSON response includes details such as the Attribute's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, ensuring data integrity and authenticity within the 2WAY system.
 
 <br>
 
