@@ -247,8 +247,6 @@ The following objects are used to construct the system in its entirety:
 
 Using these objects, any required application can be modeled atop the 2WAY platform. The object model is both flexible and extensible, allowing developers to create custom structures and relationships tailored to their specific needs. The combination of attributes, parents, edges, ratings, and ACLs provides a robust foundation for building decentralized applications that prioritize security, privacy, and user control.
 
----
-
 <br>
 
 ### 2.3.2 Attribute
