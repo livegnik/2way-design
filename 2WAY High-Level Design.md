@@ -455,22 +455,18 @@ In this JSON structure:
 
 ### 2.3.6 Access Control List (ACL)
 
-The Access Control List (ACL) in 2WAY serves as a crucial mechanism for managing user permissions within the system. This data structure acts as a link between a user's "pubkey" Attribute and the specific attributes or parents for which they possess read permissions.
+In 2WAY, the Access Control List (ACL) plays a pivotal role in managing user permissions within the system. This structured data entity acts as a bridge between a user's "pubkey" Attribute and the specific attributes or parents they are authorized to access.
 
-The ACL document is structured to include entries defining the access permissions granted to each user. These entries typically consist of:
+The ACL document follows a structured format, containing entries that define access permissions granted to each user. These entries typically include:
 
-~~~
-"pubkey_id": The public key of the user for whom permissions are being defined.
+- **pubkey_id**: The public key of the user for whom permissions are being defined.
+- **permissions**: An array specifying the attributes or parents that the user is permitted to read.
 
-"permissions": An array specifying the attributes or parents that the user is permitted to read.
-~~~
+Each entry in the ACL document establishes a direct link between a user's public key and the attributes or parents they have access to.
 
-Each entry in the ACL document establishes a direct association between a user's public key and the attributes or parents they are authorized to access.
+During state synchronization between users, the ACL plays a critical role in determining synchronized data for each connection in the User Graph. By referencing the ACL associated with each user, the system efficiently identifies permitted data for synchronization based on established permissions. This mechanism ensures that users only receive data for attributes or parents they have explicit read permissions for, thereby upholding data privacy and security.
 
-During the synchronization of states between users, the ACL plays a crucial role in determining what data is to be synchronized for each connection in the User Graph. By referencing the ACL associated with each user, the system can efficiently ascertain the permitted data for synchronization based on the established permissions. This ensures that users only receive data for attributes or parents for which they have been explicitly granted read permissions, maintaining data privacy and security within the system.
-
-JSON document example for establishing an ACL:
-
+Here's an example JSON document illustrating the establishment of an ACL:
 
 ```json
 {
@@ -478,13 +474,24 @@ JSON document example for establishing an ACL:
   "version": 1,
   "signing_key": "Alice's public key",
   "pubkey_id": "1",
-  "permissions": "3,5",
+  "permissions_attribute": "3,5",
+  "permissions_parent": "7,8",
   "vote": "1",
   "timestamp": "1648062000",
   "hash": "hash of the document",
   "signature": "cryptographic signature"
 }
 ```
+
+In this JSON structure:
+- `id` and `version` identify the ACL object and its version.
+- `signing_key` represents Alice's public key.
+- `pubkey_id` links the ACL to a specific user.
+- `permissions_attribute` and `permissions_parent` specify the attributes or parents the user can access.
+- `vote` denotes the relevance of the ACL.
+- `timestamp` records the time of creation.
+- `hash` provides a unique identifier for the document.
+- `signature` ensures the authenticity and integrity of the ACL.
 
 <br>
 
