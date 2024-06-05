@@ -237,7 +237,7 @@ The following objects are used to construct the system in its entirety:
 
 1. **Attribute**: A key-value pair consisting of a "type" (the key, not to be confused with any cryptographic keys) and a "value". Attributes represent the basic units of information. For example, an Attribute could be a public key (`{"type": "pubkey", "value": "ABC123"}`), a username (`{"type": "username", "value": "alice"}`), or any other required entity.
 
-2. **Parent**: A Parent Attribute that is connected to one or more child Attributes via Edge objects. This allows the organization of Attributes into hierarchical structures. For instance, a Parent Attribute could represent a user, with child Attributes representing their various properties like public keys and usernames, a group containing members, a category and its products, etc.
+2. **Parent**: A Parent Attribute that is connected to one or more child Attributes via an Edge object. This allows the organization of Attributes into hierarchical structures. For instance, a Parent Attribute could represent a user, with child Attributes representing their various properties like public keys and usernames, a group containing members, a category and its products, etc.
 
 3. **Edge**: An Edge represents a connection between a single Parent Attribute and one or more child Attributes. Edges define relationships within the graph, enabling complex data structures. For example, an Edge might connect a user attribute to their various public keys, a group to its members, or a category to its products.
 
@@ -251,23 +251,14 @@ Using these objects, any required application can be modeled atop the 2WAY platf
 
 ### 2.3.2 Attribute
 
-An attribute consists of a key-value pair, in the form of a "type" and a "value", functioning as a node within the server's graph structure. For instance, attributes such as type="name" with a corresponding value="Alice", or type="pubkey" with a lengthy public key value. Any attribute can be defined dynamically, either on the frontend, communicating with the backend through APIs, or by the backend itself.
+An Attribute in the 2WAY system is a key-value pair, consisting of a "type" and a "value". These attributes function as nodes within the server's graph structure, representing the fundamental units of information. For example, an attribute could be:
 
-The two discussed example attributes:
+- `{"type": "name", "value": "Alice"}`
+- `{"type": "pubkey", "value": "really long public key here"}`
 
-```json
-{
-	"type": "name",
-	"value": "Alice"
-},
+Attributes can be defined dynamically, either by the frontend through API communication or directly by the backend.
 
-{
-	"type": "pubkey",
-	"value": "really long public key here"
-}
-```
-
-Whenever a user initiates an action on the frontend that generates an attribute, it is transmitted to the backend's Object Manager API as a JSON document:
+When a user generates an attribute on the frontend, it is transmitted to the backend's Object Manager API as a JSON document. For instance:
 
 ```json
 {
@@ -276,17 +267,26 @@ Whenever a user initiates an action on the frontend that generates an attribute,
   "app_id": "twoway, connections",
   "attribute_type": "name",
   "attribute_value": "Alice",
-  "vote": "1",
+  "vote": "1"
 }
 ```
 
-Here, the "app_id" serves as the identifier for the frontend application, "twoway", along with one of the application's sub-IDs, "connections". The backend uses this information to determine where to store the data. The attribute's key-value pair is defined as "name" for type, and "Alice" as its value. The vote is boolean. The value of "1" signifies that the object is relevant, whereas the value "0" indicates that the object is not relevant (any longer). When the latest version of an object contains the value "0" for "vote", the object is disregarded during future queries, unless specifically requested. The latest version of an object is the one returned when queried for, by default.
+In this JSON structure:
+- `object` specifies that this is an attribute.
+- `signing_key` is the public key of the user creating the attribute.
+- `app_id` identifies the frontend application (e.g., "twoway") and a sub-ID (e.g., "connections") to determine where to store the data.
+- `attribute_type` and `attribute_value` define the key-value pair of the attribute.
+- `vote` is a boolean value indicating the relevance of the object (`1` for relevant, `0` for irrelevant).
 
-After the Object Manager receives a new object from the frontend application, the process starts that enables the creation of various object types within the system by authorized users. The newly created attribute is linked to the user's public key through an edge. This edge does not have to be stored as a separate Edge object, as the public key is also stored as an attribute (node within the graph), and the newly created attribute contains the signer's public key and signature. The message is signed by being passed to the Key Manager, that runs on the backend as well. This is where all key-management takes place, in an automated fashion.
+The `vote` value helps manage object lifecycle; an object with a vote of `0` in its latest version is ignored in future queries unless explicitly requested.
 
-Moreover, the Object Manager facilitates attribute querying, allowing for filtering based on the degree of separation and additional contextual criteria.
+Once the Object Manager receives a new attribute, it starts the process of creating various object types within the system by authorized users. The newly created attribute is linked to the user's public key through an implicit edge. This edge connection is inherent since the public key is also stored as an attribute, and the new attribute contains the signer's public key and signature.
 
-Once the data is stored, the following result is returned when the newly created object is queried:
+The Key Manager, running on the backend, handles the signing of the attribute, ensuring all key management processes are automated and secure.
+
+The Object Manager also facilitates querying of attributes, allowing users to filter results based on the degree of separation and additional contextual criteria.
+
+When the newly created attribute is queried, the following result is returned:
 
 ```json
 {
@@ -301,6 +301,8 @@ Once the data is stored, the following result is returned when the newly created
   "signature": "cryptographic signature"
 }
 ```
+
+This JSON response includes details such as the attribute's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, ensuring data integrity and authenticity within the 2WAY system.
 
 <br>
 
