@@ -335,7 +335,7 @@ A Parent in the 2WAY system consists of a single parent Attribute connected to o
 }
 ```
 
-In this example, the parent Attribute has the type "pubkey" and the value "Alice's public key". It has several child Attributes with types such as "name", "email", and "address", each linking specific information to the parent. Additionally, there is a child with the type "group" (e.g., "Enterprise LLC"), which itself can function as a Parent with its own children, illustrating the flexibility and scalability of this structure.
+In this example, the parent Attribute has the type "pubkey" and the value "Alice's public key". It has several child Attributes with types such as "name", "email", and "address", each linking specific information to the parent. Additionally, there is a child with the type "group" (e.g., "Enterprise LLC"), which itself functions as a Parent with its own children, illustrating the flexibility and scalability of this structure.
 
 Typically, users in the 2WAY system are identified by their public key (the "pubkey" Attribute). A user's parent Attribute might thus appear as `{"type": "pubkey", "value": "Alice's public key"}`. Child Attributes like `{"type": "username", "value": "Alice"}` or `{"type": "email", "value": "alice@gmail.com"}` are then associated with this parent, establishing the necessary relationships to organize and retrieve user data effectively.
 
