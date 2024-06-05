@@ -368,13 +368,17 @@ In this JSON structure:
 
 This JSON response includes details such as the parent object's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, ensuring data integrity and authenticity within the 2WAY system.
 
+<br>
+
 ### 2.3.4 Edge
 
-Whenever a new attribute or parent-child relationship is formed, an edge is established between the newly created object and the attribute containing the public key of the signer. Additionally, edges are created between parent and child attributes within the graph to denote their relationship. These edges serve to maintain the structural integrity of the graph and facilitate efficient data retrieval and organization.
+In the 2WAY system, an Edge is established whenever a new attribute or parent-child relationship is created. These Edges connect objects within the graph, ensuring the structural integrity and facilitating efficient data organization and retrieval.
 
-Only edges between parents and children are stored separately, as edges between newly created attributes and public keys are established within the attributes themselves, as the linked public key is already present. The same goes for reputation ratings and access control lists (ACLs), who also contain the associated public keys within themselves.
+When a new attribute or parent-child relationship is formed, an Edge is established between the newly created object and the Attribute containing the public key of the signer. Similarly, Edges are created between parent and child Attributes to denote their relationship within the graph.
 
-JSON document example for establishing a parent-child edge:
+While Edges between parents and children are stored separately to maintain clarity and organization, Edges between newly created attributes and public keys are established within the attributes themselves. This is because the linked public key is already present within the Attribute. The same principle applies to reputation ratings and access control lists (ACLs), which also contain associated public keys within themselves.
+
+Here's an example JSON document illustrating the establishment of a parent-child Edge:
 
 ```json
 {
@@ -391,6 +395,16 @@ JSON document example for establishing a parent-child edge:
   "signature": "cryptographic signature"
 }
 ```
+
+In this JSON structure:
+- `id` and `version` identify the object and its version.
+- `signing_key` is the public key of the user creating the object.
+- `parent_id` and `parent_version` reference the parent object.
+- `child_ids` and `child_versions` specify the IDs and versions of child objects.
+- `vote` indicates the relevance of the object (`1` for relevant, `0` for irrelevant).
+- `timestamp` records the time of creation.
+- `hash` provides a unique identifier for the document.
+- `signature` ensures the authenticity of the document.
 
 <br>
 
