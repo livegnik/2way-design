@@ -243,9 +243,9 @@ The following objects are used to construct the system in its entirety:
 
 4. **Rating**: A score with a rating scale and/or comment, assigned to an Attribute or Parent. Ratings provide a way to evaluate and rank Attributes. The specific scores and scales for ratings are defined by the plugins, allowing for customization based on the needs of different applications. For example, one plugin might use ratings to represent a user's reputation score, while another might use ratings to indicate the ranking of a movie or book. This flexibility allows developers to implement any rating system required by their application.
 
-5. **Access Control List (ACL)**: Context-specific permissions for authorized users used to synchronize data. ACLs define who can access or modify specific attributes or parents. For example, an ACL might specify that only certain users can update a particular attribute or view sensitive information.
+5. **Access Control List (ACL)**: The ACL in 2WAY is a key mechanism for managing user permissions within the system. It links a user's "pubkey" Attribute to specific Attributes or Parents for which they have read permissions. During state synchronization between users, the ACL determines which data is synchronized based on established permissions, ensuring users only receive data they are authorized to access. This maintains data privacy and security within the system.
 
-Using these objects, any required application can be modeled atop the 2WAY platform. The object model is both flexible and extensible, allowing developers to create custom structures and relationships tailored to their specific needs. The combination of attributes, parents, edges, ratings, and ACLs provides a robust foundation for building decentralized applications that prioritize security, privacy, and user control.
+Using these objects, any required application can be modeled atop the 2WAY platform. The object model is both flexible and extensible, allowing developers to create custom structures and relationships tailored to their specific needs. The combination of Attributes, Parents, Edges, Ratings, and ACLs provides a robust foundation for building decentralized applications that prioritize security, privacy, and user control.
 
 <br>
 
