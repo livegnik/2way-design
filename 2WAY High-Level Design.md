@@ -410,22 +410,17 @@ In this JSON structure:
 
 ### 2.3.5 Rating
 
-In the context of 2WAY, the reputation of users or entities can be represented and managed through a JSON document structured to include various details related to reputation metrics, or, ratings. These metrics could encompass factors such as comments, scores, and scales, all of which contribute to the overall reputation score of users and entities within the system.
+In 2WAY, user or entity reputation can be effectively managed through structured JSON documents known as ratings. These ratings encapsulate various reputation metrics, including comments, scores, and scales, to provide a comprehensive assessment of user or entity reputation within the system.
 
-The data structure for ratings is designed to include fields such as:
+The rating data structure includes the following fields:
 
-~~~
-"comment": A string field allowing users to provide comments or feedback about the entity being rated.
+- **comment**: Allows users to provide comments or feedback about the rated entity.
+- **score**: Indicates the assigned score based on a predefined rating scale.
+- **scale**: Specifies the type or category of the rating scale used for assigning scores.
 
-"score": A string field indicating a score assigned to the entity based on a predefined rating scale.
+This flexible data structure accommodates diverse rating types and scales, ensuring adaptability to different rating contexts. Once structured, the rating document is signed onto an attribute or parent within the system, ensuring authenticity and integrity. The cryptographic signature establishes a secure association between the reputation data and the respective attribute or parent, thereby maintaining a reliable record of reputation metrics within the 2WAY framework.
 
-"scale": A string field specifying the type or category of the rating scale used for assigning scores.
-~~~
-
-By structuring the data in this manner, it becomes flexible and adaptable to different types of ratings and scales. This document can then be signed onto an attribute or parent within the system to ensure authenticity and integrity. The signature ensures that the reputation data is securely associated with the respective attribute or parent, providing a reliable record of reputation metrics within the 2WAY framework.
-
-JSON document example for establishing a rating:
-
+Here's an example JSON document illustrating the establishment of a rating:
 
 ```json
 {
@@ -436,7 +431,7 @@ JSON document example for establishing a rating:
   "attribute_version": "1",
   "parent_id": "",
   "parent_version": "",
-  "comment": "wow this is really great!",
+  "comment": "Wow, this is really great!",
   "score": "13",
   "scale": "out-of-10-but-up-to-13",
   "vote": "1",
@@ -445,6 +440,16 @@ JSON document example for establishing a rating:
   "signature": "cryptographic signature"
 }
 ```
+
+In this JSON structure:
+- `id` and `version` identify the rating object and its version.
+- `signing_key` represents the public key of the user providing the rating.
+- `attribute_id` and `attribute_version` specify the rated attribute.
+- `comment`, `score`, and `scale` capture the details of the rating.
+- `vote` denotes the relevance of the rating.
+- `timestamp` records the time of creation.
+- `hash` provides a unique identifier for the document.
+- `signature` ensures the authenticity and integrity of the rating.
 
 <br>
 
