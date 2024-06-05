@@ -121,6 +121,8 @@ The first plugin, the Contacts plugin, serves as a contact list or address book,
 
 Next, the Messages plugin builds upon the functionality of the Contacts plugin and the 2WAY graph to offer users peer-to-peer messaging capabilities. By leveraging the contact information stored in the Contacts plugin and the network connections represented in the 2WAY graph, the Messages plugin enables users to exchange messages with their contacts in real-time, fostering communication and collaboration within the platform.
 
+Additionally, the Library plugin empowers users by providing a comprehensive interface to browse, search, and filter all objects from various plugins they have access to. By utilizing degrees of separation within the 2WAY graph, the Library plugin allows users to easily locate and interact with information across different aspects of the platform, making data management and retrieval intuitive and efficient.
+
 Lastly, the Social plugin enriches the user experience by offering a social feed that aggregates the latest messages received from contacts within the user's network. This feed provides users with a centralized view of their interactions and conversations within the platform, allowing them to stay updated on relevant discussions and activities happening within their network.
 
 Together, these out-of-the-box plugins provide users with essential functionality for managing contacts, exchanging messages, and staying connected within the 2WAY platform. By leveraging the underlying 2WAY graph and integrating seamlessly with the backend services, these plugins enhance the overall user experience and contribute to the platform's effectiveness as a communication and collaboration tool.
