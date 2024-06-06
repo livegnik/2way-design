@@ -1295,3 +1295,40 @@ Tor integration, etc
 
 
 
+
+
+
+
+
+
+
+[ ] Remove mentions of DoS Guard Manager
+
+[ ] Messages appended --> updated in database and can be logged to Log Manager
+[ ] Latest message --> Update database records to newest state and log messages to Log Manager
+[ ] Improve "2.5 Object Manager"
+[ ] ""5,9,12,13,14"," to array such as "[5,9,12]"
+
+[ ] Capitalize all objects (attributes, parents, edges, ratings)
+[ ] Add user_id description
+[ ] Change user_public_key to user_id where needed
+[ ] Querying Objects --> Vote = empty to query both up and down-voted objects
+[ ] Improve all the JSON documents where needed
+[ ] Breakdown all the JSON documents like under "2.5.5 Filtering Objects"
+[ ] 2.5.4 "latest" not described, 1 = latest object version and 0 = all object versions
+[ ] Add "latest" to "2.5.5 Filtering Objects"
+[ ] Change database schema to prevent plugin name collision in table name
+
+
+
+
+[X] Rename Message Manager to Object Manager
+[X] ",." --> "",.
+[X] Remove mentions of ACL Manager
+[X] Remove mentions of State Manager
+[X] PoC, proof-of-concept
+[X] Change "2WAY" to "twoway" where needed
+[X] Change "Contacts" to "connections" where needed
+[X] public key, pubkey, "pubkey"
+[X] Add Library plugin paragraph to "1.4 Pre-Installed Plugins"
+[X] Improve "2.3 2WAY Objects"
