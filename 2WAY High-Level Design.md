@@ -237,7 +237,7 @@ The following objects are used to construct the system in its entirety:
 
 1. **Attribute**: A key-value pair consisting of a "type" (the key, not to be confused with any cryptographic keys) and a "value". Attributes represent the basic units of information. For example, an Attribute could be a public key (`{"type": "pubkey", "value": "ABC123"}`), a username (`{"type": "username", "value": "alice"}`), or any other required entity.
 
-2. **Parent**: A Parent Attribute that is connected to one or more child Attributes via an Edge object. This allows the organization of Attributes into hierarchical structures. For instance, a Parent Attribute could represent a user, with child Attributes representing their various properties like public keys and usernames, a group containing members, a category and its products, etc.
+2. **Parent**: A Parent Attribute that is connected to one or more child Attributes via an Edge object. This allows the organization of Attributes into hierarchical structures. For instance, a Parent Attribute could represent a user by its public key, with child Attributes representing their various properties like username and email address, a group containing members, a category and its products, etc.
 
 3. **Edge**: An Edge represents a connection between a single Parent Attribute and one or more child Attributes. Edges define relationships within the graph, enabling complex data structures. For example, an Edge might connect a user Attribute to their various public keys, a group to its members, or a category to its products.
 
