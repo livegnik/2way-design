@@ -195,7 +195,7 @@ The Server Graph in the 2WAY system represents the collective aggregation of all
 
 At its core, the Server Graph serves as a unified repository that encapsulates the entirety of the system's data landscape, encompassing objects such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs), contributed by users. By consolidating individual User Graphs into a centralized repository, the Server Graph facilitates seamless communication, collaboration, and data sharing among users within the system.
 
-The Server Graph is dynamic and continually evolving, reflecting the real-time interactions and updates made by users across the platform. As users create, modify, or delete objects within their individual graphs, these changes are propagated to the Server Graph, ensuring that it remains synchronized and up-to-date with the latest data contributions from all users.
+The Server Graph is dynamic and continually evolving, reflecting the real-time interactions and updates made by users across the platform. As users create, modify, hide, or delete objects within their individual graphs, these changes are propagated to the Server Graph, ensuring that it remains synchronized and up-to-date with the latest data contributions from all users.
 
 Overall, the Server Graph serves as the backbone of the 2WAY system, embodying the collective intelligence and contributions of its local user base. By consolidating individual User Graphs into a unified framework, the Server Graph enables seamless data management, discovery, and collaboration within the platform, while ensuring privacy, security, and access control based on user-defined permissions and network connections.
 
