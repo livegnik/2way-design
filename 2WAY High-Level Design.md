@@ -47,7 +47,7 @@ For service providers, decentralizing applications can streamline operations and
 
 Enter 2WAY, a pioneering proof-of-concept that reimagines electronic identity and reputation management in a fully peer-to-peer (P2P) environment. At its core, 2WAY empowers users to take control of their digital identities, manage linked data securely, and establish direct communication channels without relying on intermediaries. Through the seamless integration of digital signatures, a graph structure, and a decentralized P2P network, 2WAY offers users the ability to curate their digital personas, filter information for relevance, and engage securely with trusted parties, all within familiar interfaces.
 
-The foundation of 2WAY lies in its distributed identity, reputation, and access management server, which leverages cryptographic proof to verify message authenticity and establish secure communication channels between servers. Through a decentralized network of trusted nodes, users can exchange data with confidence, knowing that their identities and interactions are protected by robust cryptographic mechanisms.
+The foundation of 2WAY lies in its distributed identity, reputation, and access management server, which leverages cryptographic proof to verify message authenticity and establish secure communication channels between servers. Through a decentralized network of trusted servers, users can exchange data with confidence, knowing that their identities and interactions are protected by robust cryptographic mechanisms.
 
 Furthermore, 2WAY is designed with extensibility in mind, allowing developers to build plugins that serve as applications within the 2WAY system. These plugins can leverage the platform's core functionalities, enabling a diverse range of applications and services to be built on top of the 2WAY infrastructure.
 
@@ -55,7 +55,7 @@ Drawing inspiration from the principles of privacy by design, 2WAY ensures that 
 
 Designed to be lightweight, 2WAY can run both the frontend (client) and backend (server) on a desktop computer, making it accessible and practical for a wide range of users. Although the main goal of the 2WAY proof-of-concept is to demonstrate the 2WAY protocol, the platform leverages the Flask framework for both the frontend and backend, merging them into a single application. This integrated approach simplifies development and deployment. Once the proof-of-concept has proven effective, the backend could be implemented as a daemon or service in a low-level language, and the frontend could be developed using any language or framework.
 
-2WAY ensures scalability through a distributed architecture, leveraging decentralized technologies like distributed graphs and P2P networks to distribute workload across multiple nodes. This enables horizontal scaling by adding more nodes, accommodating growing user demands without performance degradation. Efficient data storage and retrieval mechanisms further enhance scalability while maintaining responsiveness. Additionally, 2WAY prioritizes user-friendly interfaces, designed with intuitive principles to simplify digital identity and data management. Clear interfaces guide users through tasks, reducing the need for technical expertise and fostering greater adoption and engagement.
+2WAY ensures scalability through a distributed architecture, leveraging decentralized technologies like distributed graphs and P2P networks to distribute workload across multiple servers. This enables horizontal scaling by adding more servers, accommodating growing user demands without performance degradation. Efficient data storage and retrieval mechanisms further enhance scalability while maintaining responsiveness. Additionally, 2WAY prioritizes user-friendly interfaces, designed with intuitive principles to simplify digital identity and data management. Clear interfaces guide users through tasks, reducing the need for technical expertise and fostering greater adoption and engagement.
 
 <br>
 
@@ -151,7 +151,7 @@ Overall, custom plugins play a crucial role in extending the functionality and v
 
 ## 2.1 Introduction to the Backend <a name="21-introduction-to-the-backend"></a>
 
-The backend of the 2WAY system is the cornerstone of its decentralized identity, reputation, and access management framework. It is meticulously designed to handle the complex processes required to maintain secure, efficient, and reliable operations within the 2WAY ecosystem. This backend infrastructure supports the creation, management, and verification of cryptographic identities and facilitates secure data exchanges between trusted nodes in a peer-to-peer (P2P) network.
+The backend of the 2WAY system is the cornerstone of its decentralized identity, reputation, and access management framework. It is meticulously designed to handle the complex processes required to maintain secure, efficient, and reliable operations within the 2WAY ecosystem. This backend infrastructure supports the creation, management, and verification of cryptographic identities and facilitates secure data exchanges between trusted servers in a peer-to-peer (P2P) network.
 
 At the core of the backend lies the 2WAY Graph, a comprehensive data structure that integrates both the User Graphs and the Server Graph. The User Graph represents the individual user's interactions. In contrast, the Server Graph is the aggregate of all User Graphs on a particular server, thereby encapsulating a subset of the network’s decentralized data.
 
@@ -1305,6 +1305,8 @@ Tor integration, etc
 [ ] Messages appended --> updated in database and can be logged to Log Manager
 [ ] Latest message --> Update database records to newest state and log messages to Log Manager
 
+[ ] Add "Modify Objects" between "2.5.2 Creating Objects" and "2.5.3 Hiding Objects"
+
 [ ] Improve "2.5 Object Manager"
 [ ] ""5,9,12,13,14"," to array such as "[5,9,12]"
 
@@ -1331,4 +1333,5 @@ Tor integration, etc
 [X] public key, pubkey, "pubkey"
 [X] Add Library plugin paragraph to "1.4 Pre-Installed Plugins"
 [X] Improve "2.3 2WAY Objects"
-[X] Remove mentions of DoS Guard Manager
+[X] Remove mentions of Denial of Service (DoS) Guard Manager
+[X] node --> server, where relevant
