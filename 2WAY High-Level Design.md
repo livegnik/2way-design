@@ -499,7 +499,7 @@ In this JSON structure:
 
 ### 2.4.1 Introduction to the Database Schema
 
-The database schema for the 2WAY system mirrors the structure and relationships of the discussed objects, employing SQLite3 as the underlying database technology. SQLite3 was chosen for its versatility and compatibility with various systems, aligning perfectly with the lightweight and accessible nature of 2WAY. While future iterations may explore alternative databases, starting with SQLite3 showcases the protocol's scalability and efficiency, especially as it transitions to more robust hardware environments.
+The database schema for the 2WAY system mirrors the structure and relationships of the discussed objects, employing SQLite3 as the underlying database technology. SQLite3 was chosen for its versatility and compatibility with various systems, aligning perfectly with the lightweight and accessible nature of 2WAY. While future iterations may explore alternative databases, starting with SQLite3 showcases the protocol's scalability and efficiency, especially as it transitions to more robust and performant environments.
 
 By segmenting data into distinct tables and establishing relationships via foreign keys, the schema ensures data integrity and facilitates seamless querying and retrieval operations within the SQLite3 database. Moreover, integration of versioning fields allows for effective tracking of changes over time and management of data revisions. This schema framework supports the creation, storage, and retrieval of diverse objects within the 2WAY system, providing a robust infrastructure for managing user data, reputation metrics, access controls, and other pertinent information in a structured manner.
 
@@ -1302,10 +1302,9 @@ Tor integration, etc
 
 
 
-[ ] Remove mentions of DoS Guard Manager
-
 [ ] Messages appended --> updated in database and can be logged to Log Manager
 [ ] Latest message --> Update database records to newest state and log messages to Log Manager
+
 [ ] Improve "2.5 Object Manager"
 [ ] ""5,9,12,13,14"," to array such as "[5,9,12]"
 
@@ -1332,3 +1331,4 @@ Tor integration, etc
 [X] public key, pubkey, "pubkey"
 [X] Add Library plugin paragraph to "1.4 Pre-Installed Plugins"
 [X] Improve "2.3 2WAY Objects"
+[X] Remove mentions of DoS Guard Manager
