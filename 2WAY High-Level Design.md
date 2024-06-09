@@ -403,9 +403,9 @@ When queried from the Log Manager, the log yields:
 
 ```json
 {
-  "id": 56,
+  "id": 78,
   "signing_key": "Alice's public key",
-  "parent_id": "1",
+  "parent_id": "4",
   "parent_version": "1",
   "vote": "1",
   "timestamp": "1648062000",
