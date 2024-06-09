@@ -286,7 +286,7 @@ Optionally, each individual change can be logged to the Log Manager before updat
 
 The Object Manager also facilitates Attribute querying, enabling users to filter results based on the degree of separation and additional contextual criteria.
 
-When queried, the newly created Attribute elicits the following response:
+When queried, the newly created Attribute object is returned:
 
 ```json
 {
