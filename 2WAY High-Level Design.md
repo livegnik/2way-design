@@ -469,8 +469,7 @@ Here's an example JSON document illustrating the establishment of a rating:
   "scale": "out-of-10-but-up-to-13",
   "vote": "1",
   "timestamp": "1648062000",
-  "hash": "hash of the document",
-  "signature": "cryptographic signature"
+  "hash": "hash of the document"
 }
 ```
 
@@ -482,7 +481,8 @@ In this JSON structure:
 - `vote` denotes the relevance of the rating.
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
-- `signature` ensures the authenticity and integrity of the rating.
+
+As with the Attribute object, changes can be signed and sent to the Log Manager here as well.
 
 <br>
 
@@ -511,8 +511,7 @@ Here's an example JSON document illustrating the establishment of an ACL:
   "permissions_parent": "7,8",
   "vote": "1",
   "timestamp": "1648062000",
-  "hash": "hash of the document",
-  "signature": "cryptographic signature"
+  "hash": "hash of the document"
 }
 ```
 
@@ -524,7 +523,8 @@ In this JSON structure:
 - `vote` denotes the relevance of the ACL.
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
-- `signature` ensures the authenticity and integrity of the ACL.
+
+As with the Attribute object, changes can be signed and sent to the Log Manager here as well.
 
 <br>
 
