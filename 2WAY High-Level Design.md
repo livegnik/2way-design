@@ -399,7 +399,7 @@ In this JSON structure:
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
 
-As with the Attribute object, changes can be signed and sent to the Log Manager here as well.
+As with the Attribute object, changes can be signed and sent to the Log Manager.
 
 <br>
 
@@ -437,7 +437,7 @@ In this JSON structure:
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
 
-As with the Attribute object, changes can be signed and sent to the Log Manager here as well.
+As with the Attribute object, changes can be signed and sent to the Log Manager.
 
 <br>
 
@@ -482,7 +482,7 @@ In this JSON structure:
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
 
-As with the Attribute object, changes can be signed and sent to the Log Manager here as well.
+As with the Attribute object, changes can be signed and sent to the Log Manager.
 
 <br>
 
