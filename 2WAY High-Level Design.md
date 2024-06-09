@@ -368,7 +368,9 @@ A Parent in the 2WAY system consists of a single parent Attribute connected to o
 }
 ```
 
-In this example, the parent Attribute has the type "pubkey" and the value "Alice's public key". It has several child Attributes with types such as "name", "email", and "address", each linking specific information to the parent. Additionally, there is a child with the type "group" (e.g., "Enterprise LLC"), which itself functions as a Parent with its own children, illustrating the flexibility and scalability of this structure.
+In this example:
+- `parent_type` is "pubkey", and `parent_value` is "Alice's public key".
+- `children` array contains various child Attributes, each with its type and value, establishing specific information linked to the parent.
 
 Typically, users in the 2WAY system are identified by their public key (the "pubkey" Attribute). A user's parent Attribute might thus appear as `{"type": "pubkey", "value": "Alice's public key"}`. Child Attributes like `{"type": "username", "value": "Alice"}` or `{"type": "email", "value": "alice@gmail.com"}` are then associated with this parent, establishing the necessary relationships to organize and retrieve user data effectively.
 
@@ -385,8 +387,7 @@ When creating a parent object, the following JSON structure might be used:
   "parent_version": "1",
   "vote": "1",
   "timestamp": "1648062000",
-  "hash": "hash of the document",
-  "signature": "cryptographic signature"
+  "hash": "hash of the document"
 }
 ```
 
@@ -397,9 +398,30 @@ In this JSON structure:
 - `vote` indicates the relevance of the object (`1` for relevant, `0` for irrelevant).
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
-- `signature` ensures the authenticity of the document.
 
-This JSON response includes details such as the parent object's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, ensuring data integrity and authenticity within the 2WAY system.
+When queried from the Log Manager, the log yields:
+
+```json
+{
+  "id": 56,
+  "signing_key": "Alice's public key",
+  "parent_id": "1",
+  "parent_version": "1",
+  "vote": "1",
+  "timestamp": "1648062000",
+  "hash": "hash of the document",
+  "signature": "cryptographic signature"
+}
+```
+
+In this JSON structure:
+- `id` represents the unique identifier assigned to the log entry.
+- `signing_key` indicates the public key of the user generating the log entry.
+- `parent_id` and `parent_version` refer to the parent object.
+- `vote` indicates the relevance of the parent object (`1` for relevant, `0` for irrelevant).
+- `timestamp` shows the time when the log entry was created.
+- `hash` represents the hash of the document.
+- `signature` signifies the cryptographic signature of the log entry.
 
 <br>
 
