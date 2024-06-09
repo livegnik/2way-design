@@ -405,11 +405,9 @@ As with the Attribute object, changes can be signed and sent to the Log Manager.
 
 ### 2.3.4 Edge
 
-In the 2WAY system, an Edge is established whenever a new attribute or parent-child relationship is created. These Edges connect objects within the graph, ensuring the structural integrity and facilitating efficient data organization and retrieval.
+In the 2WAY system, an Edge represents a parent-child relationship within the graph structure. These Edges connect objects, ensuring structural integrity and facilitating efficient data organization and retrieval. Edges are specifically created to link a Parent Attribute to its child Attributes, forming a clear and organized hierarchy.
 
-When a new attribute or parent-child relationship is formed, an Edge is established between the newly created object and the Attribute containing the public key of the signer. Similarly, Edges are created between parent and child Attributes to denote their relationship within the graph.
-
-While Edges between parents and children are stored separately to maintain clarity and organization, Edges between newly created attributes and public keys are established within the attributes themselves. This is because the linked public key is already present within the Attribute. The same principle applies to reputation ratings and access control lists (ACLs), which also contain associated public keys within themselves.
+When a new parent-child relationship is formed, an Edge is established between the Parent Attribute and its child Attributes. This relationship is explicitly defined to denote their connection within the graph.
 
 Here's an example JSON document illustrating the establishment of a parent-child Edge:
 
@@ -429,15 +427,15 @@ Here's an example JSON document illustrating the establishment of a parent-child
 ```
 
 In this JSON structure:
-- `id` and `version` identify the object and its version.
-- `signing_key` is the public key of the user creating the object.
+- `id` and `version` identify the Edge object and its version.
+- `signing_key` is the public key of the user creating the Edge.
 - `parent_id` and `parent_version` reference the parent object.
-- `child_ids` and `child_versions` specify the IDs and versions of child objects.
-- `vote` indicates the relevance of the object (`1` for relevant, `0` for irrelevant).
+- `child_ids` and `child_versions` specify the IDs and versions of the child objects.
+- `vote` indicates the relevance of the Edge (`1` for relevant, `0` for irrelevant).
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
 
-As with the Attribute object, changes can be signed and sent to the Log Manager.
+It's important to note that Edges are only created for parent-child relationships. For other objects, such as attributes, reputation ratings, and access control lists (ACLs), the relationship is implied within the object itself, as they contain the signing public key. Therefore, no separate Edge objects are created for new Attribute objects.
 
 <br>
 
