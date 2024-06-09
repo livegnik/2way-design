@@ -251,20 +251,20 @@ Using these objects, any required application can be modeled atop the 2WAY platf
 
 ### 2.3.2 Attribute
 
-An Attribute in the 2WAY system is a key-value pair, consisting of a "type" and a "value". These Attributes function as nodes within the server's graph structure, representing the fundamental units of information. For example, an Attribute could be:
+Attributes in the 2WAY system are vital key-value pairs, comprising a "type" and a "value". These Attributes serve as pivotal nodes within the server's graph structure, representing fundamental units of information. For instance, an Attribute could manifest as:
 
 - `{"type": "name", "value": "Alice"}`
 - `{"type": "pubkey", "value": "Alice's public key"}`
 
-Attributes can be defined dynamically, either by the frontend through API communication or directly by the backend.
+Attributes are dynamically defined, either through API communication from the frontend or directly by the backend.
 
-When a user generates an Attribute on the frontend, it is transmitted to the backend's Object Manager API as a JSON document. For instance:
+When a user generates an Attribute on the frontend, it's transmitted to the backend's Object Manager API as a JSON document. For example:
 
 ```json
 {
   "object": "attribute",
   "signing_key": "user_public_key",
-  "app_id": "twoway, connections",
+  "app_hash": "hashed_app_identifier",
   "attribute_type": "name",
   "attribute_value": "Alice",
   "vote": "1"
@@ -272,21 +272,21 @@ When a user generates an Attribute on the frontend, it is transmitted to the bac
 ```
 
 In this JSON structure:
-- `object` specifies that this is an Attribute.
-- `signing_key` is the public key of the user creating the Attribute.
-- `app_id` identifies the frontend application (e.g., "twoway") and a sub-ID (e.g., "connections") to determine where to store the data.
+- `object` indicates that this is an Attribute.
+- `signing_key` refers to the public key of the user creating the Attribute.
+- `app_hash` signifies the hashed application identifier, along with the sub-ID, to ensure uniqueness and prevent naming collisions.
 - `attribute_type` and `attribute_value` define the key-value pair of the Attribute.
-- `vote` is a boolean value indicating the relevance of the object (`1` for relevant, `0` for irrelevant).
+- `vote` is a boolean value indicating the object's relevance (`1` for relevant, `0` for irrelevant).
 
-The `vote` value helps manage object lifecycle; an object with a vote of `0` in its latest version is ignored in future queries unless explicitly requested.
+The `vote` value aids in managing the object's lifecycle; an object with a vote of `0` in its latest version is disregarded in future queries unless explicitly requested.
 
-Once the Object Manager receives a new Attribute, it starts the process of creating various object types within the system by authorized users. The newly created Attribute is linked to the user's public key through an implicit edge. This edge connection is inherent since the public key is also stored as an Attribute, and the new Attribute contains the signer's public key and signature.
+Once received, the Object Manager commences the creation process of various object types within the system by authorized users. The newly formed Attribute is connected to the user's public key through an implicit edge. This connection is inherent since the public key is stored as an Attribute, and the new Attribute contains the signer's public key and signature.
 
-The Key Manager, running on the backend, handles the signing of the Attribute, ensuring all key management processes are automated and secure.
+Optionally, each individual change can be logged to the Log Manager before updating the unsigned object to the Graph on Disk. Logged changes can be signed before storage by passing through the Key Manager, ensuring data integrity and authenticity.
 
-The Object Manager also facilitates querying of Attributes, allowing users to filter results based on the degree of separation and additional contextual criteria.
+The Object Manager also facilitates Attribute querying, enabling users to filter results based on the degree of separation and additional contextual criteria.
 
-When the newly created Attribute is queried, the following result is returned:
+When queried, the newly created Attribute elicits the following response:
 
 ```json
 {
@@ -297,12 +297,28 @@ When the newly created Attribute is queried, the following result is returned:
   "attribute_value": "Alice",
   "vote": "1",
   "timestamp": "1648062000",
-  "hash": "document hash",
-  "signature": "cryptographic signature"
+  "hash": "document hash"
 }
 ```
 
-This JSON response includes details such as the Attribute's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, ensuring data integrity and authenticity within the 2WAY system.
+When the change is queried from the Log Manager, the log presents the following response:
+
+```json
+{
+  "id": 56,
+  "version": 1,
+  "signing_key": "Alice's public key",
+  "attribute_id": "1",
+  "attribute_type": "name",
+  "attribute_value": "Alice",
+  "vote": "1",
+  "timestamp": "1648062000",
+  "hash": "document hash",
+  "signature": "cryptographic signature"
+}"
+```
+
+This JSON response furnishes details like the Attribute's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, thereby ensuring data integrity and authenticity within the 2WAY system.
 
 <br>
 
