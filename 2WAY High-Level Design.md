@@ -181,13 +181,19 @@ The 2WAY Graph is decentralized and distributed, allowing users to create, share
 
 ### 2.2.2 User Graph
 
-The User Graph in the 2WAY system represents each user's unique network of nodes and edges. It contains the user's personal data, connections, and interactions, reflecting their contributions and relationships within the broader context of the Server Graph. The Server Graph is the aggregate of all User Graphs within the system. Each User Graph is unique, representing the user's specific interactions, preferences, and network connections.
+The User Graph in the 2WAY system represents each user's unique network of nodes and edges, encapsulating their personal data, connections, and interactions. This graph reflects each user's contributions and relationships within the broader context of the Server Graph, which is the aggregate of all User Graphs in the system. Each User Graph is distinct, depicting specific interactions, preferences, and network connections.
 
-A key aspect of the User Graph is that users always query data from their zeroth degree, meaning they primarily interact with and retrieve data that directly pertains to them or is within their immediate network connections. When querying the Server Graph, users explore their own graph, accessing relationships, application data, and interactions that are directly relevant to them.
+Users always query data from their zeroth degree, meaning they primarily interact with and retrieve data directly relevant to them or within their immediate network connections. When querying the Server Graph, users explore their own graph, accessing relationships, application data, and interactions pertinent to them.
 
-From the user's perspective, data in other User Graphs that doesn't overlap with their own User Graph is essentially invisible. Users only perceive and interact with data within their own User Graph or that is directly connected to them through their network connections. Data outside of their immediate network or areas of interest is inaccessible.
+From the user's perspective, data in other User Graphs that don't overlap with their own is essentially invisible. Users only perceive and interact with data within their own User Graph or data directly connected to them through their network connections. Data outside their immediate network or areas of interest remains inaccessible.
 
-This approach ensures users maintain a focused and personalized view of the data within the 2WAY system. It allows them to efficiently navigate and interact with information directly relevant to their needs and interests. By querying from their zeroth degree within the Server Graph, users can effectively manage their data, discover relevant connections, and collaborate with others within their network while maintaining privacy and control over their personal information.
+This approach ensures users maintain a focused and personalized view of the data within the 2WAY system. It allows them to efficiently navigate and interact with information relevant to their needs and interests. By querying from their zeroth degree within the Server Graph, users can effectively manage their data, discover relevant connections, and collaborate with others in their network while maintaining privacy and control over their personal information.
+
+Plugins in the 2WAY system can also create and manage objects through the Object Manager. Each plugin has its own cryptographic key-pair, effectively making them users within the system. This allows plugins to function similarly to human users, with their own unique User Graphs, nodes, and edges. Plugins can create objects on behalf of multiple users, ensuring that not every user needs to create these objects individually, thus saving space in the graph.
+
+When plugins create or manage objects, either all users or designated users receive access to them. New users can automatically receive access to these plugin-created objects as well. The Access Control List (ACL) is updated to ensure proper permissions are set for these objects, maintaining seamless integration and efficient access management.
+
+By incorporating plugins as users with their own cryptographic key-pairs, the 2WAY system enhances its flexibility and scalability, allowing automated processes to contribute to the graph while ensuring secure and controlled access to data.
 
 <br>
 
