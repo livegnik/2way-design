@@ -445,17 +445,17 @@ As with any other object, changes can be signed and sent to the Log Manager, as 
 
 ### 2.3.5 Rating
 
-In 2WAY, user or entity reputation can be effectively managed through structured JSON documents known as ratings. These ratings encapsulate various reputation metrics, including comments, scores, and scales, to provide a comprehensive assessment of user or entity reputation within the system.
+In 2WAY, user or entity reputation can be effectively managed through structured JSON documents known as Ratings. These Rating objects encapsulate various reputation metrics, including comments, scores, and scales, to provide a comprehensive assessment of user or entity reputation within the system.
 
-The rating data structure includes the following fields:
+The Rating data structure includes the following fields:
 
 - **comment**: Allows users to provide comments or feedback about the rated entity.
-- **score**: Indicates the assigned score based on a rating scale predefined by the plugin.
+- **score**: Indicates the assigned score based on a rating scale.
 - **scale**: Specifies the type or category of the rating scale used for assigning scores, predefined by the plugin.
 
-This flexible data structure accommodates diverse rating types and scales, ensuring adaptability to different rating contexts. Once structured, the rating document points at an Attribute or Parent within the system.
+This flexible data structure accommodates diverse rating types and scales, ensuring adaptability to different rating contexts. Once structured, the Rating object points at an Attribute or Parent within the system.
 
-Here's an example JSON document illustrating the establishment of a rating:
+Here's an example JSON document illustrating the establishment of a Rating:
 
 ```json
 {
