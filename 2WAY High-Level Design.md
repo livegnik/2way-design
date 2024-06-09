@@ -376,7 +376,7 @@ Typically, users in the 2WAY system are identified by their public key (the "pub
 
 To create objects other than users, define the required parent Attribute accordingly. For example, to store blog articles, you might use `{"type": "Post", "value": "Blog Post Title"}`. For a marketplace, start with `{"type": "category", "value": "Books"}`, followed by relevant child Attributes. A blog post could have children like `{"type": "title", "value": "Post Title"}`, `{"type": "author", "value": "Author Name"}`, and `{"type": "content", "value": "Post Content"}`. Similarly, a book might include children like `{"type": "author", "value": "Author Name"}`, `{"type": "ISBN", "value": "ISBN Code"}`, and `{"type": "content", "value": "Book Content"}`.
 
-When creating a parent object, the following JSON structure might be used:
+When creating a Parent object, the following JSON structure might be used:
 
 ```json
 {
@@ -399,7 +399,7 @@ In this JSON structure:
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
 
-As with the Attribute object, changes can be signed and sent to the Log Manager.
+As with any other object, changes can be signed and sent to the Log Manager, as described in the Attribute section.
 
 <br>
 
@@ -436,6 +436,8 @@ In this JSON structure:
 - `hash` provides a unique identifier for the document.
 
 It's important to note that Edges are only created for parent-child relationships. For other objects, such as attributes, reputation ratings, and access control lists (ACLs), the relationship is implied within the object itself, as they contain the signing public key. Therefore, no separate Edge objects are created for new Attribute objects.
+
+As with any other object, changes can be signed and sent to the Log Manager, as described in the Attribute section.
 
 <br>
 
@@ -480,7 +482,7 @@ In this JSON structure:
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
 
-As with the Attribute object, changes can be signed and sent to the Log Manager.
+As with any other object, changes can be signed and sent to the Log Manager, as described in the Attribute section.
 
 <br>
 
@@ -522,7 +524,7 @@ In this JSON structure:
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
 
-As with the Attribute object, changes can be signed and sent to the Log Manager.
+As with any other object, changes can be signed and sent to the Log Manager, as described in the Attribute section.
 
 <br>
 
