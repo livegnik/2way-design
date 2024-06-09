@@ -173,7 +173,7 @@ In essence, the 2WAY backend is a sophisticated and modular system that provides
 
 The 2WAY Graph lies at the core of the 2WAY system, serving as a dynamic and interconnected framework for representing and organizing data.
 
-At its essence, the 2WAY Graph is a directed graph-based data model that uses nodes and edges to model relationships and interactions between various entities within the system. Nodes represent individual objects such as Attributes, Parents, Ratings, and Access Control Lists (ACLs). Edges denote the connections and associations between Parent objects and Attributes.
+At its essence, the 2WAY Graph is a directed graph-based data model that uses nodes and edges to model relationships and interactions between various entities within the system. Nodes represent individual objects such as Attributes, Parents, Ratings, and Access Control Lists (ACLs). Edge objects denote the connections and associations between Parent objects and their child Attributes.
 
 The 2WAY Graph is decentralized and distributed, allowing users to create, share, and collaborate on data in a flexible and scalable manner. This graph-based approach facilitates intuitive navigation, exploration, and discovery of interconnected data. Users can traverse relationships and uncover valuable insights within their social or organizational networks.
 
