@@ -437,7 +437,7 @@ In this JSON structure:
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
 
-It's important to note that Edges are only created for parent-child relationships. For other objects, such as attributes, reputation ratings, and access control lists (ACLs), the relationship is implied within the object itself, as they contain the signing public key. Therefore, no separate Edge objects are created for new Attribute objects.
+It's important to note that Edges are only created for parent-child relationships. For other objects, such as Attributes, Ratings, and Access Control Lists (ACLs), the relationship is implied within the object itself, as they contain the signing public key. Therefore, no separate Edge objects are created for these objects.
 
 As with any other object, changes can be signed and sent to the Log Manager, as described in the Attribute section.
 
