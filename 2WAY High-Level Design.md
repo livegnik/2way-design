@@ -315,7 +315,7 @@ When the change is queried from the Log Manager, the log presents the following 
   "timestamp": "1648062000",
   "hash": "document hash",
   "signature": "cryptographic signature"
-}"
+}
 ```
 
 This JSON response furnishes details like the Attribute's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, thereby ensuring data integrity and authenticity within the 2WAY system.
