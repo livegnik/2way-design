@@ -394,7 +394,7 @@ When creating a parent object, the following JSON structure might be used:
 In this JSON structure:
 - `id` and `version` identify the object and its version.
 - `signing_key` is the public key of the user creating the object.
-- `parent_id` and `parent_version` reference the parent object.
+- `parent_id` and `parent_version` reference the parent Attribute object.
 - `vote` indicates the relevance of the object (`1` for relevant, `0` for irrelevant).
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
@@ -417,7 +417,7 @@ When queried from the Log Manager, the log yields:
 In this JSON structure:
 - `id` represents the unique identifier assigned to the log entry.
 - `signing_key` indicates the public key of the user generating the log entry.
-- `parent_id` and `parent_version` refer to the parent object.
+- `parent_id` and `parent_version` refer to the parent Attribute object.
 - `vote` indicates the relevance of the parent object (`1` for relevant, `0` for irrelevant).
 - `timestamp` shows the time when the log entry was created.
 - `hash` represents the hash of the document.
