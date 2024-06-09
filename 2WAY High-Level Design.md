@@ -301,6 +301,16 @@ When queried, the newly created Attribute object is returned:
 }
 ```
 
+In this JSON structure:
+- `id` represents the unique identifier assigned to the Attribute.
+- `version` denotes the version of the Attribute.
+- `signing_key` indicates the public key of the user generating the Attribute.
+- `app_hash` signifies the hashed application identifier, along with the sub-ID, ensuring uniqueness and preventing naming collisions.
+- `attribute_type` and `attribute_value` define the key-value pair of the Attribute.
+- `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
+- `timestamp` shows the time when the Attribute was created.
+- `hash` represents the hash of the document.
+
 When the change is queried from the Log Manager, the log presents the following response:
 
 ```json
@@ -318,7 +328,8 @@ When the change is queried from the Log Manager, the log presents the following 
 }
 ```
 
-This JSON response furnishes details like the Attribute's ID, version, signing key, type, value, vote status, timestamp, document hash, and cryptographic signature, thereby ensuring data integrity and authenticity within the 2WAY system.
+In this JSON structure:
+- `signature` signifies the cryptographic signature of the log entry.
 
 <br>
 
