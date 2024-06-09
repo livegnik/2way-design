@@ -451,7 +451,7 @@ The rating data structure includes the following fields:
 - **score**: Indicates the assigned score based on a rating scale predefined by the plugin.
 - **scale**: Specifies the type or category of the rating scale used for assigning scores, predefined by the plugin.
 
-This flexible data structure accommodates diverse rating types and scales, ensuring adaptability to different rating contexts. Once structured, the rating document is signed onto an attribute or parent within the system, ensuring authenticity and integrity. The cryptographic signature establishes a secure association between the reputation data and the respective attribute or parent, thereby maintaining a reliable record of reputation metrics within the 2WAY framework.
+This flexible data structure accommodates diverse rating types and scales, ensuring adaptability to different rating contexts. Once structured, the rating document points at an Attribute or Parent within the system.
 
 Here's an example JSON document illustrating the establishment of a rating:
 
