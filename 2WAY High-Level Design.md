@@ -77,7 +77,7 @@ In summary, 2WAY offers a groundbreaking approach to electronic identity and rep
 
 ## 1.1 Introduction to the Frontend <a name="11-introduction-to-the-frontend"></a>
 
-The frontend of the 2WAY system acts as the interface through which users interact with the platform's various features and tools. It's like the front door to the system, providing a user-friendly pathway to manage identities, reputations, and access controls within the decentralized network.
+The frontend of the 2WAY system acts as the interface through which users interact with the platform's various features and tools. It's like the front door to the system, providing a user-friendly pathway to manage identities, associated data, and access controls within the decentralized network.
 
 To power this frontend, we utilize the Flask framework, known for its lightweight and adaptable nature. Flask allows us to build dynamic web applications that are robust and scalable, catering to a wide range of user needs.
 
