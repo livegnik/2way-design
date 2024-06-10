@@ -131,13 +131,13 @@ Overall, Flask plugins play a crucial role in bridging the gap between the front
 
 The 2WAY system's frontend comes with several pre-installed plugins designed to enhance user experience and provide essential functionality. These plugins integrate seamlessly with backend services, facilitating various interactions within the platform.
 
-The Contacts plugin acts as a contact list or address book, allowing users to manage their network connections within the 2WAY system. Utilizing the 2WAY Graph, the Contacts plugin provides an intuitive interface for organizing and accessing contacts, enabling seamless communication and collaboration.
+The Contacts plugin acts as a contact list or address book, allowing users to manage their network connections within the 2WAY system. Utilizing the 2WAY Graph, the Contacts plugin provides an intuitive interface for organizing and accessing contacts, enabling seamless communication and collaboration. It ensures data privacy and security by adhering to Access Control Lists (ACLs), which define users' permissions to access and manage their contact information.
 
-The Messages plugin builds on the Contacts plugin to offer peer-to-peer messaging capabilities. By leveraging contact information and network connections from the 2WAY Graph, the Messages plugin enables real-time message exchanges, fostering communication within the platform.
+The Messages plugin builds on the Contacts plugin to offer peer-to-peer messaging capabilities. By leveraging contact information and network connections from the 2WAY Graph, the Messages plugin enables real-time message exchanges, fostering communication within the platform. It also generates notifications to keep users informed about new messages and interactions, enhancing user engagement.
 
-The Library plugin offers a comprehensive interface for browsing, searching, and filtering all objects from various plugins. Using degrees of separation within the 2WAY Graph, the Library plugin makes data management and retrieval intuitive and efficient, allowing users to easily locate and interact with information.
+The Library plugin offers a comprehensive interface for browsing, searching, and filtering all objects from various plugins. Using degrees of separation within the 2WAY Graph, the Library plugin makes data management and retrieval intuitive and efficient, allowing users to easily locate and interact with information. It integrates with Access Control Lists (ACLs) to ensure that users only access data for which they have appropriate permissions.
 
-The Social plugin enriches the user experience by providing a social feed that aggregates the latest messages from contacts. This feed gives users a centralized view of their interactions and conversations, keeping them updated on relevant discussions and activities within their network.
+The Social plugin enriches the user experience by providing a social feed that aggregates the latest messages from contacts. This feed gives users a centralized view of their interactions and conversations, keeping them updated on relevant discussions and activities within their network. It enhances collaboration and communication by providing a platform for users to interact and share updates.
 
 These pre-installed plugins provide essential functionality for managing contacts, exchanging messages, and staying connected within the 2WAY platform. By leveraging the 2WAY Graph and integrating with backend services, these plugins enhance the overall user experience and contribute to the platform's effectiveness as a communication and collaboration tool.
 
@@ -149,11 +149,13 @@ Beyond the default functionality provided by the pre-installed plugins, the 2WAY
 
 Built using the Flask framework, custom plugins can leverage Flask extensions and libraries to streamline development. This flexibility allows developers to create a wide range of plugins, from specialized communication tools to advanced data visualization and analytics.
 
-One common use case for custom plugins is integrating external services or APIs. For instance, developers might create plugins that connect with social media platforms, enabling users to share content, import contacts, or interact with external communities seamlessly.
+One common use case for custom plugins is integrating external services or APIs. For instance, developers might create plugins that connect with social media platforms, enabling users to share content, import contacts, or interact with external communities seamlessly. These plugins can integrate with the system's Access Control Lists (ACLs) to ensure secure access to data across plugins, maintaining data privacy and security.
 
-Custom plugins can also be tailored to specific industries, providing solutions for niche markets or specialized user groups. Examples include plugins for project management, customer relationship management (CRM), or e-commerce, allowing organizations to use the 2WAY platform for their business needs.
+Custom plugins can also be tailored to specific industries, providing solutions for niche markets or specialized user groups. Examples include plugins for project management, customer relationship management (CRM), or e-commerce, allowing organizations to use the 2WAY platform for their business needs. Inter-plugin communication enables seamless integration between different plugins, allowing them to work together to provide comprehensive solutions.
 
-Additionally, custom plugins can enhance user engagement by introducing gamification elements, personalized experiences, or advanced collaboration features. This flexibility allows developers to experiment with new ideas, gather user feedback, and continuously improve the user experience.
+Additionally, custom plugins can enhance user engagement by introducing gamification elements, personalized experiences, or advanced collaboration features. They can generate notifications or alerts to keep users informed about relevant events or updates within the system, providing users with a centralized view of their system activity. Proper error handling mechanisms ensure smooth operation and user experience.
+
+This flexibility allows developers to experiment with new ideas, gather user feedback, and continuously improve the user experience. By incorporating user feedback and iterating on plugin functionalities over time, developers can ensure that plugins evolve to meet changing user needs and preferences.
 
 Overall, custom plugins significantly enhance the functionality and versatility of the 2WAY platform. By supporting custom plugin development, the 2WAY system empowers developers to innovate and create solutions that meet unique user requirements, driving engagement and satisfaction.
 
