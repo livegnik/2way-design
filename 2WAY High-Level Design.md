@@ -87,11 +87,11 @@ In addition to individual plugin functionalities, the system's architecture enab
 
 Furthermore, the frontend streamlines user experience by consolidating notifications from various plugins into a unified interface, offering users a comprehensive view of their system activity. Alongside notifications, logs and errors are also accessible from a single view, providing users with valuable insights and facilitating efficient troubleshooting.
 
-The pre-installed Library plugin serves as a robust search tool, empowering users to query and filter information within the system effortlessly. Leveraging degrees of separation within the 2WAY graph, users can navigate and explore interconnected data sets with ease, enhancing the platform's searchability and usability.
+The pre-installed Library plugin serves as a robust search tool, empowering users to query and filter information within the system effortlessly. Leveraging degrees of separation within the 2WAY Graph, users can navigate and explore interconnected data sets with ease, enhancing the platform's searchability and usability.
 
-The Contacts plugin acts as an intuitive contact list or address book, allowing users to manage their network connections seamlessly. Integrated with the 2WAY graph, the Contacts plugin provides a user-friendly interface for organizing and accessing contacts, facilitating smooth communication and collaboration.
+The Contacts plugin acts as an intuitive contact list or address book, allowing users to manage their network connections seamlessly. Integrated with the 2WAY Graph, the Contacts plugin provides a user-friendly interface for organizing and accessing contacts, facilitating smooth communication and collaboration.
 
-Building upon the Contacts plugin, the Messages plugin offers peer-to-peer messaging capabilities, leveraging contact information and network connections from the 2WAY graph. This enables real-time message exchanges, fostering effective communication within the platform.
+Building upon the Contacts plugin, the Messages plugin offers peer-to-peer messaging capabilities, leveraging contact information and network connections from the 2WAY Graph. This enables real-time message exchanges, fostering effective communication within the platform.
 
 Moreover, the Social plugin enhances user experience by providing a centralized social feed that aggregates the latest messages from contacts. This feed offers users a consolidated view of their interactions and conversations, keeping them informed about relevant discussions and activities within their network.
 
@@ -131,15 +131,15 @@ Overall, Flask plugins play a crucial role in bridging the gap between the front
 
 The 2WAY system's frontend comes with several pre-installed plugins designed to enhance user experience and provide essential functionality. These plugins integrate seamlessly with backend services, facilitating various interactions within the platform.
 
-The Contacts plugin acts as a contact list or address book, allowing users to manage their network connections within the 2WAY system. Utilizing the 2WAY graph, the Contacts plugin provides an intuitive interface for organizing and accessing contacts, enabling seamless communication and collaboration.
+The Contacts plugin acts as a contact list or address book, allowing users to manage their network connections within the 2WAY system. Utilizing the 2WAY Graph, the Contacts plugin provides an intuitive interface for organizing and accessing contacts, enabling seamless communication and collaboration.
 
-The Messages plugin builds on the Contacts plugin to offer peer-to-peer messaging capabilities. By leveraging contact information and network connections from the 2WAY graph, the Messages plugin enables real-time message exchanges, fostering communication within the platform.
+The Messages plugin builds on the Contacts plugin to offer peer-to-peer messaging capabilities. By leveraging contact information and network connections from the 2WAY Graph, the Messages plugin enables real-time message exchanges, fostering communication within the platform.
 
-The Library plugin offers a comprehensive interface for browsing, searching, and filtering all objects from various plugins. Using degrees of separation within the 2WAY graph, the Library plugin makes data management and retrieval intuitive and efficient, allowing users to easily locate and interact with information.
+The Library plugin offers a comprehensive interface for browsing, searching, and filtering all objects from various plugins. Using degrees of separation within the 2WAY Graph, the Library plugin makes data management and retrieval intuitive and efficient, allowing users to easily locate and interact with information.
 
 The Social plugin enriches the user experience by providing a social feed that aggregates the latest messages from contacts. This feed gives users a centralized view of their interactions and conversations, keeping them updated on relevant discussions and activities within their network.
 
-These pre-installed plugins provide essential functionality for managing contacts, exchanging messages, and staying connected within the 2WAY platform. By leveraging the 2WAY graph and integrating with backend services, these plugins enhance the overall user experience and contribute to the platform's effectiveness as a communication and collaboration tool.
+These pre-installed plugins provide essential functionality for managing contacts, exchanging messages, and staying connected within the 2WAY platform. By leveraging the 2WAY Graph and integrating with backend services, these plugins enhance the overall user experience and contribute to the platform's effectiveness as a communication and collaboration tool.
 
 <br>
 
@@ -251,7 +251,7 @@ It's imperative to acknowledge that maintaining a Graph in RAM entails a relativ
 
 ### 2.3.1 Introduction to 2WAY Objects
 
-In 2WAY, a small set of simple data structures are used to construct objects. These objects, represented as nodes and edges within the 2WAY graph, encompass all the data stored within the system. The flexibility of these objects allows the system to model a wide range of applications and data structures, with the graph structure facilitating data organization and relationships.
+In 2WAY, a small set of simple data structures are used to construct objects. These objects, represented as nodes and edges within the 2WAY Graph, encompass all the data stored within the system. The flexibility of these objects allows the system to model a wide range of applications and data structures, with the graph structure facilitating data organization and relationships.
 
 The following objects are used to construct the system in its entirety:
 
