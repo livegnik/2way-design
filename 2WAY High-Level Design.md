@@ -139,13 +139,15 @@ Overall, Flask plugins play a crucial role in bridging the gap between the front
 
 The 2WAY system's frontend comes with several pre-installed plugins designed to enhance user experience and provide essential functionality. These plugins integrate seamlessly with backend services, facilitating various interactions within the platform.
 
-The Contacts plugin acts as a contact list or address book, allowing users to manage their network connections within the 2WAY system. Utilizing the 2WAY Graph, the Contacts plugin provides an intuitive interface for organizing and accessing contacts, enabling seamless communication and collaboration. It ensures data privacy and security by adhering to Access Control Lists (ACLs), which define users' permissions to access and manage their contact information.
+The Contacts plugin acts as a contact list or address book, allowing users to manage their network connections within the 2WAY system. Utilizing the 2WAY Graph, the Contacts plugin provides an intuitive interface for organizing and accessing contacts, enabling seamless communication and collaboration.
 
 The Messages plugin builds on the Contacts plugin to offer peer-to-peer messaging capabilities. By leveraging contact information and network connections from the 2WAY Graph, the Messages plugin enables real-time message exchanges, fostering communication within the platform. It also generates notifications to keep users informed about new messages and interactions, enhancing user engagement.
 
-The Library plugin offers a comprehensive interface for browsing, searching, and filtering all objects from various plugins. Using degrees of separation within the 2WAY Graph, the Library plugin makes data management and retrieval intuitive and efficient, allowing users to easily locate and interact with information. It integrates with Access Control Lists (ACLs) to ensure that users only access data for which they have appropriate permissions.
+The Library plugin offers a comprehensive interface for browsing, searching, and filtering all objects from various plugins. Using degrees of separation within the 2WAY Graph, the Library plugin makes data management and retrieval intuitive and efficient, allowing users to easily locate and interact with information.
 
 The Social plugin enriches the user experience by providing a social feed that aggregates the latest messages from contacts. This feed gives users a centralized view of their interactions and conversations, keeping them updated on relevant discussions and activities within their network. It enhances collaboration and communication by providing a platform for users to interact and share updates.
+
+All of these plugins ensure data privacy and security by adhering to Access Control Lists (ACLs), which define users' permissions to access and manage their data.
 
 These pre-installed plugins provide essential functionality for managing contacts, exchanging messages, and staying connected within the 2WAY platform. By leveraging the 2WAY Graph and integrating with backend services, these plugins enhance the overall user experience and contribute to the platform's effectiveness as a communication and collaboration tool.
 
