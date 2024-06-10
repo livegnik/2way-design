@@ -99,13 +99,11 @@ By integrating Flask into the 2WAY system, developers can build a user-centric f
 
 ## 1.3 Plugins <a name="13-plugins"></a>
 
-Within the 2WAY system, Flask plugins on the frontend facilitate seamless communication with the Object Manager on the backend. These plugins act as intermediaries, enabling efficient data retrieval and display within the frontend application.
+In the 2WAY proof-of-concept, plugins demonstrate how applications can function on top of the 2WAY protocol, showcasing the broader potential of integrating various applications with the system. Through these plugins, the proof-of-concept illustrates the capabilities and versatility of the 2WAY protocol in supporting diverse application needs and enhancing user interactions.
 
-Flask plugins encapsulate various functionalities designed to enhance the user experience and streamline interactions with backend systems. Integrated into the frontend application built on the Flask framework, they provide a modular and extensible architecture for managing data and user interactions.
+These Flask plugins streamline communication with the backend Object Manager, enabling efficient data handling within the application. Integrated into the Flask framework, they offer modular architectures for managing data and user interactions effectively. Powered by the Flask ecosystem, these plugins establish connections with the Object Manager, facilitating real-time updates and data synchronization between frontend and backend.
 
-At their core, Flask plugins leverage the capabilities of the Flask ecosystem to establish connections with the backend's Object Manager, the central hub for handling all data operations. Through these connections, the frontend can send requests and receive responses, enabling real-time updates and synchronization of data between the user interface and the server infrastructure.
-
-The Object Manager processes incoming requests from the frontend, executing necessary operations to retrieve, manipulate, or query data stored within the Server Graph, and returning the results to the frontend. This includes tasks such as creating and retrieving objects, updating graph structures, querying for relevant information, and managing access control and permissions.
+The Object Manager processes incoming requests from the frontend, executing necessary operations to create, retrieve, manipulate, or query data stored within the Server Graph, and returning the results to the frontend. This includes tasks such as creating and retrieving objects, updating graph structures, querying for relevant information, and managing access control and permissions.
 
 To further enhance the functionality and efficiency of the 2WAY system, plugins can create and manage objects as well. This allows for centralized creation and management of objects, reducing redundancy and saving space in the graph. When plugins create these objects, they are automatically granted access permissions to all or designated users, including new users joining the system. This is managed through the Access Control List (ACL) object, ensuring proper access control and seamless integration of new objects. All operations conducted by plugins are securely authenticated using their unique cryptographic key-pairs, ensuring data integrity and security.
 
