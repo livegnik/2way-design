@@ -77,13 +77,15 @@ In summary, 2WAY offers a groundbreaking approach to electronic identity and rep
 
 ## 1.1 Introduction to the Frontend <a name="11-introduction-to-the-frontend"></a>
 
-The frontend of the 2WAY system serves as the user-facing interface, providing a gateway to interact with the platform's features and functionalities. It is designed to offer an intuitive and responsive experience, enabling users to seamlessly manage their identities, reputations, and access controls within the decentralized network.
+The frontend of the 2WAY system acts as the interface through which users interact with the platform's various features and tools. It's like the front door to the system, providing a user-friendly pathway to manage identities, reputations, and access controls within the decentralized network.
 
-This section describes the infrastructure that powers the frontend, beginning with the Flask framework. Flask is chosen for its lightweight and flexible nature, making it an ideal foundation for building dynamic web applications. It supports the development of robust, scalable frontends that can cater to a wide range of user requirements.
+To power this frontend, we utilize the Flask framework, known for its lightweight and adaptable nature. Flask allows us to build dynamic web applications that are robust and scalable, catering to a wide range of user needs.
 
-We also explore the concept of plugins, which significantly extend the frontend's capabilities. Plugins enhance the frontend's versatility and modularity, allowing for a tailored user experience. Pre-installed plugins come bundled with the system, providing essential functionalities out of the box. Additionally, the architecture supports the development of custom plugins, enabling users and developers to create and integrate new features according to specific needs and preferences.
+A unique aspect of the frontend is the concept of plugins, which greatly enhance its capabilities. These plugins serve to extend and customize the frontend experience, providing additional functionalities tailored to individual preferences. The system comes equipped with pre-installed plugins that offer essential features right from the start. Moreover, users and developers can create custom plugins to introduce new features, ensuring that the platform remains flexible and adaptable to evolving requirements.
 
-By leveraging the flexibility of Flask and the extensibility provided by plugins, the frontend of the 2WAY system can be customized and expanded to meet the diverse demands of its user base, ensuring a personalized and efficient interaction with the platform.
+One significant advantage of running both the frontend and backend on your local machine is the speed of storing and retrieving data. Unlike traditional web applications where these actions are processed through a distant server, having everything locally ensures much faster performance. Users can register accounts as they would on any website, logging in with a username and password. Additionally, there's an option to reset passwords by setting up an SMTP connection to a mail server. All interactions are conducted through familiar interfaces, ensuring a seamless and intuitive user experience.
+
+By harnessing the power of Flask and the versatility of plugins, the frontend of the 2WAY system offers a customizable and expandable platform for users to interact with, ensuring efficiency and personalization in their engagement with the system.
 
 <br>
 
