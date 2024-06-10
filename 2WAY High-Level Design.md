@@ -45,7 +45,7 @@ For service providers, decentralizing applications can streamline operations and
 
 <br>
 
-Enter 2WAY, a pioneering proof-of-concept that reimagines electronic identity and reputation management in a fully peer-to-peer (P2P) environment. At its core, 2WAY empowers users to take control of their digital identities, manage linked data securely, and establish direct communication channels without relying on intermediaries. Through the seamless integration of digital signatures, a graph structure, and a decentralized P2P network, 2WAY offers users the ability to curate their digital personas, filter information for relevance, and engage securely with trusted parties, all within familiar interfaces.
+Enter 2WAY, a pioneering free and open-source proof-of-concept that reimagines electronic identity and reputation management in a fully peer-to-peer (P2P) environment. At its core, 2WAY empowers users to take control of their digital identities, manage linked data securely, and establish direct communication channels without relying on intermediaries. Through the seamless integration of digital signatures, a graph structure, and a decentralized P2P network, 2WAY offers users the ability to curate their digital personas, filter information for relevance, and engage securely with trusted parties, all within familiar interfaces.
 
 The foundation of 2WAY lies in its distributed identity, reputation, and access management server, which leverages cryptographic proof to verify message authenticity and establish secure communication channels between servers. Through a decentralized network of trusted servers, users can exchange data with confidence, knowing that their identities and interactions are protected by robust cryptographic mechanisms.
 
@@ -79,7 +79,7 @@ In summary, 2WAY offers a groundbreaking approach to electronic identity and rep
 
 The frontend of the 2WAY system acts as the primary interface for users to access and interact with the platform's diverse array of features and functionalities. It serves as the gateway through which users manage their identities, associated data, and access controls within the decentralized network.
 
-Powered by the Flask framework, renowned for its lightweight and adaptable nature, the frontend facilitates the development of dynamic web applications that are both robust and scalable, catering to a broad spectrum of user needs.
+Powered by the Flask framework, the frontend facilitates the development of dynamic web applications that are both robust and scalable, catering to a broad spectrum of user needs.
 
 One of the standout features of the 2WAY frontend is the integration of plugins, which significantly augment its capabilities. These plugins extend and personalize the frontend experience, offering additional functionalities tailored to individual preferences. With pre-installed plugins providing essential features, users can immediately access a range of functionalities. Moreover, users and developers have the flexibility to create custom plugins, ensuring that the platform remains versatile and adaptable to evolving requirements.
 
