@@ -77,15 +77,27 @@ In summary, 2WAY offers a groundbreaking approach to electronic identity and rep
 
 ## 1.1 Introduction to the Frontend <a name="11-introduction-to-the-frontend"></a>
 
-The frontend of the 2WAY system acts as the interface through which users interact with the platform's various features and tools. It's like the front door to the system, providing a user-friendly pathway to manage identities, associated data, and access controls within the decentralized network.
+The frontend of the 2WAY system acts as the primary interface for users to access and interact with the platform's diverse array of features and functionalities. It serves as the gateway through which users manage their identities, associated data, and access controls within the decentralized network.
 
-To power this frontend, we utilize the Flask framework, known for its lightweight and adaptable nature. Flask allows us to build dynamic web applications that are robust and scalable, catering to a wide range of user needs.
+Powered by the Flask framework, renowned for its lightweight and adaptable nature, the frontend facilitates the development of dynamic web applications that are both robust and scalable, catering to a broad spectrum of user needs.
 
-A unique aspect of the 2WAY frontend is the concept of plugins, which greatly enhance its capabilities. These plugins serve to extend and customize the frontend experience, providing additional functionalities tailored to individual preferences. The system comes equipped with pre-installed plugins that offer essential features right from the start. Moreover, users and developers can create custom plugins to introduce new features, ensuring that the platform remains flexible and adaptable to evolving requirements.
+One of the standout features of the 2WAY frontend is the integration of plugins, which significantly augment its capabilities. These plugins extend and personalize the frontend experience, offering additional functionalities tailored to individual preferences. With pre-installed plugins providing essential features, users can immediately access a range of functionalities. Moreover, users and developers have the flexibility to create custom plugins, ensuring that the platform remains versatile and adaptable to evolving requirements.
 
-One significant advantage of running both the frontend and backend on your local machine is the speed of storing and retrieving data. Unlike traditional web applications where these actions are processed through a distant server, having everything locally ensures much faster performance. Users can register accounts as they would on any website, logging in with a username and password. Additionally, there's an option to reset passwords by setting up an SMTP connection to a mail server. All interactions are conducted through familiar interfaces, ensuring a seamless and intuitive user experience.
+In addition to individual plugin functionalities, the system's architecture enables seamless inter-plugin data access through established Access Control Lists (ACLs). These ACLs empower plugins to utilize or combine each other's data in the database, fostering interoperability and enriching the array of available features.
 
-By harnessing the power of Flask and the versatility of plugins, the frontend of the 2WAY system offers a customizable and expandable platform for users to interact with, ensuring efficiency and personalization in their engagement with the system.
+Furthermore, the frontend streamlines user experience by consolidating notifications from various plugins into a unified interface, offering users a comprehensive view of their system activity. Alongside notifications, logs and errors are also accessible from a single view, providing users with valuable insights and facilitating efficient troubleshooting.
+
+The pre-installed Library plugin serves as a robust search tool, empowering users to query and filter information within the system effortlessly. Leveraging degrees of separation within the 2WAY graph, users can navigate and explore interconnected data sets with ease, enhancing the platform's searchability and usability.
+
+The Contacts plugin acts as an intuitive contact list or address book, allowing users to manage their network connections seamlessly. Integrated with the 2WAY graph, the Contacts plugin provides a user-friendly interface for organizing and accessing contacts, facilitating smooth communication and collaboration.
+
+Building upon the Contacts plugin, the Messages plugin offers peer-to-peer messaging capabilities, leveraging contact information and network connections from the 2WAY graph. This enables real-time message exchanges, fostering effective communication within the platform.
+
+Moreover, the Social plugin enhances user experience by providing a centralized social feed that aggregates the latest messages from contacts. This feed offers users a consolidated view of their interactions and conversations, keeping them informed about relevant discussions and activities within their network.
+
+Operating both the frontend and backend locally on a user's machine ensures optimal performance in terms of storing and retrieving data. Unlike traditional web applications that rely on remote servers for processing, local hosting facilitates faster response times and enhanced efficiency. Users can register accounts, log in with familiar credentials, and reset passwords seamlessly, contributing to an overall seamless user experience.
+
+In summary, the frontend of the 2WAY system, with its reliance on Flask and the integration of plugins, provides a versatile, efficient, and personalized platform for users to engage with. Through inter-plugin data access, consolidated notifications, and robust search functionalities, the frontend empowers users to effectively manage their interactions within the decentralized network, while logs, errors, and a visual representation of the user's graph offer valuable insights and enhance user experience.
 
 <br>
 
