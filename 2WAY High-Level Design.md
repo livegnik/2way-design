@@ -1359,6 +1359,11 @@ Tor integration, etc
 
 
 
+
+[ ] Improve "2.4 Database Schema"
+
+[ ] "signing_key" --> "user_record_id"
+
 [ ] Messages appended --> updated in database and can be logged to Log Manager
 [ ] Latest message --> Update database records to newest state and log messages to Log Manager
 
@@ -1392,3 +1397,8 @@ Tor integration, etc
 [X] Improve "2.3 2WAY Objects"
 [X] Remove mentions of Denial of Service (DoS) Guard Manager
 [X] node --> server, where relevant
+[X] Improve "1. Frontend"
+[X] Improve "2.1 Introduction to the Backend"
+[X] Improve "2.2 Graph"
+[X] Log Manager --> JSON document should contain "created", "modified", or "deleted"
+[X] Plugin cryptographic key-pairs, objects, and permissions
