@@ -362,7 +362,7 @@ When the change is queried from the Log Manager, the log presents the following 
 
 In this JSON structure:
 - `id` stands for the unique identifier assigned to the log entry.
-- `action` describes the interaction with the object (`new`, `update`, or `delete`)
+- `action` describes the interaction with the object (`new`, `change`, or `delete`)
 - `signing_key` indicates the public key of the user generating the log entry.
 - `attribute_id` refers to the unique identifier of the Attribute associated with this log entry.
 - `attribute_type` and `attribute_value` define the key-value pair of the Attribute.
