@@ -396,7 +396,7 @@ A Parent in the 2WAY system consists of a single parent Attribute connected to o
     },
     {
       "child_parent_type": "group",
-      "child_value": "Enterprise LLC"
+      "child_parent_value": "Enterprise LLC"
     }
   ]
 }
