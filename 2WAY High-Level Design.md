@@ -1371,6 +1371,7 @@ Tor integration, etc
 
 
 [ ] Improve "2.4 Database Schema"
+[ ] Add frontend schema to "2.4 Database Schema"
 
 [ ] "signing_key" --> "user_record_id"
 
