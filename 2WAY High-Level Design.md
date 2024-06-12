@@ -314,7 +314,7 @@ The `vote` value aids in managing the object's lifecycle; an object with a vote 
 
 Once received, the Object Manager commences the creation process of various object types within the system by authorized users. The newly formed Attribute is connected to the user's public key through an implicit edge. This connection is inherent since the public key is stored as an Attribute, and the new Attribute contains the signer's public key and signature.
 
-Optionally, each individual change can be logged to the Log Manager before updating the unsigned object to the Graph on Disk. Logged changes can be signed before storage by passing through the Key Manager, ensuring data integrity and authenticity.
+Optionally, each individual change can be logged to the Log Manager when updating the unsigned object to the Graph on Disk. Logged changes can be signed before storage by passing through the Key Manager, ensuring data integrity and authenticity.
 
 The Object Manager also facilitates Attribute querying, enabling users to filter results based on the degree of separation and additional contextual criteria.
 
@@ -1374,7 +1374,7 @@ Tor integration, etc
 
 [ ] Add frontend schema to "2.4 Database Schema"
 
-[ ] "signing_key" --> "user_record_id"
+[ ] "signing_key" / "user_public_key" --> "user_record_id"
 
 [ ] Messages appended --> updated in database and can be logged to Log Manager
 
@@ -1384,13 +1384,13 @@ Tor integration, etc
 
 [ ] Improve "2.5 Object Manager"
 
+[ ] Improve "2.6 Graph Manager"
+
 [ ] ""5,9,12,13,14"," to array such as "[5,9,12]"
 
 [ ] Capitalize all objects (attributes, parents, edges, ratings)
 
 [ ] Add user_id description
-
-[ ] Change user_public_key to user_id where needed
 
 [ ] Querying Objects --> Vote = empty to query both up and down-voted objects
 
