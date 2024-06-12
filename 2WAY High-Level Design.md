@@ -314,7 +314,7 @@ The `vote` value aids in managing the object's lifecycle; an object with a vote 
 
 Once received, the Object Manager commences the creation process of various object types within the system by authorized users. The newly formed Attribute is connected to the user's public key through an implicit edge. This connection is inherent since the public key is stored as an Attribute, and the new Attribute contains the signer's public key and signature.
 
-Optionally, each individual change can be logged to the Log Manager when updating the unsigned object to the Graph on Disk. Logged changes can be signed before storage by passing through the Key Manager, ensuring data integrity and authenticity.
+Optionally, each individual change can be logged to the Log Manager when updating the cryptographically unsigned object to the Graph on Disk. Logged changes can be signed before storage by passing through the Key Manager, ensuring data integrity and authenticity.
 
 The Object Manager also facilitates Attribute querying, enabling users to filter results based on the degree of separation and additional contextual criteria.
 
