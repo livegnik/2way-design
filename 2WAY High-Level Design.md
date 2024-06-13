@@ -33,7 +33,7 @@
 
 # Introduction <a name="introduction"></a>
 
-In today's digital landscape, centralized identity and reputation systems are everywhere, forming the foundation of online interactions. These systems, similar to algorithms used by popular platforms, assess the credibility or reliability of entities like users, products, services, and other entities based on various factors. While these systems offer convenience, they also introduce inherent vulnerabilities and limitations that impact both users and third-party service providers. From privacy concerns to regulatory compliance challenges, centralized systems pose significant risks and costs to all stakeholders.
+In today's digital landscape, centralized identity and reputation systems are everywhere, forming the foundation of online interactions. These systems manage user accounts, evaluating the credibility or reliability of users, products, services, and other entities based on various criteria. They operate similarly to algorithms used by popular platforms to establish and maintain user identities. While these systems offer convenience, they also introduce significant vulnerabilities and limitations that affect both users and third-party service providers. From privacy concerns to regulatory compliance challenges, centralized systems pose significant risks and costs to all stakeholders.
 
 For users, centralized identity and reputation systems often require the disclosure of sensitive personal information to third-party intermediaries. This reliance raises privacy concerns and exposes users to data breaches and unauthorized access. Additionally, users may face restrictions on their digital freedoms, as centralized systems are subject to censorship and control by a single authority.
 
