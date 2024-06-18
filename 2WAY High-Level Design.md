@@ -33,7 +33,7 @@
 
 # Introduction <a name="introduction"></a>
 
-In today's digital landscape, centralized identity and reputation systems are everywhere, forming the foundation of online interactions. These systems manage user accounts, evaluating the credibility or reliability of users, products, services, and other entities based on various criteria. They operate similarly to algorithms used by popular platforms to establish and maintain user identities. While these systems offer convenience, they also introduce significant vulnerabilities and limitations that affect both users and third-party service providers. From privacy concerns to regulatory compliance challenges, centralized systems pose significant risks and costs to all stakeholders.
+In today's digital landscape, centralized identity and reputation systems are everywhere, forming the foundation of online interactions. These systems manage user accounts and evaluate the credibility or reliability of users, products, services, and other entities based on various criteria. They operate similarly to algorithms used by popular platforms to establish and maintain user identities. While these systems offer convenience, they also introduce significant vulnerabilities and limitations that affect both users and third-party service providers. From privacy concerns to regulatory compliance challenges, centralized systems pose significant risks and costs to all stakeholders.
 
 For users, centralized identity and reputation systems often require the disclosure of sensitive personal information to third-party intermediaries. This reliance raises privacy concerns and exposes users to data breaches and unauthorized access. Additionally, users may face restrictions on their digital freedoms, as centralized systems are subject to censorship and control by a single authority.
 
@@ -45,7 +45,7 @@ For service providers, decentralizing applications can streamline operations and
 
 <br>
 
-Enter 2WAY, a pioneering free and open-source proof-of-concept that reimagines electronic identity and reputation management in a fully peer-to-peer (P2P) environment. At its core, 2WAY empowers users to take control of their digital identities, manage linked data securely, and establish direct communication channels without relying on intermediaries. Through the seamless integration of digital signatures, a graph structure, and a decentralized P2P network, 2WAY offers users the ability to curate their digital personas, filter information for relevance, and engage securely with trusted parties, all within familiar interfaces.
+Enter 2WAY, a proposal for a pioneering free and open-source proof-of-concept that reimagines electronic identity and reputation management in a fully peer-to-peer (P2P) environment. At its core, 2WAY empowers users to take control of their digital identities, manage linked data securely, and establish direct communication channels without relying on intermediaries. Through the seamless integration of digital signatures, a graph structure, and a decentralized P2P network, 2WAY offers users the ability to curate their digital personas, filter information for relevance, and engage securely with trusted parties, all within familiar interfaces.
 
 The foundation of 2WAY lies in its distributed identity, reputation, and access management server, which leverages cryptographic proof to verify message authenticity and establish secure communication channels between servers. Through a decentralized network of trusted servers, users can exchange data with confidence, knowing that their identities and interactions are protected by robust cryptographic mechanisms.
 
@@ -61,7 +61,7 @@ Designed to be lightweight, 2WAY can run both the frontend (client) and backend 
 
 This document navigates through the intricate layers of the 2WAY system, beginning with an exploration of its frontend infrastructure and extending to its backend architecture.
 
-Within the Frontend section, we explain the Flask framework, the backbone of 2WAY's frontend, and examine the concept of plugins, from pre-installed options to the development of custom plugins.
+Within the Frontend section, we explain the Flask framework, the backbone of the 2WAY proof-of-concept, and examine the concept of plugins, from pre-installed options to the development of custom plugins.
 
 Transitioning to the Backend section, we uncover the foundational elements of the 2WAY Graph, alongside the management of core 2WAY Objects such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Additionally, we describe the Database Schema and dive deep into the functionalities of essential backend components, including the Object Manager, Graph Manager, Storage Manager, Network Manager, and more.
 
@@ -141,7 +141,7 @@ The 2WAY system's frontend comes with several pre-installed plugins designed to 
 
 The Contacts plugin acts as a contact list or address book, allowing users to manage their network connections within the 2WAY system. Utilizing the 2WAY Graph, the Contacts plugin provides an intuitive interface for organizing and accessing contacts, enabling seamless communication and collaboration.
 
-The Messages plugin builds on the Contacts plugin to offer peer-to-peer messaging capabilities. By leveraging contact information and network connections from the 2WAY Graph, the Messages plugin enables real-time message exchanges, fostering communication within the platform. It also generates notifications to keep users informed about new messages and interactions, enhancing user engagement.
+The Messages plugin builds on the Contacts plugin to offer peer-to-peer messaging capabilities. By leveraging contact information and network connections from the 2WAY Graph, the Messages plugin enables real-time message exchanges, fostering communication within the platform.
 
 The Library plugin offers a comprehensive interface for browsing, searching, and filtering all objects from various plugins. Using degrees of separation within the 2WAY Graph, the Library plugin makes data management and retrieval intuitive and efficient, allowing users to easily locate and interact with information.
 
@@ -164,8 +164,6 @@ One common use case for custom plugins is integrating external services or APIs.
 Custom plugins can also be tailored to specific industries, providing solutions for niche markets or specialized user groups. Examples include plugins for project management, customer relationship management (CRM), or e-commerce, allowing organizations to use the 2WAY platform for their business needs. Inter-plugin communication enables seamless integration between different plugins, allowing them to work together to provide comprehensive solutions.
 
 Additionally, custom plugins can enhance user engagement by introducing gamification elements, personalized experiences, or advanced collaboration features. They can generate notifications or alerts to keep users informed about relevant events or updates within the system, providing users with a centralized view of their system activity. Proper error handling mechanisms ensure smooth operation and user experience.
-
-This flexibility allows developers to experiment with new ideas, gather user feedback, and continuously improve the user experience. By incorporating user feedback and iterating on plugin functionalities over time, developers can ensure that plugins evolve to meet changing user needs and preferences.
 
 Overall, custom plugins significantly enhance the functionality and versatility of the 2WAY platform. By supporting custom plugin development, the 2WAY system empowers developers to innovate and create solutions that meet unique user requirements, driving engagement and satisfaction.
 
