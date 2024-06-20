@@ -201,6 +201,8 @@ At its essence, the 2WAY Graph is a directed graph-based data model that uses no
 
 The 2WAY Graph is decentralized and distributed, allowing users to create, share, and collaborate on data in a flexible and scalable manner. This graph-based approach facilitates intuitive navigation, exploration, and discovery of interconnected data. Users can traverse relationships and uncover valuable insights within their social or organizational networks.
 
+This decentralized architecture ensures robustness and resilience, as data is not reliant on a single central server. Instead, it is distributed across multiple nodes, enhancing data security and availability. Moreover, the graph-based structure supports complex queries and analyses, enabling users to identify patterns and correlations that might be difficult to detect using traditional data models.
+
 <br>
 
 ### 2.2.2 User Graph
