@@ -217,7 +217,7 @@ This approach ensures users maintain a focused and personalized view of the data
 
 Plugins in the 2WAY system can also create and manage objects through the Object Manager. Each plugin has its own cryptographic key-pair, effectively making them users within the system. This allows plugins to function similarly to human users, with their own unique User Graphs, nodes, and edges. Plugins can create objects on behalf of multiple users, ensuring that not every user needs to create these objects individually, thus saving space in the graph.
 
-When plugins create or manage objects, either all users or designated users receive access to them. New users can automatically receive access to these plugin-created objects as well. The Access Control List (ACL) is updated to ensure proper permissions are set for these objects, maintaining seamless integration and efficient access management.
+When plugins create or manage objects, either all users or designated users receive access to them. New users can automatically receive access to these plugin-created objects as well. The relevant Access Control List (ACL) objects are updated to ensure proper permissions are set for these plugin-created objects, maintaining seamless integration and efficient access management.
 
 By incorporating plugins as users with their own cryptographic key-pairs, the 2WAY system enhances its flexibility and scalability, allowing automated processes to contribute to the graph while ensuring secure and controlled access to data.
 
