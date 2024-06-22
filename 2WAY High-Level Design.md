@@ -418,9 +418,8 @@ When creating a Parent object, the following JSON structure might be used:
 {
   "id": 1,
   "version": 1,
-  "signing_key": "Alice's public key",
+  "signer": "user_id",
   "parent_id": "4",
-  "parent_version": "1",
   "vote": "1",
   "timestamp": "1648062000",
   "hash": "hash of the document"
@@ -429,8 +428,8 @@ When creating a Parent object, the following JSON structure might be used:
 
 In this JSON structure:
 - `id` and `version` identify the object and its version.
-- `signing_key` is the public key of the user creating the object.
-- `parent_id` and `parent_version` reference the parent Attribute object.
+- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Parent.
+- `parent_id` references the parent Attribute object.
 - `vote` indicates the relevance of the object (`1` for relevant, `0` for irrelevant).
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
