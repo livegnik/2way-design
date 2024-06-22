@@ -352,7 +352,7 @@ When the change is queried from the Log Manager, the log presents the following 
 {
   "id": 56,
   "action": "new",
-  "signing_key": "Alice's public key",
+  "signer": "user_id",
   "attribute_id": "1",
   "type": "name",
   "value": "Alice",
@@ -366,7 +366,7 @@ When the change is queried from the Log Manager, the log presents the following 
 In this JSON structure:
 - `id` stands for the unique identifier assigned to the log entry.
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`)
-- `signing_key` indicates the public key of the user generating the log entry.
+- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute.
 - `attribute_id` refers to the unique identifier of the Attribute associated with this log entry.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
