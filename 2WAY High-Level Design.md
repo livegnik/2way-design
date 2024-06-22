@@ -302,8 +302,8 @@ When a user generates an Attribute on the frontend, it's transmitted to the back
   "action": "new",
   "signing_key": "user_public_key",
   "app_hash": "hashed_app_identifier",
-  "attribute_type": "name",
-  "attribute_value": "Alice",
+  "type": "name",
+  "value": "Alice",
   "vote": "1"
 }
 ```
@@ -313,7 +313,7 @@ In this JSON structure:
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`)
 - `signing_key` refers to the public key of the user creating the Attribute.
 - `app_hash` signifies the hashed application identifier, along with the sub-ID, to ensure uniqueness and prevent naming collisions.
-- `attribute_type` and `attribute_value` define the key-value pair of the Attribute.
+- `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the object's relevance (`1` for relevant, `0` for irrelevant).
 
 The `vote` value aids in managing the object's lifecycle; an object with a vote of `0` in its latest version is disregarded in future queries unless explicitly requested.
@@ -331,8 +331,8 @@ When queried, the newly created Attribute object is returned:
   "id": 1,
   "version": 1,
   "signing_key": "Alice's public key",
-  "attribute_type": "name",
-  "attribute_value": "Alice",
+  "type": "name",
+  "value": "Alice",
   "vote": "1",
   "timestamp": "1648062000",
   "hash": "document hash"
@@ -344,7 +344,7 @@ In this JSON structure:
 - `version` denotes the version of the Attribute.
 - `signing_key` indicates the public key of the user generating the Attribute.
 - `app_hash` signifies the hashed application identifier, along with the sub-ID, ensuring uniqueness and preventing naming collisions.
-- `attribute_type` and `attribute_value` define the key-value pair of the Attribute.
+- `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
 - `timestamp` shows the time when the Attribute was created.
 - `hash` represents the hash of the document.
@@ -357,8 +357,8 @@ When the change is queried from the Log Manager, the log presents the following 
   "action": "new",
   "signing_key": "Alice's public key",
   "attribute_id": "1",
-  "attribute_type": "name",
-  "attribute_value": "Alice",
+  "type": "name",
+  "value": "Alice",
   "vote": "1",
   "timestamp": "1648062000",
   "hash": "document hash",
@@ -371,7 +371,7 @@ In this JSON structure:
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`)
 - `signing_key` indicates the public key of the user generating the log entry.
 - `attribute_id` refers to the unique identifier of the Attribute associated with this log entry.
-- `attribute_type` and `attribute_value` define the key-value pair of the Attribute.
+- `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
 - `timestamp` shows the time when the log entry was created.
 - `hash` represents the hash of the document.
@@ -597,8 +597,8 @@ Here are the core tables in the schema:
    - **version** INT: Version number for the attribute.
    - **type** TEXT: Type of the attribute.
    - **signing_key** TEXT: Key used to sign the attribute.
-   - **attribute_type** TEXT: Key of the attribute.
-   - **attribute_value** TEXT: Value of the attribute.
+   - **type** TEXT: Key of the attribute.
+   - **value** TEXT: Value of the attribute.
    - **vote** INT: Vote count for the attribute.
    - **timestamp** INT: Timestamp of the attribute creation or modification.
    - **hash** TEXT: Hash of the attribute.
@@ -694,8 +694,8 @@ To create objects within the 2WAY system, users interact with the frontend inter
   "object": "attribute",
   "app_id": "twoway, connections",
   "signing_key": "user_id",
-  "attribute_type": "name",
-  "attribute_value": "Alice",
+  "type": "name",
+  "value": "Alice",
   "vote": "1"
 }
 ```
@@ -762,8 +762,8 @@ Upon receiving these JSON documents from clients or the backend/system itself, t
   "object": "attribute",
   "app_id": "twoway, connections",
   "signing_key": "user_id",
-  "attribute_type": "name",
-  "attribute_value": "Alice",
+  "type": "name",
+  "value": "Alice",
   "vote": "1",
   "timestamp": 1617000000,
   "hash": "generated_hash",
@@ -788,8 +788,8 @@ An examples of a JSON document for down-voting an Attribute, to be processed by 
   "object": "attribute",
   "app_id": "twoway, connections",
   "signing_key": "user_id",
-  "attribute_type": "name",
-  "attribute_value": "Alice",
+  "type": "name",
+  "value": "Alice",
   "vote": "0"
 }
 ```
@@ -801,8 +801,8 @@ Upon receiving this JSON document, the Object Manager follows the standard proce
   "object": "attribute",
   "app_id": "twoway, connections",
   "signing_key": "user_id",
-  "attribute_type": "name",
-  "attribute_value": "Alice",
+  "type": "name",
+  "value": "Alice",
   "vote": "0",
   "timestamp": 1618000000,
   "hash": "generated_hash",
@@ -870,8 +870,8 @@ Below is an example of a JSON document for filtering objects based on specific c
   "app_id": "twoway, connections",
   "signing_key": "user_public_key",
   "criteria": {
-    "attribute_type": "email",
-    "attribute_value": "example@email.com",
+    "type": "email",
+    "value": "example@email.com",
     "degree": 3,
     "vote": 1
   }
@@ -913,7 +913,7 @@ Here is a more extensive and UX-friendly search query example that demonstrates 
   "signing_key": "user_public_key",
   "degree": 2,
   "criteria": {
-    "attribute_type": "phone_number",
+    "type": "phone_number",
     "vote": 1,
     "parent": {
       "type": "restaurant",
@@ -938,7 +938,7 @@ Here is a more extensive and UX-friendly search query example that demonstrates 
 - **signing_key**: The public key of the user initiating the query.
 - **degree**: Limits the query to objects signed by anyone within 2 degrees of separation.
 - **criteria**: Contains the filtering parameters:
-  - **attribute_type**: "phone_number", indicating we want attributes of this type.
+  - **type**: "phone_number", indicating we want attributes of this type.
   - **vote**: 1, indicating we only want up-voted objects.
   - **parent**: Specifies the type of parent object we are interested in ("restaurant"), and excludes a specific value ("The French Cock").
   - **ratings**: Specifies criteria for ratings:
@@ -1018,7 +1018,7 @@ When a user, such as Alice, first signs her own public key, an Attribute is crea
   "type": "pubkey",
   "signing_key": "Alice's public key",
   "attribute_key": "pubkey",
-  "attribute_value": "Alice's public key",
+  "value": "Alice's public key",
   "vote": 1,
   "timestamp": 1648062000,
   "hash": "hash of the document",
@@ -1037,7 +1037,7 @@ Next, if Alice adds Bob's public key as an attribute, another Attribute is creat
   "type": "pubkey",
   "signing_key": "Alice's public key",
   "attribute_key": "pubkey",
-  "attribute_value": "Bob's public key",
+  "value": "Bob's public key",
   "vote": 1,
   "timestamp": 1648062010,
   "hash": "hash of the document",
@@ -1058,7 +1058,7 @@ If a "pubkey" Attribute or connection is down-voted, it signifies that the conne
   "type": "pubkey",
   "signing_key": "Alice's public key",
   "attribute_key": "pubkey",
-  "attribute_value": "Bob's public key",
+  "value": "Bob's public key",
   "vote": 0,
   "timestamp": 1648062020,
   "hash": "hash of the document",
@@ -1093,7 +1093,7 @@ The query request includes details such as the object type, degree of separation
   "signing_key": "user_public_key",
   "degree": 2,
   "criteria": {
-    "attribute_type": "pubkey",
+    "type": "pubkey",
     "vote": 1
   }
 }
@@ -1151,7 +1151,7 @@ The Object Manager then uses this set of node record IDs to query the Storage Ma
       "type": "pubkey",
       "signing_key": "Alice's public key",
       "attribute_key": "pubkey",
-      "attribute_value": "Bob's public key",
+      "value": "Bob's public key",
       "vote": 1,
       "timestamp": 1648062000,
       "hash": "hash of the document",
@@ -1164,7 +1164,7 @@ The Object Manager then uses this set of node record IDs to query the Storage Ma
       "type": "pubkey",
       "signing_key": "Bob's public key",
       "attribute_key": "pubkey",
-      "attribute_value": "Carol's public key",
+      "value": "Carol's public key",
       "vote": 1,
       "timestamp": 1648062010,
       "hash": "hash of the document",
