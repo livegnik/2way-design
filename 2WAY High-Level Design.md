@@ -300,7 +300,7 @@ When a user generates an Attribute on the frontend, it's transmitted to the back
 {
   "object": "attribute",
   "action": "new",
-  "signing_key": "user_public_key",
+  "signer": "user_id",
   "app_hash": "hashed_app_identifier",
   "type": "name",
   "value": "Alice",
@@ -311,7 +311,7 @@ When a user generates an Attribute on the frontend, it's transmitted to the back
 In this JSON structure:
 - `object` indicates that this is an Attribute.
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`)
-- `signing_key` refers to the public key of the user creating the Attribute.
+- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute.
 - `app_hash` signifies the hashed application identifier, along with the sub-ID, to ensure uniqueness and prevent naming collisions.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the object's relevance (`1` for relevant, `0` for irrelevant).
