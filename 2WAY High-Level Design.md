@@ -452,9 +452,7 @@ Here's an example JSON document illustrating the establishment of a parent-child
   "version": 1,
   "signing_key": "Alice's public key",
   "parent_id": "4",
-  "parent_version": "2",
   "child_ids": "5,9,12,13,14",
-  "child_versions": "1,1,2,1,1",
   "vote": "1",
   "timestamp": "1648062000",
   "hash": "hash of the document"
@@ -464,8 +462,8 @@ Here's an example JSON document illustrating the establishment of a parent-child
 In this JSON structure:
 - `id` and `version` identify the Edge object and its version.
 - `signing_key` is the public key of the user creating the Edge.
-- `parent_id` and `parent_version` reference the parent object.
-- `child_ids` and `child_versions` specify the IDs and versions of the child objects.
+- `parent_id`references the parent object.
+- `child_ids` specifies the IDs of the child objects.
 - `vote` indicates the relevance of the Edge (`1` for relevant, `0` for irrelevant).
 - `timestamp` records the time of creation.
 - `hash` provides a unique identifier for the document.
