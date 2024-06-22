@@ -289,6 +289,8 @@ Attributes in the 2WAY system are vital key-value pairs, comprising a "type" and
 
 - `{"type": "name", "value": "Alice"}`
 - `{"type": "pubkey", "value": "Alice's public key"}`
+- `{"type": "book_title", "value": "Title of the Book"}`
+- `{"type": "fileOnDisk", "value": "Path to the file"}`
 
 Attributes are dynamically defined, either through API communication from the frontend or directly by the backend.
 
@@ -297,6 +299,7 @@ When a user generates an Attribute on the frontend, it's transmitted to the back
 ```json
 {
   "object": "attribute",
+  "action": "new",
   "signing_key": "user_public_key",
   "app_hash": "hashed_app_identifier",
   "attribute_type": "name",
@@ -307,6 +310,7 @@ When a user generates an Attribute on the frontend, it's transmitted to the back
 
 In this JSON structure:
 - `object` indicates that this is an Attribute.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`)
 - `signing_key` refers to the public key of the user creating the Attribute.
 - `app_hash` signifies the hashed application identifier, along with the sub-ID, to ensure uniqueness and prevent naming collisions.
 - `attribute_type` and `attribute_value` define the key-value pair of the Attribute.
@@ -364,7 +368,7 @@ When the change is queried from the Log Manager, the log presents the following 
 
 In this JSON structure:
 - `id` stands for the unique identifier assigned to the log entry.
-- `action` describes the interaction with the object (`new`, `change`, or `delete`)
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`)
 - `signing_key` indicates the public key of the user generating the log entry.
 - `attribute_id` refers to the unique identifier of the Attribute associated with this log entry.
 - `attribute_type` and `attribute_value` define the key-value pair of the Attribute.
