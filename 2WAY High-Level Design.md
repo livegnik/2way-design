@@ -417,7 +417,6 @@ When creating a Parent object, the following JSON structure might be used:
 ```json
 {
   "id": 1,
-  "version": 1,
   "signer": "user_id",
   "parent_id": "4",
   "vote": "1",
@@ -427,7 +426,7 @@ When creating a Parent object, the following JSON structure might be used:
 ```
 
 In this JSON structure:
-- `id` and `version` identify the object and its version.
+- `id` identifies the object.
 - `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Parent.
 - `parent_id` references the parent Attribute object.
 - `vote` indicates the relevance of the object (`1` for relevant, `0` for irrelevant).
@@ -449,8 +448,7 @@ Here's an example JSON document illustrating the establishment of a parent-child
 ```json
 {
   "id": 1,
-  "version": 1,
-  "signing_key": "Alice's public key",
+  "signer": "user_id",
   "parent_id": "4",
   "child_ids": "5,9,12,13,14",
   "vote": "1",
@@ -460,8 +458,8 @@ Here's an example JSON document illustrating the establishment of a parent-child
 ```
 
 In this JSON structure:
-- `id` and `version` identify the Edge object and its version.
-- `signing_key` is the public key of the user creating the Edge.
+- `id` identifies the Edge object.
+- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Edge.
 - `parent_id`references the parent object.
 - `child_ids` specifies the IDs of the child objects.
 - `vote` indicates the relevance of the Edge (`1` for relevant, `0` for irrelevant).
@@ -491,12 +489,9 @@ Here's an example JSON document illustrating the establishment of a Rating:
 ```json
 {
   "id": 1,
-  "version": 1,
-  "signing_key": "Alice's public key",
+  "signer": "user_id",
   "attribute_id": "1",
-  "attribute_version": "1",
   "parent_id": "",
-  "parent_version": "",
   "comment": "Wow, this is really great!",
   "score": "13",
   "scale": "out-of-10-but-up-to-13",
@@ -507,9 +502,10 @@ Here's an example JSON document illustrating the establishment of a Rating:
 ```
 
 In this JSON structure:
-- `id` and `version` identify the rating object and its version.
-- `signing_key` represents the public key of the user providing the rating.
-- `attribute_id` and `attribute_version` specify the rated attribute.
+- `id` identifies the rating object.
+- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Rating.
+- `attribute_id` specifies the rated Attribute.
+- `parent_id` specifies the rated Parent.
 - `comment`, `score`, and `scale` capture the details of the rating.
 - `vote` denotes the relevance of the rating.
 - `timestamp` records the time of creation.
@@ -537,11 +533,10 @@ Here's an example JSON document illustrating the establishment of an ACL:
 ```json
 {
   "id": 1,
-  "version": 1,
-  "signing_key": "Alice's public key",
+  "signer": "user_id",
   "pubkey_id": "1",
-  "permissions_attribute": "3,5",
-  "permissions_parent": "7,8",
+  "permissions_attribute": [3,5],
+  "permissions_parent": [7,8],
   "vote": "1",
   "timestamp": "1648062000",
   "hash": "hash of the document"
@@ -549,8 +544,8 @@ Here's an example JSON document illustrating the establishment of an ACL:
 ```
 
 In this JSON structure:
-- `id` and `version` identify the ACL object and its version.
-- `signing_key` represents Alice's public key.
+- `id` identifies the ACL object.
+- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the ACL.
 - `pubkey_id` links the ACL to a specific user.
 - `permissions_attribute` and `permissions_parent` specify the attributes or parents the user can access.
 - `vote` denotes the relevance of the ACL.
