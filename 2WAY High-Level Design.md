@@ -341,7 +341,6 @@ When queried, the newly created Attribute object is returned:
 In this JSON structure:
 - `id` represents the unique identifier assigned to the Attribute in the database, ensuring each record is distinct and easily retrievable.
 - `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute.
-- `app_hash` signifies the hashed application identifier, along with the sub-ID, ensuring uniqueness and preventing naming collisions.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
 - `timestamp` shows the time when the Attribute was created.
