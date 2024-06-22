@@ -316,21 +316,20 @@ In this JSON structure:
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the object's relevance (`1` for relevant, `0` for irrelevant).
 
-The `vote` value aids in managing the object's lifecycle; an object with a vote of `0` in its latest version is disregarded in future queries unless explicitly requested.
+The `vote` value aids in managing the object's lifecycle; an object with a vote of `0` is disregarded in future queries unless explicitly requested.
 
-Once received, the Object Manager commences the creation process of various object types within the system by authorized users. The newly formed Attribute is connected to the user's public key through an implicit edge. This connection is inherent since the public key is stored as an Attribute, and the new Attribute contains the signer's public key and signature.
+Once received, the Object Manager passes the new Attribute to the Graph Manager who commences the creation and management process of various object types within the system by authorized users. The newly formed Attribute is connected to the user's public key through an implicit edge. This connection is inherent since the public key is stored as an Attribute, and the new Attribute contains the signer's public key.
 
 Optionally, each individual change can be logged to the Log Manager when updating the cryptographically unsigned object to the Graph on Disk. Logged changes can be signed before storage by passing through the Key Manager, ensuring data integrity and authenticity.
 
-The Object Manager also facilitates Attribute querying, enabling users to filter results based on the degree of separation and additional contextual criteria.
+The Object Manager, with the help of the Graph Manager, also facilitates Attribute querying, enabling users to filter results based on the degree of separation and additional contextual criteria.
 
 When queried, the newly created Attribute object is returned:
 
 ```json
 {
   "id": 1,
-  "version": 1,
-  "signing_key": "Alice's public key",
+  "signer": "user_id",
   "type": "name",
   "value": "Alice",
   "vote": "1",
@@ -340,9 +339,8 @@ When queried, the newly created Attribute object is returned:
 ```
 
 In this JSON structure:
-- `id` represents the unique identifier assigned to the Attribute.
-- `version` denotes the version of the Attribute.
-- `signing_key` indicates the public key of the user generating the Attribute.
+- `id` represents the unique identifier assigned to the Attribute in the database, ensuring each record is distinct and easily retrievable.
+- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute.
 - `app_hash` signifies the hashed application identifier, along with the sub-ID, ensuring uniqueness and preventing naming collisions.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
