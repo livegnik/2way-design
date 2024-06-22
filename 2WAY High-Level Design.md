@@ -450,7 +450,7 @@ Here's an example JSON document illustrating the establishment of a parent-child
   "id": 1,
   "signer": "user_id",
   "parent_id": "4",
-  "child_ids": "5,9,12,13,14",
+  "child_ids": [5,9,12,13,14],
   "vote": "1",
   "timestamp": "1648062000",
   "hash": "hash of the document"
