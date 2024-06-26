@@ -564,7 +564,7 @@ The database schema for the 2WAY system mirrors the structure and relationships 
 
 By segmenting data into distinct tables and establishing relationships via foreign keys, the schema ensures data integrity and facilitates seamless querying and retrieval operations within the SQLite3 database. This schema framework supports the creation, modification, storage, and retrieval of diverse objects within the 2WAY system, providing a robust infrastructure for managing user data, reputation metrics, access controls, and other pertinent information in a structured manner.
 
-In the 2WAY ecosystem, each plugin is responsible for creating its own set of tables within the backend database, adhering to the schema delineated in section 2.4.2, "Database Schema Design". This approach not only prevents plugins from interfering with each other but also enables them to access and utilize data from other plugins, fostering synergy and collaboration.
+In the 2WAY ecosystem, each plugin is responsible for creating its own set of tables within the backend database, adhering to the schema delineated in section 2.4.2, "Backend Database Schema Design". This approach not only prevents plugins from interfering with each other but also enables them to access and utilize data from other plugins, fostering synergy and collaboration.
 
 To accomplish this, each plugin is assigned a unique `app_id`, which is a SHA2 hash ensuring distinctiveness and recognizability of each plugin's tables. For instance, the default Contacts plugin in 2WAY might be associated with the `app_id` `0e532062ea04fa80e54a0c3cda66f72c7c173f20b73f72541210da8a`, resulting in table names like `0e532062ea04fa80e54a0c3cda66f72c7c173f20b73f72541210da8a_attributes`, `0e532062ea04fa80e54a0c3cda66f72c7c173f20b73f72541210da8a_parents`, and so forth.
 
@@ -576,7 +576,7 @@ In essence, replicating the database schema per plugin underscores the principle
 
 <br>
 
-### 2.4.2 Database Schema Design
+### 2.4.2 Backend Database Schema Design
 
 Here are the core tables in the schema:
 
