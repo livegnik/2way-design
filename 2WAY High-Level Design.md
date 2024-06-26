@@ -19,7 +19,7 @@
   2.1 [Introduction to the Backend](#21-introduction-to-the-backend)<br>
   2.2 [2WAY Graph](#22-2way-graph)<br>
   2.3 [2WAY Objects](#23-2way-objects)<br>
-  2.4 [Database Schema](#24-database-schema)<br>
+  2.4 [Database Schemas](#24-database-schema)<br>
   2.5 [Object Manager](#25-object-manager)<br>
   2.6 [Graph Manager](#26-graph-manager)<br>
   2.7 [Storage Manager](#27-storage-manager)<br>
@@ -556,13 +556,17 @@ As with any other object, changes can be signed and sent to the Log Manager, as 
 
 <br>
 
-## 2.4 Database Schema <a name="24-database-schema"></a>
+## 2.4 Database Schemas <a name="24-database-schema"></a>
 
-### 2.4.1 Introduction to the Database Schema
+### 2.4.1 Introduction to the Database Schemas
 
 The database schema for the 2WAY system mirrors the structure and relationships of the discussed objects, employing SQLite3 as the underlying database technology. SQLite3 was chosen for its versatility and compatibility with various systems, aligning perfectly with the lightweight and accessible nature of 2WAY. While future iterations may explore alternative databases, starting with SQLite3 showcases the protocol's scalability and efficiency, especially as it transitions to more robust and performant environments.
 
 By segmenting data into distinct tables and establishing relationships via foreign keys, the schema ensures data integrity and facilitates seamless querying and retrieval operations within the SQLite3 database. This schema framework supports the creation, modification, storage, and retrieval of diverse objects within the 2WAY system, providing a robust infrastructure for managing user data, reputation metrics, access controls, and other pertinent information in a structured manner.
+
+In the frontend schema, the "users" table plays a pivotal role, featuring columns such as id, user_id (referring to the record ID of the user's public key in the backend), email, password, role, is_active, and email_confirmed_at. This table centralizes user-specific details crucial for authentication, authorization, and user management within the application.
+
+Additionally, the frontend schema includes the "user_roles" table, dedicated to storing roles assigned to users, distinguishing between user and administrative privileges. This separation ensures clear access control and management of system roles, enhancing security and operational efficiency.
 
 In the 2WAY ecosystem, each plugin is responsible for creating its own set of tables within the backend database, adhering to the schema delineated in section 2.4.2, "Backend Database Schema Design". This approach not only prevents plugins from interfering with each other but also enables them to access and utilize data from other plugins, fostering synergy and collaboration.
 
@@ -573,6 +577,32 @@ The schema design for plugins is meticulously crafted to promote interoperabilit
 Furthermore, the utilization of the `app_id` identifier allows plugins to coexist harmoniously within the same database environment while safeguarding the isolation and encapsulation of data. This approach empowers developers to mix and match plugins according to their specific needs, crafting bespoke configurations tailored to their distinct use cases.
 
 In essence, replicating the database schema per plugin underscores the principles of modularity, flexibility, and interoperability within the 2WAY framework. It empowers developers to extend and enrich the platform with new features while upholding consistency and compatibility across diverse plugins.
+
+<br>
+
+### 2.4.1 Frontend Database Schema Design
+
+The frontend schema for the 2WAY system encompasses essential tables designed to manage user-specific details and roles crucial for application functionality and security.
+
+1. **Users Table**:
+   - **id** INT: Unique identifier for each user entry.
+   - **user_id** INT: Reference to the record ID of the user's public key in the backend.
+   - **email** TEXT: User's email address for communication and identification.
+   - **password** TEXT: Hashed password for secure authentication.
+   - **role** TEXT: User's role within the system, distinguishing between standard users and administrators.
+   - **is_active** BOOLEAN: Indicates whether the user account is active or deactivated.
+   - **email_confirmed_at** DATETIME: Timestamp indicating when the user's email address was confirmed.
+
+   This table centralizes user-specific details crucial for authentication, authorization, and user management within the application.
+
+2. **User Roles Table**:
+   - **id** INT: Unique identifier for each role entry.
+   - **user_id** INT: Reference to the user associated with the role.
+   - **role** TEXT: Role assigned to the user, such as 'user' or 'admin'.
+
+   The user_roles table stores role assignments, ensuring clear access control and management of system privileges.
+
+The frontend schema is integral to managing user interactions and system operations within the 2WAY application, facilitating secure authentication, user role management, and operational efficiency.
 
 <br>
 
