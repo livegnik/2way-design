@@ -570,7 +570,7 @@ To accomplish this, each plugin is assigned a unique `app_id`, which is a SHA2 h
 
 The schema design for plugins is meticulously crafted to promote interoperability and seamless integration between different components within the system. By adhering to consistent naming conventions and structural guidelines, plugins can easily interact with one another and share data as required. This adherence to a uniform schema design facilitates code reuse and simplifies plugin development, enabling developers to focus on implementing unique functionalities without grappling with low-level database management intricacies.
 
-Furthermore, the utilization of the app_id identifier allows plugins to coexist harmoniously within the same database environment while safeguarding the isolation and encapsulation of data. This approach empowers developers to mix and match plugins according to their specific needs, crafting bespoke configurations tailored to their distinct use cases.
+Furthermore, the utilization of the `app_id` identifier allows plugins to coexist harmoniously within the same database environment while safeguarding the isolation and encapsulation of data. This approach empowers developers to mix and match plugins according to their specific needs, crafting bespoke configurations tailored to their distinct use cases.
 
 In essence, replicating the database schema per plugin underscores the principles of modularity, flexibility, and interoperability within the 2WAY framework. It empowers developers to extend and enrich the platform with new features while upholding consistency and compatibility across diverse plugins.
 
