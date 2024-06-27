@@ -1380,76 +1380,46 @@ Tor integration, etc
 
 
 
-[ ] Improve "2.4 Database Schema"
-
-[ ] Add frontend schema to "2.4 Database Schema"
-
-[ ] "signing_key" / "user_public_key" --> "user_record_id"
+[ ] Improve "2.5 Object Manager"
 
 [ ] Messages appended --> updated in database and can be logged to Log Manager
-
 [ ] Latest message --> Update database records to newest state and log messages to Log Manager
 
 [ ] Add "Modify Objects" between "2.5.2 Creating Objects" and "2.5.3 Hiding Objects"
 
-[ ] Improve "2.5 Object Manager"
-
-[ ] Improve "2.6 Graph Manager"
-
+[ ] "signing_key" --> "signer": "user_id"
 [ ] ""5,9,12,13,14"," to array such as "[5,9,12]"
 
 [ ] Capitalize all objects (attributes, parents, edges, ratings)
-
 [ ] Add user_id description
-
+[ ] Change user_public_key to user_id where needed
 [ ] Querying Objects --> Vote = empty to query both up and down-voted objects
-
 [ ] Improve all the JSON documents where needed
-
 [ ] Breakdown all the JSON documents like under "2.5.5 Filtering Objects"
-
 [ ] 2.5.4 "latest" not described, 1 = latest object version and 0 = all object versions
-
 [ ] Add "latest" to "2.5.5 Filtering Objects"
-
 [ ] Change database schema to prevent plugin name collision in table name
 
-
-<br><br><br><br><br>
 
 
 
 [X] Rename Message Manager to Object Manager
-
 [X] ",." --> "",.
-
 [X] Remove mentions of ACL Manager
-
 [X] Remove mentions of State Manager
-
 [X] PoC, proof-of-concept
-
 [X] Change "2WAY" to "twoway" where needed
-
 [X] Change "Contacts" to "connections" where needed
-
 [X] public key, pubkey, "pubkey"
-
 [X] Add Library plugin paragraph to "1.4 Pre-Installed Plugins"
-
 [X] Improve "2.3 2WAY Objects"
-
 [X] Remove mentions of Denial of Service (DoS) Guard Manager
-
 [X] node --> server, where relevant
-
 [X] Improve "1. Frontend"
-
 [X] Improve "2.1 Introduction to the Backend"
-
 [X] Improve "2.2 Graph"
-
 [X] Log Manager --> JSON document should contain "created", "modified", or "deleted"
-
 [X] Plugin cryptographic key-pairs, objects, and permissions
+[X] Improve "2.4.1 Introduction to the Database Schema"
+[X] Add frontend schema to "2.4 Database Schema"
 
