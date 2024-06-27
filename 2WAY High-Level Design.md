@@ -574,7 +574,7 @@ To ensure distinctiveness and recognizability of plugin-specific tables, each pl
 
 This meticulous schema design fosters interoperability and seamless integration among plugins within the 2WAY system. By maintaining consistent naming conventions and structural guidelines, plugins can easily interact and share data, promoting code reuse and simplifying the development process while ensuring compatibility across diverse plugin functionalities.
 
-The utilization of `app_id` identifiers enables plugins to coexist harmoniously within a unified database environment, ensuring data isolation and encapsulation. This approach empowers developers to configure tailored plugin combinations to meet specific use cases effectively, enhancing the platform’s flexibility and adaptability.
+The flexibility of assigning multiple `app_id` identifiers to a single application allows for the inclusion of various plugin configurations within the same database environment. This capability ensures that plugins can coexist harmoniously while maintaining data isolation and encapsulation, empowering developers to tailor plugin combinations to specific use cases effectively. Ultimately, this approach enhances the platform’s versatility, adaptability, and scalability.
 
 In essence, the replication of database schema per plugin underscores 2WAY’s commitment to modularity, flexibility, and interoperability. It enables developers to extend the platform with new features seamlessly while upholding consistency and compatibility across the entire ecosystem.
 
