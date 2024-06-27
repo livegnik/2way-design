@@ -310,8 +310,8 @@ When a user generates an Attribute on the frontend, it's transmitted to the back
 
 In this JSON structure:
 - `object` indicates that this is an Attribute.
-- `action` describes the interaction with the object (`new`, `edit`, or `delete`)
-- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
 - `app_hash` signifies the hashed application identifier to ensure uniqueness and prevent naming collisions.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the object's relevance (`1` for relevant, `0` for irrelevant).
@@ -334,13 +334,13 @@ When queried, the newly created Attribute object is returned:
   "value": "Alice",
   "vote": "1",
   "timestamp": "1648062000",
-  "hash": "document hash"
+  "hash": "document_hash"
 }
 ```
 
 In this JSON structure:
 - `id` represents the unique identifier assigned to the Attribute in the database, ensuring each record is distinct and easily retrievable.
-- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute.
+- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
 - `timestamp` shows the time when the Attribute was created.
@@ -357,15 +357,15 @@ When the change is queried from the Log Manager, the log presents the following 
   "value": "Alice",
   "vote": "1",
   "timestamp": "1648062000",
-  "hash": "document hash",
-  "signature": "cryptographic signature"
+  "hash": "document_hash",
+  "signature": "cryptographic_signature"
 }
 ```
 
 In this JSON structure:
 - `id` stands for the unique identifier assigned to the log entry.
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`)
-- `signer` refers to the record ID that stores the public key (pubkey) of the user associated with this log entry.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user associated with this log entry.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
 - `timestamp` shows the time when the log entry was created.
@@ -417,21 +417,25 @@ When creating a Parent object, the following JSON structure might be used:
 ```json
 {
   "id": 1,
+  "action": "new",
   "signer": "user_id",
+  "app_hash": "hashed_app_identifier",
   "parent_id": "4",
   "vote": "1",
   "timestamp": "1648062000",
-  "hash": "hash of the document"
+  "hash": "document_hash"
 }
 ```
 
 In this JSON structure:
 - `id` identifies the object.
-- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Parent.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Parent.
+- `app_hash` signifies the hashed application identifier to ensure uniqueness and prevent naming collisions.
 - `parent_id` references the parent Attribute object.
 - `vote` indicates the relevance of the object (`1` for relevant, `0` for irrelevant).
 - `timestamp` records the time of creation.
-- `hash` provides a unique identifier for the document.
+- `hash` represents the hash of the document.
 
 As with any other object, changes can be signed and sent to the Log Manager, as described in the Attribute section.
 
@@ -448,6 +452,7 @@ Here's an example JSON document illustrating the establishment of a parent-child
 ```json
 {
   "id": 1,
+  "action": "new",
   "signer": "user_id",
   "parent_id": "4",
   "child_ids": [5,9,12,13,14],
@@ -459,12 +464,13 @@ Here's an example JSON document illustrating the establishment of a parent-child
 
 In this JSON structure:
 - `id` identifies the Edge object.
-- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Edge.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Edge.
 - `parent_id`references the parent object.
 - `child_ids` specifies the IDs of the child objects.
 - `vote` indicates the relevance of the Edge (`1` for relevant, `0` for irrelevant).
 - `timestamp` records the time of creation.
-- `hash` provides a unique identifier for the document.
+- `hash` represents the hash of the document.
 
 It's important to note that Edges are only created for parent-child relationships. For other objects, such as Attributes, Ratings, and Access Control Lists (ACLs), the relationship is implied within the object itself, as they contain the signing public key. Therefore, no separate Edge objects are created for these objects.
 
@@ -489,6 +495,7 @@ Here's an example JSON document illustrating the establishment of a Rating:
 ```json
 {
   "id": 1,
+  "action": "new",
   "signer": "user_id",
   "attribute_id": "1",
   "parent_id": "",
@@ -503,13 +510,14 @@ Here's an example JSON document illustrating the establishment of a Rating:
 
 In this JSON structure:
 - `id` identifies the rating object.
-- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Rating.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Rating.
 - `attribute_id` specifies the rated Attribute.
 - `parent_id` specifies the rated Parent.
 - `comment`, `score`, and `scale` capture the details of the rating.
 - `vote` denotes the relevance of the rating.
 - `timestamp` records the time of creation.
-- `hash` provides a unique identifier for the document.
+- `hash` represents the hash of the document.
 
 As with any other object, changes can be signed and sent to the Log Manager, as described in the Attribute section.
 
@@ -533,6 +541,7 @@ Here's an example JSON document illustrating the establishment of an ACL:
 ```json
 {
   "id": 1,
+  "action": "new",
   "signer": "user_id",
   "pubkey_id": "1",
   "permissions_attribute": [3,5],
@@ -545,12 +554,13 @@ Here's an example JSON document illustrating the establishment of an ACL:
 
 In this JSON structure:
 - `id` identifies the ACL object.
-- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the ACL.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the ACL.
 - `pubkey_id` links the ACL to a specific user.
 - `permissions_attribute` and `permissions_parent` specify the attributes or parents the user can access.
 - `vote` denotes the relevance of the ACL.
 - `timestamp` records the time of creation.
-- `hash` provides a unique identifier for the document.
+- `hash` represents the hash of the document.
 
 As with any other object, changes can be signed and sent to the Log Manager, as described in the Attribute section.
 
@@ -1025,8 +1035,8 @@ When a user, such as Alice, first signs her own public key, an Attribute is crea
   "value": "Alice's public key",
   "vote": 1,
   "timestamp": 1648062000,
-  "hash": "hash of the document",
-  "signature": "cryptographic signature"
+  "hash": "document_hash",
+  "signature": "cryptographic_signature"
 }
 ```
 
@@ -1044,8 +1054,8 @@ Next, if Alice adds Bob's public key as an attribute, another Attribute is creat
   "value": "Bob's public key",
   "vote": 1,
   "timestamp": 1648062010,
-  "hash": "hash of the document",
-  "signature": "cryptographic signature"
+  "hash": "document_hash",
+  "signature": "cryptographic_signature"
 }
 ```
 
@@ -1065,8 +1075,8 @@ If a "pubkey" Attribute or connection is down-voted, it signifies that the conne
   "value": "Bob's public key",
   "vote": 0,
   "timestamp": 1648062020,
-  "hash": "hash of the document",
-  "signature": "cryptographic signature"
+  "hash": "document_hash",
+  "signature": "cryptographic_signature"
 }
 ```
 
@@ -1158,8 +1168,8 @@ The Object Manager then uses this set of node record IDs to query the Storage Ma
       "value": "Bob's public key",
       "vote": 1,
       "timestamp": 1648062000,
-      "hash": "hash of the document",
-      "signature": "cryptographic signature",
+      "hash": "document_hash",
+      "signature": "cryptographic_signature",
       "degree": 1
     },
     {
@@ -1171,8 +1181,8 @@ The Object Manager then uses this set of node record IDs to query the Storage Ma
       "value": "Carol's public key",
       "vote": 1,
       "timestamp": 1648062010,
-      "hash": "hash of the document",
-      "signature": "cryptographic signature",
+      "hash": "document_hash",
+      "signature": "cryptographic_signature",
       "degree": 2
     }
   ]
