@@ -619,8 +619,7 @@ Here are the core tables in the schema:
    - **value** TEXT: Value of the attribute.
    - **vote** INT: Vote count for the attribute.
    - **timestamp** INT: Timestamp of the attribute creation or modification.
-   - **hash** TEXT: Hash of the attribute.
-   - **signature** TEXT: Signature of the attribute.
+   - **hash** TEXT: Hash of the document.
    - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
 
 2. **Parents Table**:
@@ -630,8 +629,7 @@ Here are the core tables in the schema:
    - **parent_id** INT: Identifier of the parent.
    - **vote** INT: Vote count for the parent.
    - **timestamp** INT: Timestamp of the parent creation or modification.
-   - **hash** TEXT: Hash of the parent.
-   - **signature** TEXT: Signature of the parent.
+   - **hash** TEXT: Hash of the document.
    - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
    - **FOREIGN KEY (parent_id) REFERENCES twoway_connections_attributes(id) ON DELETE CASCADE**: Ensures referential integrity with the Attributes table.
 
@@ -643,8 +641,7 @@ Here are the core tables in the schema:
    - **child_ids** TEXT: Comma-separated list of child node IDs.
    - **vote** INT: Vote count for the edge.
    - **timestamp** INT: Timestamp of the edge creation or modification.
-   - **hash** TEXT: Hash of the edge.
-   - **signature** TEXT: Signature of the edge.
+   - **hash** TEXT: Hash of the document.
    - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
    - **FOREIGN KEY (parent_id) REFERENCES twoway_connections_parents(id) ON DELETE CASCADE**: Ensures referential integrity with the Parents table.
 
@@ -658,8 +655,7 @@ Here are the core tables in the schema:
    - **score** TEXT: Score given in the rating entry.
    - **scale** TEXT: Scale of the score.
    - **timestamp** INT: Timestamp of the rating entry creation or modification.
-   - **hash** TEXT: Hash of the rating entry.
-   - **signature** TEXT: Signature of the rating entry.
+   - **hash** TEXT: Hash of the document.
    - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
    - **FOREIGN KEY (attribute_id) REFERENCES twoway_connections_attributes(id) ON DELETE CASCADE**: Ensures referential integrity with the Attributes table.
    - **FOREIGN KEY (parent_id) REFERENCES twoway_connections_parents(id) ON DELETE CASCADE**: Ensures referential integrity with the Parents table.
@@ -670,8 +666,7 @@ Here are the core tables in the schema:
    - **pubkey_id** INT: Identifier of the public key.
    - **permissions** TEXT: Permissions associated with the ACL entry.
    - **timestamp** INT: Timestamp of the ACL entry creation or modification.
-   - **hash** TEXT: Hash of the ACL entry.
-   - **signature** TEXT: Signature of the ACL entry.
+   - **hash** TEXT: Hash of the document.
    - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
    - **FOREIGN KEY (pubkey_id) REFERENCES twoway_connections_attributes(id) ON DELETE CASCADE**: Ensures referential integrity with the Attributes table.
 
