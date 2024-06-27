@@ -638,7 +638,7 @@ Here are the core tables in the schema:
 3. **Edges Table**:
    - **id** INT: Unique identifier for the edge.
    - **type** TEXT: Type of the edge.
-   - **signing_key** TEXT: Key used to sign the edge.
+   - **signer** INT: Refers to the record ID that stores the public key (pubkey) of the user creating the Edge.
    - **parent_id** INT: Identifier of the parent node.
    - **child_ids** TEXT: Comma-separated list of child node IDs.
    - **vote** INT: Vote count for the edge.
@@ -651,7 +651,7 @@ Here are the core tables in the schema:
 4. **Rating Table**:
    - **id** INT: Unique identifier for the rating entry.
    - **type** TEXT: Type of the rating entry.
-   - **signing_key** TEXT: Key used to sign the rating entry.
+   - **signer** INT: Refers to the record ID that stores the public key (pubkey) of the user creating the Rating.
    - **attribute_id** INT: Identifier of the related attribute.
    - **parent_id** INT: Identifier of the related parent.
    - **comment** TEXT: Comment associated with the rating entry.
@@ -666,7 +666,7 @@ Here are the core tables in the schema:
 
 5. **ACL Table**:
    - **id** INT: Unique identifier for the ACL entry.
-   - **signing_key** TEXT: Key used to sign the ACL entry.
+   - **signer** INT: Refers to the record ID that stores the public key (pubkey) of the user creating the ACL.
    - **pubkey_id** INT: Identifier of the public key.
    - **permissions** TEXT: Permissions associated with the ACL entry.
    - **timestamp** INT: Timestamp of the ACL entry creation or modification.
