@@ -614,77 +614,66 @@ Here are the core tables in the schema:
 
 1. **Attributes Table**:
    - **id** INT: Unique identifier for the attribute.
-   - **version** INT: Version number for the attribute.
    - **type** TEXT: Type of the attribute.
-   - **signing_key** TEXT: Key used to sign the attribute.
-   - **type** TEXT: Key of the attribute.
+   - **signer** INT: Refers to the record ID that stores the public key (pubkey) of the user creating the Attribute. 0 = self.
    - **value** TEXT: Value of the attribute.
    - **vote** INT: Vote count for the attribute.
    - **timestamp** INT: Timestamp of the attribute creation or modification.
    - **hash** TEXT: Hash of the attribute.
    - **signature** TEXT: Signature of the attribute.
-   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
+   - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
 
 2. **Parents Table**:
    - **id** INT: Unique identifier for the parent.
-   - **version** INT: Version number for the parent.
    - **type** TEXT: Type of the parent.
-   - **signing_key** TEXT: Key used to sign the parent.
+   - **signer** INT: Refers to the record ID that stores the public key (pubkey) of the user creating the Parent.
    - **parent_id** INT: Identifier of the parent.
-   - **parent_version** INT: Version number of the parent.
    - **vote** INT: Vote count for the parent.
    - **timestamp** INT: Timestamp of the parent creation or modification.
    - **hash** TEXT: Hash of the parent.
    - **signature** TEXT: Signature of the parent.
-   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
-   - **FOREIGN KEY (parent_id, parent_version) REFERENCES twoway_connections_attributes(id, version)**: Ensures referential integrity with the Attributes table.
+   - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
+   - **FOREIGN KEY (parent_id) REFERENCES twoway_connections_attributes(id) ON DELETE CASCADE**: Ensures referential integrity with the Attributes table.
 
 3. **Edges Table**:
    - **id** INT: Unique identifier for the edge.
-   - **version** INT: Version number for the edge.
    - **type** TEXT: Type of the edge.
    - **signing_key** TEXT: Key used to sign the edge.
    - **parent_id** INT: Identifier of the parent node.
-   - **parent_version** INT: Version number of the parent node.
    - **child_ids** TEXT: Comma-separated list of child node IDs.
-   - **child_versions** TEXT: Comma-separated list of child node versions.
    - **vote** INT: Vote count for the edge.
    - **timestamp** INT: Timestamp of the edge creation or modification.
    - **hash** TEXT: Hash of the edge.
    - **signature** TEXT: Signature of the edge.
-   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
-   - **FOREIGN KEY (parent_id, parent_version) REFERENCES twoway_connections_parents(id, version)**: Ensures referential integrity with the Parents table.
+   - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
+   - **FOREIGN KEY (parent_id) REFERENCES twoway_connections_parents(id) ON DELETE CASCADE**: Ensures referential integrity with the Parents table.
 
 4. **Rating Table**:
    - **id** INT: Unique identifier for the rating entry.
-   - **version** INT: Version number for the rating entry.
    - **type** TEXT: Type of the rating entry.
    - **signing_key** TEXT: Key used to sign the rating entry.
    - **attribute_id** INT: Identifier of the related attribute.
-   - **attribute_version** INT: Version number of the related attribute.
    - **parent_id** INT: Identifier of the related parent.
-   - **parent_version** INT: Version number of the related parent.
    - **comment** TEXT: Comment associated with the rating entry.
    - **score** TEXT: Score given in the rating entry.
    - **scale** TEXT: Scale of the score.
    - **timestamp** INT: Timestamp of the rating entry creation or modification.
    - **hash** TEXT: Hash of the rating entry.
    - **signature** TEXT: Signature of the rating entry.
-   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
-   - **FOREIGN KEY (attribute_id, attribute_version) REFERENCES twoway_connections_attributes(id, version)**: Ensures referential integrity with the Attributes table.
-   - **FOREIGN KEY (parent_id, parent_version) REFERENCES twoway_connections_parents(id, version)**: Ensures referential integrity with the Parents table.
+   - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
+   - **FOREIGN KEY (attribute_id) REFERENCES twoway_connections_attributes(id) ON DELETE CASCADE**: Ensures referential integrity with the Attributes table.
+   - **FOREIGN KEY (parent_id) REFERENCES twoway_connections_parents(id) ON DELETE CASCADE**: Ensures referential integrity with the Parents table.
 
 5. **ACL Table**:
    - **id** INT: Unique identifier for the ACL entry.
-   - **version** INT: Version number for the ACL entry.
    - **signing_key** TEXT: Key used to sign the ACL entry.
    - **pubkey_id** INT: Identifier of the public key.
    - **permissions** TEXT: Permissions associated with the ACL entry.
    - **timestamp** INT: Timestamp of the ACL entry creation or modification.
    - **hash** TEXT: Hash of the ACL entry.
    - **signature** TEXT: Signature of the ACL entry.
-   - **PRIMARY KEY (id, version)**: Composite primary key ensuring uniqueness per version.
-   - **FOREIGN KEY (pubkey_id) REFERENCES twoway_connections_attributes(id, version)**: Ensures referential integrity with the Attributes table.
+   - **PRIMARY KEY (id)**: Primary key ensuring uniqueness.
+   - **FOREIGN KEY (pubkey_id) REFERENCES twoway_connections_attributes(id) ON DELETE CASCADE**: Ensures referential integrity with the Attributes table.
 
 <br>
 
