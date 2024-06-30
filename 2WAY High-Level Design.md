@@ -685,25 +685,15 @@ Here are the core tables in the schema:
 
 ### 2.5.1 Introduction to the Graph Manager
 
-In the 2WAY system, the Graph Manager plays a central role in managing comprehensive graph data operations, encompassing creation, querying, modification, and deletion of core objects like Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). It provides seamless interaction with these objects through backend APIs, ensuring efficient data handling.
+In the 2WAY system, the Graph Manager serves as the central hub for managing graph data, encompassing the creation, querying, modification, and deletion of core objects such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). It facilitates seamless interaction with these objects through APIs exposed by the backend's Graph Manager, ensuring efficient data handling.
 
-Users interact via the frontend interface to perform object operations, triggering API calls that transmit essential data to the unified Graph Manager. This includes Attribute key-value pairs and parent-child relationships crucial for object creation and modification. Upon receiving requests, the Graph Manager processes data, handling tasks like updating the 2WAY Graph, and logging and optionally signing, by forwarding details to the Key Manager and then to the Log Manager. This synchronization ensures consistency between the Graph in RAM and the persistent disk-based Server Graph, maintaining data integrity and system reliability.
+Users interact with the frontend interface to create or manage objects, initiating API calls that transmit necessary data to the backend's Graph Manager. This data includes Attribute key-value pairs or parent-child relationships, essential for object creation or modification. Upon receiving these requests, the Graph Manager processes the data and handles tasks such as logging and signing, forwarding relevant information to the Key Manager and then to the Log Manager. The Graph Manager maintains synchronization between the Graph in RAM and the persistent disk-based Server Graph, ensuring data consistency and system reliability.
 
-Object querying within the 2WAY system begins with API calls to the backend's Graph Manager via the frontend interface. These calls specify parameters such as the degree of separation from the user's zeroth degree (their public key) and object type. Leveraging its capabilities, the Graph Manager accesses the Graph in RAM for rapid data retrieval and utilizes the Storage Manager to fetch additional data from disk as needed. The queried information is promptly returned to the frontend, ensuring a responsive user experience and streamlined data interaction.
+Querying objects within the 2WAY system is initiated through API calls to the backend's Graph Manager via the frontend interface. These calls specify parameters such as degree of separation from the user's zeroth degree (their public key) and object type. The Graph Manager retrieves relevant nodes by first checking the Graph in RAM, subsequently fetching additional data from disk with the Storage Manager as necessary. The queried data is then transmitted back to the frontend for user interaction, ensuring a streamlined and responsive user experience.
 
-By consolidating object management functionalities within the Graph Manager and exposing them through APIs, the 2WAY system emphasizes consistency, security, and scalability in managing diverse data types. This unified approach abstracts complexities associated with database interactions, significantly enhancing overall system usability and maintainability.
+By consolidating object management functionalities within the Graph Manager and exposing them through APIs, the 2WAY system prioritizes consistency, security, and scalability in handling diverse data types. This unified approach abstracts complexities associated with database interactions, enhancing overall system usability and maintainability.
 
-In terms of implementation details, message signing on the frontend is currently not supported in this proof-of-concept. Future iterations may introduce frontend or signing hardware, enhancing data interaction security and flexibility within the system.
-
-The Graph Manager seamlessly processes changes initiated by users, updating nodes and edges within the Graph in RAM to reflect modifications. For instance, when users create new connections or adjust existing ones, the Graph Manager ensures that these changes are promptly reflected in the graph data.
-
-The Graph Manager supports efficient querying operations by providing methods to retrieve nodes based on the degree of separation from the user's zeroth degree within the comprehensive Server Graph. Users initiate queries through the unified interface, allowing seamless exploration and analysis of connections within the system.
-
-In this proof-of-concept, the Graph Manager focuses on managing record IDs of public key Attributes within the system. These Attributes are identified and managed using SHA2 hashes as app_ids, ensuring structured and efficient management of interactions and connections within the Graph in RAM.
-
-Future iterations of the 2WAY system may expand the Graph Manager's capabilities to include additional types of Attributes or Parents within the Graph in RAM. Such enhancements would further improve system flexibility and scalability, catering to evolving user needs and expanding system requirements.
-
-Overall, the Graph Manager plays a crucial role in maintaining the integrity, accessibility, and responsiveness of graph data within the 2WAY system, ensuring robust performance and user satisfaction.
+It's worth noting that for this proof-of-concept, message signing on the frontend is not supported. Future iterations may incorporate frontend or hardware key signing, introducing additional layers of security and flexibility to data interactions within the system.
 
 <br>
 
