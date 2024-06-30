@@ -1076,28 +1076,28 @@ Here is a more extensive and potentially UX-friendly search query example that d
       "vote": 1,
       "signed_by": ["Friends", "Family"]
     },
-    "exclude_parents": ["people with bad taste in food"],
-    "degree": 0
+    "exclude_parents": ["people with bad taste in food"]
   }
 }
 ```
 
 In this JSON structure:
-- **object**: Specifies the type of object to filter, which is "attribute" in this case.
-- **app_id**: Specifies the application context, here it's "twoway, connections".
-- **signing_key**: The public key of the user initiating the query.
-- **degree**: Limits the query to objects signed by anyone within 2 degrees of separation.
-- **criteria**: Contains the filtering parameters:
-  - **type**: "phone_number", indicating we want attributes of this type.
-  - **vote**: 1, indicating we only want up-voted objects.
-  - **parent**: Specifies the type of Parent object we are interested in ("restaurant"), and excludes a specific value ("The French Cock").
-  - **ratings**: Specifies criteria for ratings:
-    - **min_score**: "1.75", indicating we want objects with a minimum score of 1.75.
-    - **scale**: "out-of-5-stars", specifying the scale of the ratings.
-    - **vote**: 1, indicating only up-voted ratings.
-    - **signed_by**: Specifies that we want ratings from "Friends" and "Family".
-  - **exclude_parents**: Excludes objects associated with specific Parents ("people with bad taste in food").
-  - **degree**: 0, limiting "exclude_parents" objects to those signed by the user, in the zeroth degree.
+- `object` specifies the type of object being queried, which is an `attribute`.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user making the query.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `degree` specifies the degree of separation for the query, set to `2`.
+- `criteria` is an object that contains specific parameters for filtering:
+  - `type` indicates the type of attribute, in this case, `phone_number`.
+  - `vote` denotes the relevance or importance of the attribute, set to `1`.
+  - `parent` specifies criteria related to the parent object:
+    - `type` indicates the type of parent object, here it is `restaurant`.
+    - `exclude_value` excludes attributes associated with the restaurant named "The French Cock".
+  - `ratings` defines criteria related to ratings:
+    - `min_score` specifies the minimum score required, set to `1.75`.
+    - `scale` indicates the scale of the rating, here it is `out-of-5-stars`.
+    - `vote` denotes the relevance or importance of the rating, set to `1`.
+    - `signed_by` lists entities that have signed the rating, including "Friends" and "Family".
+  - `exclude_parents` lists parent categories to exclude, such as "people with bad taste in food".
 
 Upon receiving this JSON document, the Graph Manager processes the request by first identifying relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager, applying all specified filtering criteria before returning the data to the frontend.
 
