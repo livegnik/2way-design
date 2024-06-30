@@ -824,7 +824,7 @@ In this JSON structure:
 
 Upon receiving these JSON documents from clients or the backend/system, the Graph Manager manipulates the 2WAY Graph as requested. If logging is necessary, the documents are sent to the Key Manager for timestamping and signing before being passed to the Log Manager.
 
-The messages processed by the Graph Manager result in new objects being created, updated, or deleted in the database via the Storage Manager. Additionally, the Graph Manager ensures that any necessary updates are made to the Graph in RAM.
+The messages processed by the Graph Manager result in objects being created, updated, or deleted in the database via the Storage Manager. Additionally, the Graph Manager ensures that any necessary updates are made to the Graph in RAM.
 
 When the Graph Manager receives a message from the Network Manager (i.e., from another server), it processes the received documents and logs them in a similar manner, ensuring consistent and secure updates across the system.
 
@@ -876,9 +876,9 @@ In case of logging, upon receiving this JSON document, the Graph Manager forward
 
 The signed document is then forwarded to the Log Manager for logging. Concurrently, the Graph Manager updates the 2WAY Graph in RAM and synchronizes changes with the Graph on Disk via the Storage Manager to reflect the updated or down-voted state.
 
-By preserving all objects and utilizing mechanisms for updating, deleting, or down-voting, the 2WAY system allows users to filter and prioritize data according to their own preferences and judgments. This ensures a more personalized and user-centric experience, where each individual can curate their digital environment without permanently removing information that might be relevant to others.
+By preserving objects and utilizing mechanisms for down-voting, the 2WAY system allows users to filter and prioritize data according to their own preferences and judgments. This ensures a more personalized and user-centric experience, where each individual can curate their digital environment without permanently removing information that might be relevant to others.
 
-While the current proof-of-concept does not support automatic removal of objects, future implementations could incorporate mechanisms for cleaning up the database. For example, duplicate objects, objects with older versions, or those beyond a certain age threshold could be automatically pruned to maintain database efficiency and manageability. Such features would require careful consideration of criteria and processes to ensure consistency and data integrity in the system.
+While the current proof-of-concept does not support automatic removal of objects, future implementations could incorporate mechanisms for cleaning up the database. For example, duplicate objects or those beyond a certain age threshold could be automatically pruned to maintain database efficiency and manageability. Such features would require careful consideration of criteria and processes to ensure consistency and data integrity in the system.
 
 <br>
 
