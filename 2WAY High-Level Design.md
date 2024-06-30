@@ -698,9 +698,9 @@ It is important to note that for this proof-of-concept, messages are not signed 
 
 <br>
 
-### 2.5.2 Creating Objects
+### 2.5.2 Create, Update, and Delete Objects
 
-To create objects within the 2WAY system, users interact with the frontend interface, which communicates with the backend's Object Manager through API calls. These API calls contain JSON documents specifying the details of the objects to be created. Below are examples of JSON documents for creating different types of objects based on the database schema:
+To create or manage objects within the 2WAY system, users interact with the frontend interface, which communicates with the backend's Object Manager through API calls. These API calls contain JSON documents specifying the details of the objects to be created, updated, or deleted. Below are examples of JSON documents for creating different types of objects based on the database schema:
 
 1. **Creating Attributes:**
 ```json
@@ -815,13 +815,13 @@ In this JSON structure:
 
 Upon receiving these JSON documents from clients or the backend/system, the Object Manager initially forwards them to the Graph Manager, which updates the 2WAY Graph as requested. If logging is necessary, the documents are then sent to the Key Manager for timestamping and signing before being passed to the Log Manager.
 
-Once forwarded to the Graph Manager, the messages are processed and new objects or changes are passed to the Storage Manager, whichs them to or changes the database. Additionally, any necessary updates to the Graph in RAM by the Graph Manager.
+The messages processed by the Graph Manager result in new objects being created, updated, or deleted in the database via the Storage Manager. Additionally, the Graph Manager ensures that any necessary updates are made to the Graph in RAM.
 
-When the Object Manager receives a message from the Network Manager (i.e., from another server), it passed the received documents to the Graph Manager and Log Manager in a similar manner.
+When the Object Manager receives a message from the Network Manager (i.e., from another server), it passes the received documents to the Graph Manager and Log Manager in a similar manner, ensuring consistent and secure updates across the system.
 
 <br>
 
-### 2.5.3 Hiding Objects
+### 2.5.3 Hiding Objects from View
 
 Objects within the 2WAY system are never deleted from the database. Instead, they can only be down-voted, which by default signifies their irrelevance or disapproval by the user. This approach ensures data integrity and historical traceability, as every interaction with an object is preserved. This is crucial because different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
 
