@@ -832,9 +832,9 @@ When the Graph Manager receives a message from the Network Manager (i.e., from a
 
 ### 2.5.3 Managing Object Visibility
 
-Objects within the 2WAY system can be created, updated, deleted, or down-voted. The latter signifies their irrelevance or disapproval by the user, and down-voted objects are not returned when queried for, unless specified otherwise. This approach ensures data integrity and historical traceability, as every interaction with an object can be preserved. Different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
+Objects within the 2WAY system can be created, updated, deleted, or down-voted. The latter signifies their irrelevance or disapproval by the user, and down-voted objects are not returned when queried for, unless specified otherwise. This approach ensures data integrity and historical traceability, as every interaction with an object can be preserved. Different users may have varying perspectives on the relevance or validity of an object, and preserving objects allows the system to accommodate these differing opinions.
 
-An example of a JSON document for updating or down-voting an Attribute, to be processed by the Graph Manager:
+An example of a JSON document for updating and down-voting an Attribute, to be processed by the Graph Manager:
 
 ```json
 {
@@ -850,7 +850,7 @@ An example of a JSON document for updating or down-voting an Attribute, to be pr
 
 In this JSON structure:
 - `object` specifies the type of object being updated or down-voted, which is an `attribute`.
-- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`), in this case `edit`.
 - `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user making the change.
 - `app_id` is the unique identifier for the application, hashed for security.
 - `type` indicates the type of the attribute, in this case, `name`.
@@ -893,12 +893,23 @@ Here is an example JSON document for querying up-voted objects:
   "object": "attribute",
   "signer": "user_id",
   "app_id": "hashed_app_identifier",
+  "type": "book_title",
+  "value": "",
   "degree": 2,
   "vote": 1
 }
 ```
 
-Upon receiving this JSON document, the Graph Manager processes the request by first identifying relevant nodes within the Graph in RAM. It then queries data from the database based on the specified parameters. The queried data is subsequently returned to the frontend for user interaction.
+In this JSON structure:
+- `object` specifies the type of object being queried, which is an `attribute`.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user querying the data.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `type` indicates the type of the Attribute, in this case, `book_title`.
+- `value` is the value of the Attribute, here it is an empty string.
+- `degree` specifies the degree of separation for the query, set to `2`.
+- `vote` denotes the relevance or importance of the Attribute, set to `1`.
+
+Upon receiving this JSON document, the Graph Manager processes the request by first identifying relevant nodes within the Graph in RAM, by degree of separation. It then queries data from the database based on the specified parameters. The queried data is subsequently returned to the frontend for user interaction.
 
 For querying down-voted objects, users can adjust the "vote" parameter accordingly. Here's an example JSON document for querying down-voted objects:
 
@@ -907,12 +918,14 @@ For querying down-voted objects, users can adjust the "vote" parameter according
   "object": "attribute",
   "signer": "user_id",
   "app_id": "hashed_app_identifier",
+  "type": "book_title",
+  "value": "",
   "degree": 2,
   "vote": 0
 }
 ```
 
-Setting the "vote" parameter to "0" retrieves the latest versions of down-voted objects, enabling users to access data that they or others have considered less relevant or disagreed with. This feature provides a comprehensive view of the data landscape within the 2WAY system, accommodating diverse perspectives and preferences.
+Setting the "vote" parameter to "0" retrieves the down-voted objects, enabling users to access data that they or others have considered less relevant or disagreed with. This feature provides a comprehensive view of the data landscape within the 2WAY system, accommodating diverse perspectives and preferences.
 
 Upon receiving these JSON documents, the Graph Manager processes the request directly, ensuring that the queried objects match the specified parameters, including object type, degree of separation, and vote status. The Graph Manager retrieves and returns accurate data from the database, maintaining consistency and relevance in the retrieved information.
 
@@ -922,7 +935,7 @@ By supporting queries for both up-voted and down-voted objects, the 2WAY system 
 
 ### 2.5.5 Filtering Objects
 
-In addition to querying objects, users can filter objects within the 2WAY system based on specific criteria. This filtering functionality allows users to narrow down their search results and focus on the most relevant information. Filtering can be applied to Attributes, Ratings, and other object types within the system, with the ability to specify voting status (1 for up-voted, 0 for down-voted). 
+In addition to querying objects, users can filter objects within the 2WAY system based on specific criteria. This filtering functionality allows users to narrow down their search results and focus on the most relevant information. Filtering can be applied to all object types within the system, except for Edge objects.
 
 Below is an example of a JSON document for filtering objects based on specific criteria:
 
@@ -932,15 +945,53 @@ Below is an example of a JSON document for filtering objects based on specific c
   "signer": "user_id",
   "app_id": "hashed_app_identifier",
   "criteria": {
-    "type": "email",
-    "value": "example@email.com",
+    "type": "first_name",
+    "value": "Alice",
     "degree": 3,
     "vote": 1
   }
 }
 ```
 
+In this JSON structure:
+- `object` specifies the type of object being queried, which is an `attribute`.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user making the query.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `criteria` is an object that contains the specific parameters for filtering:
+  - `type` indicates the type of the Attribute, in this case, `first_name`.
+  - `value` is the value of the Attribute to filter by, here it is `Alice`.
+  - `degree` specifies the degree of separation for the query, set to `3`.
+  - `vote` denotes the relevance or importance of the Attribute, set to `1`.
+
 Upon receiving this JSON document, the Graph Manager applies the specified filtering criteria to the queried data, returning only the objects that match the given criteria. This enables users to efficiently retrieve and analyze data based on their specific requirements.
+
+### Filtering by Parent
+
+To filter objects based on Parents, users can specify criteria for Parents in their query. Below is an example of a JSON document for filtering objects that have a specific parent relationship:
+
+```json
+{
+  "object": "parent",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
+  "criteria": {
+    "parent_type": "book_title",
+    "parent_value": "",
+    "degree": 1,
+    "vote": 1
+  }
+}
+```
+
+In this JSON structure:
+- `object` specifies the type of object being queried, which is a `parent`.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user making the query.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `criteria` is an object that contains the specific parameters for filtering:
+  - `parent_type` indicates the type of the parent object to filter by, in this case, `book_title`.
+  - `parent_value` specifies the value of the parent object, which is left empty in this example.
+  - `degree` specifies the degree of separation for the query, set to `1`.
+  - `vote` denotes the relevance or importance of the parent relationship, set to `1`.
 
 ### Filtering by Ratings
 
@@ -960,13 +1011,51 @@ To filter objects based on Ratings, users can specify criteria for Ratings in th
 }
 ```
 
+In this JSON structure:
+- `object` specifies the type of object being queried, which is a `rating`.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user making the query.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `criteria` is an object that contains the specific parameters for filtering:
+  - `min_score` indicates the minimum score to filter by, set to `6`.
+  - `scale` specifies the scale of the Rating, in this case, `out-of-10`.
+  - `degree` specifies the degree of separation for the query, set to `1`.
+  - `vote` denotes the relevance or importance of the Rating, set to `1`.
+
+### Filtering by ACL
+
+To filter objects based on Access Control Lists (ACLs), users can specify criteria for ACLs in their query. Below is an example of a JSON document for filtering objects that meet certain ACL criteria:
+
+```json
+{
+  "object": "acl",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
+  "criteria": {
+    "type": "",
+    "value": "",
+    "permissions": 1,
+    "degree": 1,
+    "vote": 1
+  }
+}
+```
+
+In this JSON structure:
+- `object` specifies the type of object being queried, which is an `acl`.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user making the query.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `criteria` is an object that contains the specific parameters for filtering:
+  - `type` indicates the type linked to the ACL, left empty in this case, returning all relevant objects.
+  - `value` specifies the value linked to the ACL, left empty in this case, returning all relevant objects.
+  - `permissions` indicates the level of permissions required, set to `1`.
+  - `degree` specifies the degree of separation for the query, set to `1`.
+  - `vote` denotes the relevance or importance of the ACL, set to `1`.
+
 ### Comprehensive Filtering
 
-Here is a more extensive and UX-friendly search query example that demonstrates filtering based on various criteria, including Attributes, Ratings, and relationships:
+Here is a more extensive and potentially UX-friendly search query example that demonstrates filtering based on various criteria, including Attributes, Ratings, and relationships:
 
 **Goal:** Retrieve all "phone numbers" (Attributes with type=”phone_number” and any value) of "restaurants" (Parent object), apart from "The French Cock" (attribute; type="restaurant" and value="The French Cock"), with "positive ratings" (Rating object) from "Friends" (Parent object) and "Family" (Parent object), but not "people with bad taste in food" (Parent object) in zeroth degree, and signed by anyone within 2 degrees of separation or less.
-
-**JSON Document for Filtering:**
 
 ```json
 {
@@ -993,8 +1082,7 @@ Here is a more extensive and UX-friendly search query example that demonstrates 
 }
 ```
 
-**Breakdown of Filtering Criteria:**
-
+In this JSON structure:
 - **object**: Specifies the type of object to filter, which is "attribute" in this case.
 - **app_id**: Specifies the application context, here it's "twoway, connections".
 - **signing_key**: The public key of the user initiating the query.
