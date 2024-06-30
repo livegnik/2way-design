@@ -1218,8 +1218,6 @@ In summary, the Graph Manager in the 2WAY system dynamically adjusts the Graph i
 
 ### 2.5.8 Querying Nodes from RAM
 
-#### Query Process Overview
-
 When a user initiates a query in the 2WAY system through the frontend interface, the Graph Manager processes the request to retrieve specific nodes from the Graph in RAM. This operation is essential for efficiently accessing user connections and relationships within the system.
 
 #### Querying Nodes and Data
