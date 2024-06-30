@@ -311,7 +311,7 @@ When a user generates an Attribute on the frontend, it's transmitted to the back
 In this JSON structure:
 - `object` indicates that this is an Attribute.
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`).
-- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
 - `app_id` signifies the hashed application identifier to ensure uniqueness and prevent naming collisions.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the object's relevance (`1` for relevant, `0` for irrelevant).
@@ -340,7 +340,7 @@ When queried, the newly created Attribute object is returned:
 
 In this JSON structure:
 - `id` represents the unique identifier assigned to the Attribute in the database, ensuring each record is distinct and easily retrievable.
-- `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
 - `timestamp` shows the time when the Attribute was created.
@@ -376,7 +376,7 @@ In this JSON structure:
 
 ### 2.3.3 Parent
 
-A Parent in the 2WAY system consists of a single parent Attribute connected to one or more child Attributes and/or other Parents. This hierarchical structure allows for the organization and management of complex data relationships. For example:
+A Parent in the 2WAY system consists of a single Parent Attribute connected to one or more child Attributes and/or other Parents. This hierarchical structure allows for the organization and management of complex data relationships. For example:
 
 ```json
 {
@@ -714,6 +714,14 @@ To create objects within the 2WAY system, users interact with the frontend inter
   "vote": "1"
 }
 ```
+In this JSON structure:
+- `object` specifies the type of object being created, which is an `attribute`.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `type` indicates the type of the attribute, in this case, `name`.
+- `value` is the value of the attribute, here it is `Alice`.
+- `vote` denotes the relevance or importance of the attribute, set to `1`.
 
 2. **Creating Parents:**
 ```json
@@ -726,6 +734,13 @@ To create objects within the 2WAY system, users interact with the frontend inter
   "vote": "1"
 }
 ```
+In this JSON structure:
+- `object` specifies the type of object being created, which is a `parent`.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Parent.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `parent_id` is the identifier for the Parent object.
+- `vote` denotes the relevance or importance of the Parent, set to `1`.
 
 3. **Creating Edges:**
 ```json
@@ -735,12 +750,18 @@ To create objects within the 2WAY system, users interact with the frontend inter
   "signer": "user_id",
   "app_id": "hashed_app_identifier",
   "parent_id": 123,
-  "parent_version": 1,
   "child_ids": [456, 789],
-  "child_versions": [1, 2],
   "vote": 1
 }
 ```
+In this JSON structure:
+- `object` specifies the type of object being created, which is an `edge`.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Edge.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `parent_id` is the identifier for the Parent node.
+- `child_ids` is a list of identifiers for the child nodes.
+- `vote` denotes the relevance or importance of the edge, set to `1`.
 
 4. **Creating Ratings:**
 ```json
@@ -750,15 +771,24 @@ To create objects within the 2WAY system, users interact with the frontend inter
   "signer": "user_id",
   "app_id": "hashed_app_identifier",
   "attribute_id": 0,
-  "attribute_version": 0,
   "parent_id": 456,
-  "parent_version": 1,
   "comment": "Great experience!",
   "score": "5",
   "scale": "5",
   "vote": 1
 }
 ```
+In this JSON structure:
+- `object` specifies the type of object being created, which is a `rating`.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Rating.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `attribute_id` is the identifier for the related attribute.
+- `parent_id` is the identifier for the related Parent.
+- `comment` captures the user's feedback, here it is `Great experience!`.
+- `score` is the rating score given by the user, set to `5`.
+- `scale` indicates the scale of the score, set to `5`.
+- `vote` denotes the relevance or importance of the rating, set to `1`.
 
 5. **Creating ACLs:**
 ```json
@@ -773,27 +803,21 @@ To create objects within the 2WAY system, users interact with the frontend inter
   "permissions": 1
 }
 ```
+In this JSON structure:
+- `object` specifies the type of object being created, which is an `acl` (Access Control List).
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the ACL.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `pubkey_id` is the identifier of the public key.
+- `access_to_id` is a list of identifiers for the objects to which access is being granted.
+- `access_to_parent` indicates the Parent object to which access is being granted.
+- `permissions` specifies the level of permissions granted, set to `1`.
 
-Upon receiving these JSON documents from clients or the backend/system itself, the Object Manager first forwards them to the Key Manager. The Key Manager timestamps them, generates a hash for each JSON document, and then signs the messages.
+Upon receiving these JSON documents from clients or the backend/system, the Object Manager initially forwards them to the Graph Manager, which updates the 2WAY Graph as requested. If logging is necessary, the documents are then sent to the Key Manager for timestamping and signing before being passed to the Log Manager.
 
-```json
-{
-  "object": "attribute",
-  "action": "new",
-  "signer": "user_id",
-  "app_id": "hashed_app_identifier",
-  "type": "name",
-  "value": "Alice",
-  "vote": "1",
-  "timestamp": 1617000000,
-  "hash": "generated_hash",
-  "signature": "generated_signature"
-}
-```
+Once forwarded to the Graph Manager, the messages are processed and new objects or changes are passed to the Storage Manager, whichs them to or changes the database. Additionally, any necessary updates to the Graph in RAM by the Graph Manager.
 
-Once signed, the messages are handed over to the Storage Manager, which appends them to the database. Additionally, any necessary updates to the Graph in RAM are handled by passing the message to the Graph Manager.
-
-When the Object Manager receives a message from the Network Manager (i.e., from another server), it directly appends the message by forwarding it to the Storage Manager. Furthermore, any required updates to the Graph in RAM are managed by passing the message to the Graph Manager.
+When the Object Manager receives a message from the Network Manager (i.e., from another server), it passed the received documents to the Graph Manager and Log Manager in a similar manner.
 
 <br>
 
@@ -960,13 +984,13 @@ Here is a more extensive and UX-friendly search query example that demonstrates 
 - **criteria**: Contains the filtering parameters:
   - **type**: "phone_number", indicating we want attributes of this type.
   - **vote**: 1, indicating we only want up-voted objects.
-  - **parent**: Specifies the type of parent object we are interested in ("restaurant"), and excludes a specific value ("The French Cock").
+  - **parent**: Specifies the type of Parent object we are interested in ("restaurant"), and excludes a specific value ("The French Cock").
   - **ratings**: Specifies criteria for ratings:
     - **min_score**: "1.75", indicating we want objects with a minimum score of 1.75.
     - **scale**: "out-of-5-stars", specifying the scale of the ratings.
     - **vote**: 1, indicating only up-voted ratings.
     - **signed_by**: Specifies that we want ratings from "Friends" and "Family".
-  - **exclude_parents**: Excludes objects associated with specific parents ("people with bad taste in food").
+  - **exclude_parents**: Excludes objects associated with specific Parents ("people with bad taste in food").
   - **degree**: 0, limiting "exclude_parents" objects to those signed by the user, in the zeroth degree.
 
 Upon receiving this JSON document, the Object Manager processes the request by first interacting with the Graph Manager to identify relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager, applying all specified filtering criteria before returning the data to the frontend.
