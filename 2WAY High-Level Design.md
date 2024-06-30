@@ -1216,7 +1216,7 @@ In summary, the Graph Manager in the 2WAY system dynamically adjusts the Graph i
 
 <br>
 
-### 2.5.8 Querying Nodes from RAM
+### 2.5.8 Querying Nodes from RAM and Associated Data
 
 Upon receiving the query request from the user, the Graph Manager processes the request by retrieving the relevant nodes from the Graph in RAM. The degree of separation specifies how far the query should traverse from the user's node. For example, if the degree is set to 2, the Graph Manager retrieves nodes that are directly connected to the user's node (first-degree) as well as nodes connected to those nodes (second-degree).
 
