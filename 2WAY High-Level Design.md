@@ -1103,31 +1103,9 @@ Upon receiving this JSON document, the Graph Manager processes the request by fi
 
 This approach to filtering objects ensures that users can refine their queries to retrieve the most relevant and useful information, tailored to their specific needs and preferences. By supporting complex filtering criteria, the 2WAY system offers a robust and flexible method for data retrieval, enhancing overall user experience and data discoverability.
 
-<br><br>
-
-## 2.6 Graph Manager <a name="26-graph-manager"></a>
-
-### 2.6.1 Introduction to the Graph Manager
-
-The Graph Manager in the 2WAY system manages the Graph in RAM and synchronizes it with the persistent disk-based Server Graph. It oversees storage, retrieval, and manipulation of graph data, ensuring efficient access and maintenance.
-
-The Graph Manager handles the storage and retrieval of the in-memory graph to and from disk. During system initialization, shutdown, or significant updates, it transfers graph data between RAM and disk storage. This synchronization keeps the Graph in RAM aligned with the Server Graph for seamless data access and manipulation.
-
-Additionally, the Graph Manager processes changes from the Object Manager, which handles object creation and querying by users. When changes occur, such as adding or removing nodes and edges, the Graph Manager updates the corresponding nodes and edges (not to be confused with the Edge object) in the Graph in RAM.
-
-For example, when a user creates a new connection, the Graph Manager adds the corresponding node and edge with the table record ID that stores the Attribute of their public key to the Graph in RAM. Conversely, if a connection ("pubkey" Attribute) is down-voted, the Graph Manager removes the relevant node and edge from the Graph in RAM.
-
-The Graph Manager also facilitates query operations by providing methods to retrieve nodes by degree of separation from the user's zeroth degree within the Server Graph. Users query the Object Manager, which then calls the Graph Manager to obtain table record IDs of relevant nodes within their User Graph, enabling efficient exploration and analysis.
-
-The Graph Manager for this proof-of-concept focuses on storing record IDs of public key Attributes with app_id="twoway" and app_sub_id="connections" in the table "twoway_connections_attributes". For example, if Alice's first interaction is signing her own public key, storing it as an Attribute with the record ID "1" in the table, a node with the value "1" is added to the Graph in RAM. If Alice adds Bob's public key as an attribute with a record ID of "34", a node with the value "34" is added to the Graph in RAM, and an edge is established between nodes "1" and "34". When a "pubkey" Attribute is down-voted, it is removed from the Graph in RAM along with the edge between the two nodes.
-
-Future versions of 2WAY may allow adding and removing other Attributes or Parents to and from the Graph in RAM, but this is outside the scope of the proof-of-concept.
-
-By managing synchronization between the Graph in RAM and the Server Graph, as well as handling changes and query requests, the Graph Manager ensures the integrity, accessibility, and responsiveness of the graph data within the 2WAY system.
-
 <br>
 
-### 2.6.2 Storage and Retrieval
+### 2.5.6 Storing and Retrieving to/from the Graph in RAM
 
 The Graph Manager in the 2WAY system is responsible for the storage and retrieval of the Graph in RAM, ensuring its synchronization with the persistent Server Graph. This process involves constructing the Graph in RAM from the Server Graph, storing it to disk, and retrieving it when necessary.
 
@@ -1153,7 +1131,7 @@ In summary, the Graph Manager handles the storage and retrieval of the Graph in 
 
 <br>
 
-### 2.6.3 Changes to Graph in RAM
+### 2.5.7 Changes to Graph in RAM
 
 The 2WAY system's Graph Manager is designed to manage dynamic changes in the Graph in RAM, primarily focusing on the record IDs of public key Attributes with specific identifiers. This section details how nodes and edges are added or removed based on interactions within the 2WAY system, using JSON document examples to illustrate these changes.
 
@@ -1226,7 +1204,7 @@ In summary, the Graph Manager in the 2WAY system dynamically adjusts the Graph i
 
 <br>
 
-### 2.6.4 Querying Nodes from RAM
+### 2.5.8 Querying Nodes from RAM
 
 In the 2WAY system, querying nodes from the Graph in RAM is an essential operation for efficiently retrieving user connections and relationships. The Graph Manager plays a crucial role in this process by interacting with the Object Manager to handle user queries and return the relevant data. This section explains how nodes are queried from the Graph in RAM using JSON document examples to illustrate the process.
 
