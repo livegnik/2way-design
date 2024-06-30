@@ -310,7 +310,7 @@ When a user generates an Attribute on the frontend, it's transmitted to the back
 In this JSON structure:
 - `object` indicates that this is an Attribute.
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`).
-- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. `0` = self, for "pubkey" Attributes.
 - `app_id` signifies the hashed application identifier to ensure uniqueness and prevent naming collisions.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the object's relevance (`1` for relevant, `0` for irrelevant).
@@ -339,7 +339,7 @@ When queried, the newly created Attribute object is returned:
 
 In this JSON structure:
 - `id` represents the unique identifier assigned to the Attribute in the database, ensuring each record is distinct and easily retrievable.
-- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. `0` = self, for "pubkey" Attributes.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the relevance of the Attribute (`1` for relevant, `0` for irrelevant).
 - `timestamp` shows the time when the Attribute was created.
@@ -624,7 +624,7 @@ Here are the core tables in the schema:
 1. **Attributes Table**:
    - **id** INT: Unique identifier for the attribute.
    - **type** TEXT: Type of the attribute.
-   - **signer** INT: Refers to the record ID that stores the public key (pubkey) of the user creating the Attribute. 0 = self.
+   - **signer** INT: Refers to the record ID that stores the public key (pubkey) of the user creating the Attribute. `0` = self.
    - **value** TEXT: Value of the attribute.
    - **vote** INT: Vote count for the attribute.
    - **timestamp** INT: Timestamp of the attribute creation or modification.
@@ -726,7 +726,7 @@ To create or manage objects within the 2WAY system, users interact with the fron
 In this JSON structure:
 - `object` specifies the type of object being created, which is an `attribute`.
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`).
-- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. `0` = self, for "pubkey" Attributes.
 - `app_id` is the unique identifier for the application, hashed for security.
 - `type` indicates the type of the attribute, in this case, `name`.
 - `value` is the value of the attribute, here it is `Alice`.
@@ -1145,7 +1145,7 @@ When a user, such as Alice, initially stores her own public key, an Attribute is
 
 In this JSON structure:
 - `id` represents the unique identifier of the Attribute, here set to `1`.
-- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. `0` = self, for "pubkey" Attributes.
 - `type` specifies the type of Attribute, in this case, `pubkey`, indicating it represents Alice's public key.
 - `value` holds the actual value of the Attribute, which is "alices_pubkey".
 - `vote` indicates the relevance or importance of the Attribute, set to `1`.
@@ -1218,36 +1218,46 @@ In summary, the Graph Manager in the 2WAY system dynamically adjusts the Graph i
 
 ### 2.5.8 Querying Nodes from RAM
 
-In the 2WAY system, querying nodes from the Graph in RAM is an essential operation for efficiently retrieving user connections and relationships. The Graph Manager plays a crucial role in this process by interacting with the Object Manager to handle user queries and return the relevant data. This section explains how nodes are queried from the Graph in RAM using JSON document examples to illustrate the process.
-
 #### Query Process Overview
 
-When a user initiates a query, it is done through the frontend interface, which sends a request to the Object Manager. The Object Manager then communicates with the Graph Manager to retrieve the relevant nodes from the Graph in RAM based on the specified parameters.
+When a user initiates a query in the 2WAY system through the frontend interface, the Graph Manager processes the request to retrieve specific nodes from the Graph in RAM. This operation is essential for efficiently accessing user connections and relationships within the system.
 
-The query request includes details such as the object type, degree of separation, and any specific filtering criteria. Below is an example of a JSON document representing a query request:
+#### Querying Nodes and Data
+
+Upon receiving the query request from the user, the Graph Manager processes the request by retrieving the relevant nodes from the Graph in RAM. The degree of separation specifies how far the query should traverse from the user's node. For example, if the degree is set to 2, the Graph Manager retrieves nodes that are directly connected to the user's node (first-degree) as well as nodes connected to those nodes (second-degree).
+
+The filtering criteria specified in the query request further refine the results. In the provided example, only nodes representing public key attributes that have been up-voted are retrieved. The original query submitted by the user, for this example, looks as follows:
 
 ```json
 {
   "object": "attribute",
-  "app_id": "twoway, connections",
-  "signing_key": "user_public_key",
-  "degree": 2,
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "criteria": {
-    "type": "pubkey",
+    "type": "first_name",
+    "value": "Alice",
+    "degree": 2,
     "vote": 1
   }
 }
 ```
 
-In this example, the user is querying for public key attributes within two degrees of separation from their own public key, with only up-voted attributes considered.
+The Graph Manager querys the Graph in RAM with the help of NetworkX and returns a set of nodes, categorized by their degree of separation. The following JSON document exemplifies the query initiated by the user to retrieve nodes from the Graph in RAM:
 
-#### Querying Nodes
+```json
+{
+  "signer": "user_id",
+  "degree": 2
+}
+```
 
-Upon receiving the query request from the Object Manager, the Graph Manager processes the request by retrieving the relevant nodes from the Graph in RAM. The degree of separation specifies how far the query should traverse from the user's node. For example, if the degree is set to 2, the Graph Manager retrieves nodes that are directly connected to the user's node (first-degree) as well as nodes connected to those nodes (second-degree).
+In this JSON structure:
+- `signer` identifies the user who initiated the query, referenced by their `user_id`.
+- `degree` indicates the degree of separation from the user's zeroth degree, set to `2`.
 
-The filtering criteria specified in the query request further refine the results. In the provided example, only nodes representing public key attributes that have been up-voted are retrieved.
+This JSON document illustrates a query operation aimed at retrieving nodes from the Graph in RAM that match the specified criteria. The Graph Manager handles this query, ensuring efficient data retrieval and responsiveness within the 2WAY system.
 
-The Graph Manager returns a set of nodes, categorized by their degree of separation, to the Object Manager. This set includes record IDs of the nodes along with their respective degrees.
+Upon executing the query described above, the Graph Manager returns an array of integers representing the record IDs of "pubkey" Attributes stored within the Graph in RAM, filtered by a degree of separation of `2` from the user's zeroth degree. Here's an example of how the returned results might look:
 
 ```json
 {
@@ -1255,67 +1265,141 @@ The Graph Manager returns a set of nodes, categorized by their degree of separat
     "degrees": [
       {
         "degree": 1,
-        "nodes": [2, 3, 4]
+        "nodes": [34]
       },
       {
         "degree": 2,
-        "nodes": [5, 6, 7, 8]
-      },
-      {
-        "degree": 3,
-        "nodes": [9, 10]
+        "nodes": [56, 78, 102]
       }
     ]
   }
 }
 ```
 
-In this example, the nodes are grouped by their degree of separation:
+In this JSON structure:
+- `query_result` contains the results of the query operation.
+- `degrees` is an array that categorizes the results based on different degrees of separation from the user's zeroth degree.
 
-- Nodes `2, 3, and 4` are within the first degree of separation.
-- Nodes `5, 6, 7, and 8` are within the second degree of separation.
-- Nodes `9 and 10` are within the third degree of separation.
+#### Degree 1:
+- `degree` specifies the degree of separation, which is `1`.
+- `nodes` is an array containing the record IDs of nodes (or "pubkey" Attributes) that are directly connected to the user's zeroth degree. In this case, the array `[34]` indicates that there is one node at degree `1` from the user.
 
-This structure allows the Object Manager to efficiently process and query the Storage Manager for the detailed information of the nodes, categorized by their degrees of separation.
+#### Degree 2:
+- `degree` specifies the degree of separation, which is `2`.
+- `nodes` is an array containing the record IDs of nodes that are two degrees away from the user's zeroth degree. The array `[56, 78, 102]` indicates that there are three nodes at degree `2` from the user.
 
-#### Example Query Results
+This JSON document illustrates how the query results are structured to provide information about nodes at different degrees of separation within the 2WAY system. It allows users to understand the connectivity and relationships captured by the system based on their query parameters and degree specifications. The Graph Manager ensures efficient handling and retrieval of these results, supporting seamless navigation and exploration of data within the system.
 
-The Object Manager then uses this set of node record IDs to query the Storage Manager, which retrieves the full details of each node from the database. The Object Manager formats this data and sends it back to the frontend interface for user interaction. An example of the JSON document representing the query results might look like this:
+This data allows the system to identify and further interact with specific nodes within the 2WAY Graph, facilitating efficient navigation and exploration of connections and relationships.
+
+To retrieve the relevant data from the Graph on Disk based on the array of record IDs returned by the Graph Manager, the Storage Manager executes the following query:
 
 ```json
 {
-  "results": [
+  "object": "attribute",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
+  "criteria": {
+    "type": "first_name",
+    "value": "Alice",
+    "degree": 2,
+    "vote": 1,
+    "connections": [34, 56, 78, 102]
+  }
+}
+```
+
+In this JSON document:
+- `object` specifies the type of object being queried, which is an `attribute`.
+- `signer` refers to the user's identifier who initiated the query.
+- `app_id` is the hashed identifier for the application for security purposes.
+- `criteria` contains specific parameters for filtering:
+  - `type` specifies the type of attribute being queried, in this case, `first_name`.
+  - `value` indicates the value to filter by, which is `Alice`.
+  - `degree` denotes the degree of separation for the query, set to `2`.
+  - `vote` specifies the relevance or importance of the attribute, set to `1`.
+  - `connections` is an array of record IDs representing the `pubkey` Attributes retrieved from the Graph in RAM.
+
+This query effectively retrieves data from the Graph on Disk based on the user's original query and the specific "pubkey" Attributes identified in the previous step. The Storage Manager ensures that the queried data matches the specified criteria, providing accurate and relevant results to the user.
+
+The Graph Manager formats this data and sends it back to the frontend interface for user interaction. An example of the JSON document representing the query results might look like this:
+
+```json
+{
+  "query_result": [
     {
-      "id": 2,
-      "version": 1,
-      "type": "pubkey",
-      "signing_key": "Alice's public key",
-      "attribute_key": "pubkey",
-      "value": "Bob's public key",
+      "signer": "user_id",
+      "type": "first_name",
+      "value": "Alice",
       "vote": 1,
-      "timestamp": 1648062000,
-      "hash": "document_hash",
-      "signature": "cryptographic_signature",
-      "degree": 1
+      "degree": 1,
+      "timestamp": 1648062030,
+      "hash": "document_hash"
     },
     {
-      "id": 5,
-      "version": 1,
-      "type": "pubkey",
-      "signing_key": "Bob's public key",
-      "attribute_key": "pubkey",
-      "value": "Carol's public key",
+      "signer": "user_id",
+      "type": "first_name",
+      "value": "Alice",
       "vote": 1,
-      "timestamp": 1648062010,
-      "hash": "document_hash",
-      "signature": "cryptographic_signature",
-      "degree": 2
+      "degree": 2,
+      "timestamp": 1648062040,
+      "hash": "document_hash"
+    },
+    {
+      "signer": "user_id",
+      "type": "first_name",
+      "value": "Alice",
+      "vote": 1,
+      "degree": 2,
+      "timestamp": 1648062040,
+      "hash": "document_hash"
+    },
+    {
+      "signer": "user_id",
+      "type": "first_name",
+      "value": "Alice",
+      "vote": 1,
+      "degree": 2,
+      "timestamp": 1648062040,
+      "hash": "document_hash"
     }
   ]
 }
 ```
 
-In this example, the results include nodes for Bob's and Carol's public keys, which are within two degrees of separation from the user's public key and have been up-voted. Each result also includes the degree of separation for clarity.
+In this example JSON document, the query results consist of nodes representing the first name "Alice" that are within two degrees of separation from the user's public key and have been upvoted. Each entry in the `query_result` array includes essential information such as the record ID, type, value, degree of separation, timestamp, and hash of the document. This data provides a snapshot of the attributes associated with nodes in the Graph in RAM that match the specified criteria.
+
+To further explore related data, such as the full names associated with each record returned earlier, another query can be formulated using the `Parent` attribute relationship. For instance, a query could be structured as follows:
+
+```json
+{
+  "object": "attribute",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
+  "criteria": {
+    "type": "full_name",
+    "parent": {
+      "type": "pubkey",
+      "value": "",
+      "degree": 1,
+      "connections": [34, 56, 78, 102]
+    }
+  }
+}
+```
+
+In this query:
+- `object` specifies the type of object being queried, which is an `attribute`.
+- `signer` identifies the user who initiated the query.
+- `app_id` is the hashed identifier for the application.
+- `criteria` specifies the parameters for filtering:
+  - `type` denotes the type of Attribute being queried, specifically `full_name`.
+  - `parent` identifies the parent Attribute relationship:
+    - `type` specifies that the parent is a `pubkey` Attribute.
+    - `degree` indicates the degree of separation for the parent query, set to `1`.
+    - `connections` is an array of record IDs representing the `pubkey` attributes retrieved from the previous query results.
+
+Executing this query would retrieve additional data from the Graph on Disk, specifically the full names associated with each record ID that was returned in the initial query. This approach allows for a layered exploration of connected data within the 2WAY system, leveraging relationships defined by Attribute types and their hierarchical structure to enrich the user's data retrieval experience.
 
 #### Future Enhancements
 
