@@ -301,7 +301,7 @@ When a user generates an Attribute on the frontend, it's transmitted to the back
   "object": "attribute",
   "action": "new",
   "signer": "user_id",
-  "app_hash": "hashed_app_identifier",
+  "app_id": "hashed_app_identifier",
   "type": "name",
   "value": "Alice",
   "vote": "1"
@@ -312,7 +312,7 @@ In this JSON structure:
 - `object` indicates that this is an Attribute.
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`).
 - `signer` refers to the record ID that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
-- `app_hash` signifies the hashed application identifier to ensure uniqueness and prevent naming collisions.
+- `app_id` signifies the hashed application identifier to ensure uniqueness and prevent naming collisions.
 - `type` and `value` define the key-value pair of the Attribute.
 - `vote` is a boolean value indicating the object's relevance (`1` for relevant, `0` for irrelevant).
 
@@ -419,7 +419,7 @@ When creating a Parent object, the following JSON structure might be used:
   "id": 1,
   "action": "new",
   "signer": "user_id",
-  "app_hash": "hashed_app_identifier",
+  "app_id": "hashed_app_identifier",
   "parent_id": "4",
   "vote": "1",
   "timestamp": "1648062000",
@@ -431,7 +431,7 @@ In this JSON structure:
 - `id` identifies the object.
 - `action` describes the interaction with the object (`new`, `edit`, or `delete`).
 - `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Parent.
-- `app_hash` signifies the hashed application identifier to ensure uniqueness and prevent naming collisions.
+- `app_id` signifies the hashed application identifier to ensure uniqueness and prevent naming collisions.
 - `parent_id` references the parent Attribute object.
 - `vote` indicates the relevance of the object (`1` for relevant, `0` for irrelevant).
 - `timestamp` records the time of creation.
@@ -706,8 +706,9 @@ To create objects within the 2WAY system, users interact with the frontend inter
 ```json
 {
   "object": "attribute",
-  "app_id": "twoway, connections",
-  "signing_key": "user_id",
+  "action": "new",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "type": "name",
   "value": "Alice",
   "vote": "1"
@@ -718,19 +719,21 @@ To create objects within the 2WAY system, users interact with the frontend inter
 ```json
 {
   "object": "parent",
-  "app_id": "twoway, connections",
-  "signing_key": "user_id",
+  "action": "new",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "parent_id": 123,
-  "parent_version": 1,
   "vote": "1"
 }
 ```
+
 3. **Creating Edges:**
 ```json
 {
   "object": "edge",
-  "app_id": "twoway, connections",
-  "signing_key": "user_id",
+  "action": "new",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "parent_id": 123,
   "parent_version": 1,
   "child_ids": [456, 789],
@@ -743,8 +746,9 @@ To create objects within the 2WAY system, users interact with the frontend inter
 ```json
 {
   "object": "rating",
-  "app_id": "twoway, connections",
-  "signing_key": "user_id",
+  "action": "new",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "attribute_id": 0,
   "attribute_version": 0,
   "parent_id": 456,
@@ -760,8 +764,9 @@ To create objects within the 2WAY system, users interact with the frontend inter
 ```json
 {
   "object": "acl",
-  "app_id": "twoway, connections",
-  "signing_key": "user_id",
+  "action": "new",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "pubkey_id": 123,
   "access_to_id": [456, 789],
   "access_to_parent": 0,
@@ -774,8 +779,9 @@ Upon receiving these JSON documents from clients or the backend/system itself, t
 ```json
 {
   "object": "attribute",
-  "app_id": "twoway, connections",
-  "signing_key": "user_id",
+  "action": "new",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "type": "name",
   "value": "Alice",
   "vote": "1",
