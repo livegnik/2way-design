@@ -1096,8 +1096,8 @@ In this JSON structure:
     - `min_score` specifies the minimum score required, set to `1.75`.
     - `scale` indicates the scale of the rating, here it is `out-of-5-stars`.
     - `vote` denotes the relevance or importance of the rating, set to `1`.
-    - `signed_by` lists entities that have signed the rating, including "Friends" and "Family".
-  - `exclude_parents` lists parent categories to exclude, such as "people with bad taste in food".
+    - `signed_by` lists entities that have signed the rating, including `Friends` and `Family`.
+  - `exclude_parents` lists parent categories to exclude, such as `people with bad taste in food`.
 
 Upon receiving this JSON document, the Graph Manager processes the request by first identifying relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager, applying all specified filtering criteria before returning the data to the frontend.
 
