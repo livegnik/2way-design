@@ -822,7 +822,7 @@ In this JSON structure:
 - `access_to_parent` indicates the Parent object to which access is being granted.
 - `permissions` specifies the level of permissions granted, set to `1`.
 
-Upon receiving these JSON documents from clients or the backend/system, the Graph Manager updates the 2WAY Graph as requested. If logging is necessary, the documents are sent to the Key Manager for timestamping and signing before being passed to the Log Manager.
+Upon receiving these JSON documents from clients or the backend/system, the Graph Manager manipulates the 2WAY Graph as requested. If logging is necessary, the documents are sent to the Key Manager for timestamping and signing before being passed to the Log Manager.
 
 The messages processed by the Graph Manager result in new objects being created, updated, or deleted in the database via the Storage Manager. Additionally, the Graph Manager ensures that any necessary updates are made to the Graph in RAM.
 
@@ -832,7 +832,7 @@ When the Graph Manager receives a message from the Network Manager (i.e., from a
 
 ### 2.5.3 Managing Object Visibility
 
-Objects within the 2WAY system are never deleted from the database. Instead, they can be updated, deleted, or down-voted, which by default signifies their irrelevance or disapproval by the user. This approach ensures data integrity and historical traceability, as every interaction with an object is preserved. Different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
+Objects within the 2WAY system can be created, updated, deleted, or down-voted. The latter signifies their irrelevance or disapproval by the user, and down-voted objects are not returned when queried for, unless specified otherwise. This approach ensures data integrity and historical traceability, as every interaction with an object can be preserved. Different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
 
 An example of a JSON document for updating or down-voting an Attribute, to be processed by the Graph Manager:
 
