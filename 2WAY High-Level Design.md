@@ -1091,7 +1091,7 @@ In this JSON structure:
   - `vote` denotes the relevance or importance of the attribute, set to `1`.
   - `parent` specifies criteria related to the parent object:
     - `type` indicates the type of parent object, here it is `restaurant`.
-    - `exclude_value` excludes attributes associated with the restaurant named "The French Cock".
+    - `exclude_value` excludes attributes associated with the restaurant named `The French Cock`.
   - `ratings` defines criteria related to ratings:
     - `min_score` specifies the minimum score required, set to `1.75`.
     - `scale` indicates the scale of the rating, here it is `out-of-5-stars`.
