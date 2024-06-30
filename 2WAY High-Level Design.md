@@ -1109,7 +1109,7 @@ This approach to filtering objects ensures that users can refine their queries t
 
 The Graph Manager in the 2WAY system is responsible for the storage and retrieval of the Graph in RAM, ensuring its synchronization with the persistent Server Graph. This process involves constructing the Graph in RAM from the Server Graph, storing it to disk, and retrieving it when necessary.
 
-The Graph in RAM is initially constructed from the Server Graph, utilizing the NetworkX library to create and manage graph data structures in Python. During initialization, the Graph Manager populates the in-memory graph with relevant nodes and edges based on the data stored in the Server Graph. These nodes can represent various objects such as Attributes, Parents, and connections between users.
+The Graph in RAM is initially constructed from the Server Graph, utilizing the NetworkX library to create and manage graph data structures in Python. During initialization, the Graph Manager populates the in-memory graph with relevant nodes and edges (not to be confused with Edge objects) based on the data stored in the Server Graph. These nodes can represent various objects such as Attributes, Parents, and connections between users.
 
 Once constructed, the Graph in RAM can be stored to disk for persistence using the "nx.write_gpickle" function provided by NetworkX. This serialization process saves the graph data structure in a binary format, allowing it to be efficiently written to disk for long-term storage. Storing the graph to disk ensures that the latest state of the Graph in RAM is preserved even when the system is restarted or shut down.
 
@@ -1125,68 +1125,88 @@ In summary, the Graph Manager handles the storage and retrieval of the Graph in 
 
 ### 2.5.7 Changes to Graph in RAM
 
-The 2WAY system's Graph Manager is designed to manage dynamic changes in the Graph in RAM, primarily focusing on the record IDs of public key Attributes with specific identifiers. This section details how nodes and edges are added or removed based on interactions within the 2WAY system, using JSON document examples to illustrate these changes.
+The 2WAY system's Graph Manager is designed to handle dynamic changes in the Graph in RAM, specifically focusing on managing record IDs of public key Attributes with unique identifiers. This section elaborates on how nodes and edges are modified based on interactions within the 2WAY system, using JSON document examples to demonstrate these modifications.
 
 #### Adding Nodes and Edges
 
-When a user, such as Alice, first signs her own public key, an Attribute is created with a unique record ID stored in the `twoway_connections_attributes` table. This is represented by the following JSON document:
+When a user, such as Alice, initially stores her own public key, an Attribute is created with a distinct record ID stored in the `0e532062ea04fa80e54a0c3cda66f72c7c173f20b73f72541210da8a_attributes` table.
 
 ```json
 {
   "id": 1,
-  "version": 1,
+  "signer": "user_id",
   "type": "pubkey",
-  "signing_key": "Alice's public key",
-  "attribute_key": "pubkey",
-  "value": "Alice's public key",
-  "vote": 1,
-  "timestamp": 1648062000,
-  "hash": "document_hash",
-  "signature": "cryptographic_signature"
+  "value": "alices_pubkey",
+  "vote": "1",
+  "timestamp": "1648062000",
+  "hash": "document_hash"
 }
 ```
 
-Upon receiving this JSON document, the Graph Manager adds a node with the value "1" to the Graph in RAM, representing Alice's public key.
+In this JSON structure:
+- `id` represents the unique identifier of the Attribute, here set to `1`.
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user creating the Attribute. 0 = self, for "pubkey" Attributes.
+- `type` specifies the type of Attribute, in this case, `pubkey`, indicating it represents Alice's public key.
+- `value` holds the actual value of the Attribute, which is "alices_pubkey".
+- `vote` indicates the relevance or importance of the Attribute, set to `1`.
+- `timestamp` records the time when the Attribute was created or modified, specified as `1648062000`.
+- `hash` represents the hash value associated with the document, ensuring data integrity and authenticity.
 
-Next, if Alice adds Bob's public key as an attribute, another Attribute is created, resulting in a new record ID:
+This JSON document illustrates the creation of a node in the Graph in RAM, representing Alice's public key Attribute within the 2WAY system.
+
+Upon creating this object, the Graph Manager adds a node with the value "1" to the Graph in RAM, representing Alice's public key.
+
+Next, if Alice adds Bob's public key as an Attribute, another Attribute is created, resulting in a new record ID:
 
 ```json
 {
   "id": 34,
-  "version": 1,
+  "signer": "1",
   "type": "pubkey",
-  "signing_key": "Alice's public key",
-  "attribute_key": "pubkey",
   "value": "Bob's public key",
   "vote": 1,
   "timestamp": 1648062010,
-  "hash": "document_hash",
-  "signature": "cryptographic_signature"
+  "hash": "document_hash"
 }
 ```
+
+In this JSON structure:
+- `id` specifies the unique identifier of the Attribute, which is `34`.
+- `signer` indicates the entity (in this case, Alice's public key) responsible for adding or modifying the Attribute.
+- `type` denotes the type of Attribute, which is `pubkey`, indicating it represents a public key.
+- `value` contains the actual value of the Attribute, which is "Bob's public key".
+- `vote` signifies the relevance or importance of the Attribute, set to `1`.
+- `timestamp` records the time when the Attribute was created or modified, set to `1648062010`.
+- `hash` represents the hash value associated with the document, ensuring data integrity and authenticity.
 
 The Graph Manager then adds a node with the value "34" to the Graph in RAM and creates a directed edge between nodes "1" (Alice) and "34" (Bob), establishing a connection between the two users, from Alice, to Bob.
 
 #### Removing Nodes and Edges
 
-If a "pubkey" Attribute or connection is down-voted, it signifies that the connection is no longer relevant or trusted. This down-vote action is represented by the following JSON document:
+If a "pubkey" Attribute, or, connection is down-voted, it signifies that the connection is no longer relevant or trusted. This down-vote action is represented by the following JSON document:
 
 ```json
 {
-  "id": 45,
-  "version": 2,
+  "id": 34,
+  "signer": "1",
   "type": "pubkey",
-  "signing_key": "Alice's public key",
-  "attribute_key": "pubkey",
-  "value": "Bob's public key",
+  "value": "bobs_pubkey",
   "vote": 0,
   "timestamp": 1648062020,
-  "hash": "document_hash",
-  "signature": "cryptographic_signature"
+  "hash": "document_hash"
 }
 ```
 
-Upon processing this JSON document, the Graph Manager queries the old Attributes for Bob's "pubkey", and verifies the previously oldest version of the Attribute is up-voted and exist in the Graph in RAM, to then remove the node "34" and the edge between nodes "1" and "34" from the Graph in RAM. This ensures that the in-memory graph only reflects active and trusted connections.
+In this JSON structure:
+- `id` specifies the unique identifier of the Attribute, which is `34`.
+- `signer` indicates the entity responsible for the action, identified by the record ID `1`.
+- `type` denotes the type of Attribute, which is `pubkey`, representing a public key.
+- `value` contains the actual value of the Attribute, which is `bobs_pubkey`.
+- `vote` signifies the relevance or importance of the Attribute, set to `0`, indicating a down-vote.
+- `timestamp` records the time when the down-vote action occurred, set to `1648062020`.
+- `hash` represents the hash value associated with the document, ensuring data integrity and authenticity.
+
+Upon processing this JSON document, the Graph Manager queries the Attribute for Bob's "pubkey", and verifies the previous version of the Attribute is up-voted and exist in the Graph in RAM, to then remove the node "34" and the edge between nodes "1" and "34" from the Graph in RAM. This ensures that the in-memory graph only reflects active and trusted connections.
 
 #### Future Extensions
 
