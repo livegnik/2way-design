@@ -711,7 +711,7 @@ By managing synchronization, changes, and queries, the Graph Manager ensures the
 
 To create or manage objects within the 2WAY system, users interact with the frontend interface, which communicates with the backend's Graph Manager through API calls. These API calls contain JSON documents specifying the details of the objects to be created, updated, or deleted. Below are examples of JSON documents for creating different types of objects based on the database schema:
 
-1. **Creating Attributes:**
+### Creating Attributes
 ```json
 {
   "object": "attribute",
@@ -732,7 +732,7 @@ In this JSON structure:
 - `value` is the value of the attribute, here it is `Alice`.
 - `vote` denotes the relevance or importance of the attribute, set to `1`.
 
-2. **Creating Parents:**
+### Creating Parents
 ```json
 {
   "object": "parent",
@@ -751,7 +751,7 @@ In this JSON structure:
 - `parent_id` is the identifier for the Parent object.
 - `vote` denotes the relevance or importance of the Parent, set to `1`.
 
-3. **Creating Edges:**
+### Creating Edges
 ```json
 {
   "object": "edge",
@@ -772,7 +772,7 @@ In this JSON structure:
 - `child_ids` is a list of identifiers for the child nodes.
 - `vote` denotes the relevance or importance of the edge, set to `1`.
 
-4. **Creating Ratings:**
+### Creating Ratings
 ```json
 {
   "object": "rating",
@@ -799,7 +799,7 @@ In this JSON structure:
 - `scale` indicates the scale of the score, set to `5`.
 - `vote` denotes the relevance or importance of the rating, set to `1`.
 
-5. **Creating ACLs:**
+### Creating ACLs
 ```json
 {
   "object": "acl",
