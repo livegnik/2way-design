@@ -20,14 +20,13 @@
   2.2 [2WAY Graph](#22-2way-graph)<br>
   2.3 [2WAY Objects](#23-2way-objects)<br>
   2.4 [Database Schemas](#24-database-schema)<br>
-  2.5 [Object Manager](#25-object-manager)<br>
-  2.6 [Graph Manager](#26-graph-manager)<br>
-  2.7 [Storage Manager](#27-storage-manager)<br>
-  2.8 [Key Manager](#28-key-manager)<br>
+  2.5 [Graph Manager](#25-graph-manager)<br>
+  2.6 [Storage Manager](#26-storage-manager)<br>
+  2.7 [Key Manager](#27-key-manager)<br>
+  2.8 [Log Manager](#28-log-manager)<br>
   2.9 [Network Manager](#29-network-manager)<br>
-  2.10 [Log Manager](#210-log-manager)<br>
 
-3. [Practical Examples](#practical-examples)
+1. [Practical Examples](#practical-examples)
 
 <br><br><br>
 
@@ -63,7 +62,7 @@ This document navigates through the intricate layers of the 2WAY system, beginni
 
 Within the Frontend section, we explain the Flask framework, the backbone of the 2WAY proof-of-concept, and examine the concept of plugins, from pre-installed options to the development of custom plugins.
 
-Transitioning to the Backend section, we uncover the foundational elements of the 2WAY Graph, alongside the management of core 2WAY Objects such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Additionally, we describe the Database Schema and dive deep into the functionalities of essential backend components, including the Object Manager, Graph Manager, Storage Manager, Network Manager, and more.
+Transitioning to the Backend section, we uncover the foundational elements of the 2WAY Graph, alongside the management of core 2WAY Objects such as Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Additionally, we describe the Database Schema and dive deep into the functionalities of essential backend components, including the Graph Manager, Storage Manager, Network Manager, and more.
 
 Finally, within the Practical Examples section, we illustrate the real-world applications of 2WAY across various scenarios, demonstrating its versatility and efficacy in managing contacts, messaging, social interactions, addressing security challenges like Sybil attacks, navigating markets, verifying binaries, and handling key management tasks.
 
@@ -123,13 +122,13 @@ Overall, Flask's simplicity, flexibility, and scalability make it an ideal choic
 
 In the 2WAY proof-of-concept, plugins demonstrate how applications can function on top of the 2WAY protocol, showcasing the broader potential of integrating various applications with the system. Through these plugins, the proof-of-concept illustrates the capabilities and versatility of the 2WAY protocol in supporting diverse application needs and enhancing user interactions.
 
-These Flask plugins streamline communication with the backend Object Manager, enabling efficient data handling within the application. Integrated into the Flask framework, they offer modular architectures for managing data and user interactions effectively. Powered by the Flask ecosystem, these plugins establish connections with the Object Manager, facilitating real-time updates and data synchronization between frontend and backend.
+These Flask plugins streamline communication with the backend Graph Manager, enabling efficient data handling within the application. Integrated into the Flask framework, they offer modular architectures for managing data and user interactions effectively. Powered by the Flask ecosystem, these plugins establish connections with the Graph Manager, facilitating real-time updates and data synchronization between frontend and backend.
 
-The Object Manager processes incoming requests from the frontend, executing necessary operations to create, retrieve, manipulate, or query data stored within the 2WAY Graph, and returning the results to the frontend. This includes tasks such as creating and retrieving objects, querying for relevant information, and managing access control and permissions.
+The Graph Manager processes incoming requests from the frontend, executing necessary operations to create, retrieve, manipulate, or query data stored within the 2WAY Graph, and returning the results to the frontend. This includes tasks such as creating and retrieving objects, querying for relevant information, and managing access control and permissions.
 
 To further enhance the functionality and efficiency of the 2WAY system, plugins can create and manage objects as well. This allows for centralized creation and management of objects, reducing redundancy and saving space in the graph. When plugins create these objects, they are automatically granted access permissions to all or designated users, including new users joining the system. This is managed through the Access Control List (ACL) object, ensuring proper access control and seamless integration of new objects. All operations conducted by plugins are securely authenticated using their unique cryptographic key-pairs, ensuring data integrity and security.
 
-By leveraging Flask plugins, the frontend application can seamlessly interact with the Object Manager and access the full range of functionalities offered by backend services. This enables users to perform actions such as creating new objects, updating existing data, querying information, and collaborating with other users, all while maintaining a responsive and intuitive user experience.
+By leveraging Flask plugins, the frontend application can seamlessly interact with the Graph Manager and access the full range of functionalities offered by backend services. This enables users to perform actions such as creating new objects, updating existing data, querying information, and collaborating with other users, all while maintaining a responsive and intuitive user experience.
 
 Overall, Flask plugins play a crucial role in bridging the gap between the frontend and backend components of the 2WAY system. They enable efficient communication and data exchange between the user interface and the server infrastructure. Through their integration into the Flask framework, these plugins empower developers to build rich, interactive applications that leverage the full capabilities of the 2WAY platform, ensuring a seamless and intuitive user experience.
 
@@ -181,7 +180,7 @@ At the core of the backend lies the 2WAY Graph, a comprehensive data structure i
 
 The backend manages various types of 2WAY Objects essential to the system's operation, including Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). Attributes are key-value pairs with a "type" and a "value". Ratings store reputation scores. Parents contain Attributes who can have one or more other Attributes as their children, and Edges establish the relationships between a Parent and its children. ACLs define and manage access permissions within the system. Each object can be up or down-voted indefinitely, influencing its visibility in the graph.
 
-Several crucial components support the functionality and security of the 2WAY backend. The Database Schema ensures efficient data organization and structure. The Object Manager handles message reception from the frontend, backend, or any connected application, ensuring secure and reliable communication. The Graph Manager manages changes to the 2WAY Graph in general and maintains the Graph in RAM, ensuring the integrity and updates of the active data structure, while the overall 2WAY Graph is stored to disk. The Key Manager is responsible for signing logs, signing and verifying messages between servers, and handling the encryption and decryption of communications, ensuring secure interactions within the system.
+Several crucial components support the functionality and security of the 2WAY backend. The Database Schema ensures efficient data organization and structure. The Graph Manager handles message reception from the frontend, backend, or any connected application, ensuring secure and reliable communication. It manages changes to the 2WAY Graph in general and maintains the Graph in RAM, ensuring the integrity and updates of the active data structure, while the overall 2WAY Graph is stored to disk with the help of the Storage Manager. The Key Manager is responsible for signing logs, signing and verifying messages between servers, and handling the encryption and decryption of communications, ensuring secure interactions within the system.
 
 The Network Manager manages network connections between servers, ensuring efficient data exchange. It tracks synchronized data with other servers and manages data pending synchronization on the next connection. It also protects the system from Denial of Service (DoS) attacks using proof-of-work-based client-puzzle challenges with dynamic difficulty levels to maintain network performance and availability.
 
@@ -215,7 +214,7 @@ From the user's perspective, data in other User Graphs that don't overlap with t
 
 This approach ensures users maintain a focused and personalized view of the data within the 2WAY system. It allows them to efficiently navigate and interact with information relevant to their needs and interests. By querying from their zeroth degree within the Server Graph, users can effectively manage their data, discover relevant connections, and collaborate with others in their network while maintaining privacy and control over their personal information.
 
-Plugins in the 2WAY system can also create and manage objects through the Object Manager. Each plugin has its own cryptographic key-pair, effectively making them users within the system. This allows plugins to function similarly to human users, with their own unique User Graphs, nodes, and edges. Plugins can create objects on behalf of multiple users, ensuring that not every user needs to create these objects individually, thus saving space in the graph.
+Plugins in the 2WAY system can also create and manage objects through the Graph Manager. Each plugin has its own cryptographic key-pair, effectively making them users within the system. This allows plugins to function similarly to human users, with their own unique User Graphs, nodes, and edges. Plugins can create objects on behalf of multiple users, ensuring that not every user needs to create these objects individually, thus saving space in the graph.
 
 When plugins create or manage objects, either all users or designated users receive access to them. New users can automatically receive access to these plugin-created objects as well. The relevant Access Control List (ACL) objects are updated to ensure proper permissions are set for these plugin-created objects, maintaining seamless integration and efficient access management.
 
@@ -294,7 +293,7 @@ Attributes in the 2WAY system are vital key-value pairs, comprising a "type" and
 
 Attributes are dynamically defined, either through API communication from the frontend or directly by the backend.
 
-When a user generates an Attribute on the frontend, it's transmitted to the backend's Object Manager API as a JSON document. For example:
+When a user generates an Attribute on the frontend, it's transmitted to the backend's Graph Manager API as a JSON document. For example:
 
 ```json
 {
@@ -318,11 +317,11 @@ In this JSON structure:
 
 The `vote` value aids in managing the object's lifecycle; an object with a vote of `0` is disregarded in future queries unless explicitly requested.
 
-Once received, the Object Manager passes the new Attribute to the Graph Manager who commences the creation and management process of various object types within the system by authorized users. The newly formed Attribute is connected to the user's public key through an implicit edge. This connection is inherent since the public key is stored as an Attribute, and the new Attribute contains the signer's public key.
+Once received, the Graph Manager commences the creation and management process of various object types within the system by authorized users. The newly formed Attribute is connected to the user's public key through an implicit edge. This connection is inherent since the public key is stored as an Attribute, and the new Attribute contains the signer's public key.
 
 Optionally, each individual change can be logged to the Log Manager when updating the cryptographically unsigned object to the Graph on Disk. Logged changes can be signed before storage by passing through the Key Manager, ensuring data integrity and authenticity.
 
-The Object Manager, with the help of the Graph Manager, also facilitates Attribute querying, enabling users to filter results based on the degree of separation and additional contextual criteria.
+The Graph Manager also facilitates Attribute querying, enabling users to filter results based on the degree of separation and additional contextual criteria.
 
 When queried, the newly created Attribute object is returned:
 
@@ -682,25 +681,25 @@ Here are the core tables in the schema:
 
 <br>
 
-## 2.5 Object Manager <a name="25-object-manager"></a>
+## 2.5 Graph Manager <a name="25-graph-manager"></a>
 
-### 2.5.1 Introduction to the Object Manager
+### 2.5.1 Introduction to the Graph Manager
 
-In the 2WAY system, the Object Manager serves as the central hub for creating, querying, modifying, and deleting all core objects, including Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's Object Manager, ensuring streamlined and efficient handling of data interactions.
+In the 2WAY system, the Graph Manager serves as the central hub for creating, querying, modifying, and deleting all core objects, including Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's Graph Manager, ensuring streamlined and efficient handling of data interactions.
 
-When users create or manage objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Object Manager via API calls. These API calls contain the necessary data to create or modify the desired object, such as Attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Object Manager processes the data and, if logging and signing are required, forwards the relevant information to the Key Manager and then to the Log Manager. Subsequently, the Object Manager informs the Graph Manager of any changes, ensuring that the system remains up-to-date and consistent. The Graph Manager manages both the Graph in RAM and the Graph on Disk representations of the graph and communicates any new objects or changes with the Storage Manager.
+When users create or manage objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Graph Manager via API calls. These API calls contain the necessary data to create or modify the desired object, such as Attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Graph Manager processes the data and, if logging and signing are required, forwards the relevant information to the Key Manager and then to the Log Manager. The Graph Manager manages both the Graph in RAM and the Graph on Disk representations and communicates any new objects or changes with the Storage Manager to ensure that the system remains up-to-date and consistent.
 
-Querying objects within the 2WAY system is similarly initiated through the frontend interface, which sends API calls to the backend's Object Manager. These API calls specify the parameters for the desired query, including the degree of separation from the user's zeroth degree (their public key) and the type of object being queried. The Object Manager retrieves the relevant nodes by querying the Graph Manager, which first checks the Graph in RAM before retrieving additional data from the disk with the help of the Storage Manager. The queried data is then returned to the frontend for user interaction.
+Querying objects within the 2WAY system is similarly initiated through the frontend interface, which sends API calls to the backend's Graph Manager. These API calls specify the parameters for the desired query, including the degree of separation from the user's zeroth degree (their public key) and the type of object being queried. The Graph Manager retrieves the relevant nodes by first checking the Graph in RAM before retrieving additional data from the disk with the help of the Storage Manager. The queried data is then returned to the frontend for user interaction.
 
-By centralizing object creation, querying, modification, and deletion functionalities within the Object Manager and exposing these capabilities through APIs, the 2WAY system ensures consistency, security, and scalability in managing various types of objects and data. This approach abstracts the complexities of database interactions and provides a unified interface for interacting with the system's objects, enhancing usability and maintainability.
+By centralizing object creation, querying, modification, and deletion functionalities within the Graph Manager and exposing these capabilities through APIs, the 2WAY system ensures consistency, security, and scalability in managing various types of objects and data. This approach abstracts the complexities of database interactions and provides a unified interface for interacting with the system's objects, enhancing usability and maintainability.
 
 It is important to note that for this proof-of-concept, messages are not signed on the frontend. In future versions, messages could potentially be signed on the frontend or with hardware keys, providing an additional layer of security and flexibility.
 
 <br>
 
-### 2.5.2 Create, Update, and Delete Objects
+### 2.5.2 Creating and Managing Objects
 
-To create or manage objects within the 2WAY system, users interact with the frontend interface, which communicates with the backend's Object Manager through API calls. These API calls contain JSON documents specifying the details of the objects to be created, updated, or deleted. Below are examples of JSON documents for creating different types of objects based on the database schema:
+To create or manage objects within the 2WAY system, users interact with the frontend interface, which communicates with the backend's Graph Manager through API calls. These API calls contain JSON documents specifying the details of the objects to be created, updated, or deleted. Below are examples of JSON documents for creating different types of objects based on the database schema:
 
 1. **Creating Attributes:**
 ```json
@@ -813,38 +812,49 @@ In this JSON structure:
 - `access_to_parent` indicates the Parent object to which access is being granted.
 - `permissions` specifies the level of permissions granted, set to `1`.
 
-Upon receiving these JSON documents from clients or the backend/system, the Object Manager initially forwards them to the Graph Manager, which updates the 2WAY Graph as requested. If logging is necessary, the documents are then sent to the Key Manager for timestamping and signing before being passed to the Log Manager.
+Upon receiving these JSON documents from clients or the backend/system, the Graph Manager updates the 2WAY Graph as requested. If logging is necessary, the documents are sent to the Key Manager for timestamping and signing before being passed to the Log Manager.
 
 The messages processed by the Graph Manager result in new objects being created, updated, or deleted in the database via the Storage Manager. Additionally, the Graph Manager ensures that any necessary updates are made to the Graph in RAM.
 
-When the Object Manager receives a message from the Network Manager (i.e., from another server), it passes the received documents to the Graph Manager and Log Manager in a similar manner, ensuring consistent and secure updates across the system.
+When the Graph Manager receives a message from the Network Manager (i.e., from another server), it processes the received documents and logs them in a similar manner, ensuring consistent and secure updates across the system.
 
 <br>
 
-### 2.5.3 Hiding Objects from View
+### 2.5.3 Managing Object Visibility
 
-Objects within the 2WAY system are never deleted from the database. Instead, they can only be down-voted, which by default signifies their irrelevance or disapproval by the user. This approach ensures data integrity and historical traceability, as every interaction with an object is preserved. This is crucial because different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
+Objects within the 2WAY system are never deleted from the database. Instead, they can be updated, deleted, or down-voted, which by default signifies their irrelevance or disapproval by the user. This approach ensures data integrity and historical traceability, as every interaction with an object is preserved. Different users may have varying perspectives on the relevance or validity of an object, and preserving all objects allows the system to accommodate these differing opinions.
 
-An examples of a JSON document for down-voting an Attribute, to be processed by the Object Manager:
+An example of a JSON document for updating or down-voting an Attribute, to be processed by the Graph Manager:
 
 ```json
 {
   "object": "attribute",
-  "app_id": "twoway, connections",
-  "signing_key": "user_id",
+  "action": "edit",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "type": "name",
   "value": "Alice",
   "vote": "0"
 }
 ```
 
-Upon receiving this JSON document, the Object Manager follows the standard procedure: it passes the document to the Key Manager for signing, timestamping, and hashing.
+In this JSON structure:
+- `object` specifies the type of object being updated or down-voted, which is an `attribute`.
+- `action` describes the interaction with the object (`new`, `edit`, or `delete`).
+- `signer` refers to the record ID of the Attribute that stores the public key (pubkey) of the user making the change.
+- `app_id` is the unique identifier for the application, hashed for security.
+- `type` indicates the type of the attribute, in this case, `name`.
+- `value` is the value of the attribute, here it is `Alice`.
+- `vote` denotes the relevance or importance of the attribute, set to `0` indicating down-vote.
+
+In case of logging, upon receiving this JSON document, the Graph Manager forwards the document to the Key Manager for signing.
 
 ```json
 {
   "object": "attribute",
-  "app_id": "twoway, connections",
-  "signing_key": "user_id",
+  "action": "edit",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "type": "name",
   "value": "Alice",
   "vote": "0",
@@ -854,11 +864,11 @@ Upon receiving this JSON document, the Object Manager follows the standard proce
 }
 ```
 
-The signed document is then appended to the database by the Storage Manager. The Graph Manager is updated as necessary to reflect the down-vote in the Graph in RAM.
+The signed document is then passed to the Log Manager for logging purposes. The Graph Manager updates the 2WAY Graph as necessary to reflect the updated or down-voted state in the Graph in RAM, and Graph on Disk with the help of the Storage Manager.
 
-By preserving all objects and utilizing a down-vote mechanism, the 2WAY system allows users to filter and prioritize data according to their own preferences and judgments. This ensures a more personalized and user-centric experience, where each individual can curate their digital environment without permanently removing information that might be relevant to others.
+By preserving all objects and utilizing mechanisms for updating, deleting, or down-voting, the 2WAY system allows users to filter and prioritize data according to their own preferences and judgments. This ensures a more personalized and user-centric experience, where each individual can curate their digital environment without permanently removing information that might be relevant to others.
 
-While the current proof-of-concept does not support automatic removal of objects, it is conceivable that future implementations could incorporate mechanisms for cleaning up the database. For example, duplicate objects, objects with an older version, or those beyond a certain age threshold could be automatically pruned to maintain database efficiency and manageability. However, such features are outside the scope of this proof-of-concept and would require careful consideration of criteria and processes to ensure consistency and data integrity.
+While the current proof-of-concept does not support automatic removal of objects, future implementations could incorporate mechanisms for cleaning up the database. For example, duplicate objects, objects with older versions, or those beyond a certain age threshold could be automatically pruned to maintain database efficiency and manageability. Such features would require careful consideration of criteria and processes to ensure consistency and data integrity in the system.
 
 <br>
 
@@ -1229,7 +1239,7 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 
 <br><br>
 
-## 2.7 Storage Manager <a name="27-storage-manager"></a>
+## 2.6 Storage Manager <a name="26-storage-manager"></a>
 
 ### 2.7.1 Introduction to the Storage Manager
 
@@ -1241,7 +1251,7 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 
 <br>
 
-## 2.8 Key Manager <a name="28-key-manager"></a>
+## 2.7 Key Manager <a name="27-key-manager"></a>
 
 ### 2.8.1 Introduction to the Key Manager
 
@@ -1258,6 +1268,20 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 #### 2.8.2.5 Decrypt Messages
 
 ### 2.8.3 Revocation and Re-Issuance
+
+<br>
+
+## 2.12 Log Manager <a name="28-log-manager"></a>
+
+### 2.12.1 Introduction to the Log Manager
+
+### 2.12.2 Log Engine
+
+#### 2.12.2.1 Logging Failed Operations
+
+#### 2.12.2.2 Logging Failed Bastion Messages
+
+#### 2.12.2.3 Logging Failed Incoming Messages
 
 <br>
 
@@ -1348,20 +1372,6 @@ Tor integration, etc
 ### 2.11.2 DoS Guard Engine
 
 #### 2.11.2.1 Receiving Bastion Alarms
-
-<br>
-
-## 2.12 Log Manager <a name="210-log-manager"></a>
-
-### 2.12.1 Introduction to the Log Manager
-
-### 2.12.2 Log Engine
-
-#### 2.12.2.1 Logging Failed Operations
-
-#### 2.12.2.2 Logging Failed Bastion Messages
-
-#### 2.12.2.3 Logging Failed Incoming Messages
 
 <br><br>
 
