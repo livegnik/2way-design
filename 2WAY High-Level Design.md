@@ -685,15 +685,25 @@ Here are the core tables in the schema:
 
 ### 2.5.1 Introduction to the Graph Manager
 
-In the 2WAY system, the Graph Manager serves as the central hub for creating, querying, modifying, and deleting all core objects, including Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). These objects are managed and accessed through APIs exposed by the backend's Graph Manager, ensuring streamlined and efficient handling of data interactions.
+In the 2WAY system, the Graph Manager plays a central role in managing comprehensive graph data operations, encompassing creation, querying, modification, and deletion of core objects like Attributes, Parents, Edges, Ratings, and Access Control Lists (ACLs). It provides seamless interaction with these objects through backend APIs, ensuring efficient data handling.
 
-When users create or manage objects such as Attributes or Parents, they interact with the frontend interface, which communicates with the backend's Graph Manager via API calls. These API calls contain the necessary data to create or modify the desired object, such as Attribute key-value pairs or parent-child relationships. Upon receiving these requests, the Graph Manager processes the data and, if logging and signing are required, forwards the relevant information to the Key Manager and then to the Log Manager. The Graph Manager manages both the Graph in RAM and the Graph on Disk representations and communicates any new objects or changes with the Storage Manager to ensure that the system remains up-to-date and consistent.
+Users interact via the frontend interface to perform object operations, triggering API calls that transmit essential data to the unified Graph Manager. This includes Attribute key-value pairs and parent-child relationships crucial for object creation and modification. Upon receiving requests, the Graph Manager processes data, handling tasks like updating the 2WAY Graph, and logging and optionally signing, by forwarding details to the Key Manager and then to the Log Manager. This synchronization ensures consistency between the Graph in RAM and the persistent disk-based Server Graph, maintaining data integrity and system reliability.
 
-Querying objects within the 2WAY system is similarly initiated through the frontend interface, which sends API calls to the backend's Graph Manager. These API calls specify the parameters for the desired query, including the degree of separation from the user's zeroth degree (their public key) and the type of object being queried. The Graph Manager retrieves the relevant nodes by first checking the Graph in RAM before retrieving additional data from the disk with the help of the Storage Manager. The queried data is then returned to the frontend for user interaction.
+Object querying within the 2WAY system begins with API calls to the backend's Graph Manager via the frontend interface. These calls specify parameters such as the degree of separation from the user's zeroth degree (their public key) and object type. Leveraging its capabilities, the Graph Manager accesses the Graph in RAM for rapid data retrieval and utilizes the Storage Manager to fetch additional data from disk as needed. The queried information is promptly returned to the frontend, ensuring a responsive user experience and streamlined data interaction.
 
-By centralizing object creation, querying, modification, and deletion functionalities within the Graph Manager and exposing these capabilities through APIs, the 2WAY system ensures consistency, security, and scalability in managing various types of objects and data. This approach abstracts the complexities of database interactions and provides a unified interface for interacting with the system's objects, enhancing usability and maintainability.
+By consolidating object management functionalities within the Graph Manager and exposing them through APIs, the 2WAY system emphasizes consistency, security, and scalability in managing diverse data types. This unified approach abstracts complexities associated with database interactions, significantly enhancing overall system usability and maintainability.
 
-It is important to note that for this proof-of-concept, messages are not signed on the frontend. In future versions, messages could potentially be signed on the frontend or with hardware keys, providing an additional layer of security and flexibility.
+In terms of implementation details, message signing on the frontend is currently not supported in this proof-of-concept. Future iterations may introduce frontend or signing hardware, enhancing data interaction security and flexibility within the system.
+
+The Graph Manager seamlessly processes changes initiated by users, updating nodes and edges within the Graph in RAM to reflect modifications. For instance, when users create new connections or adjust existing ones, the Graph Manager ensures that these changes are promptly reflected in the graph data.
+
+The Graph Manager supports efficient querying operations by providing methods to retrieve nodes based on the degree of separation from the user's zeroth degree within the comprehensive Server Graph. Users initiate queries through the unified interface, allowing seamless exploration and analysis of connections within the system.
+
+In this proof-of-concept, the Graph Manager focuses on managing record IDs of public key Attributes within the system. These Attributes are identified and managed using SHA2 hashes as app_ids, ensuring structured and efficient management of interactions and connections within the Graph in RAM.
+
+Future iterations of the 2WAY system may expand the Graph Manager's capabilities to include additional types of Attributes or Parents within the Graph in RAM. Such enhancements would further improve system flexibility and scalability, catering to evolving user needs and expanding system requirements.
+
+Overall, the Graph Manager plays a crucial role in maintaining the integrity, accessibility, and responsiveness of graph data within the 2WAY system, ensuring robust performance and user satisfaction.
 
 <br>
 
@@ -864,7 +874,7 @@ In case of logging, upon receiving this JSON document, the Graph Manager forward
 }
 ```
 
-The signed document is then passed to the Log Manager for logging purposes. The Graph Manager updates the 2WAY Graph as necessary to reflect the updated or down-voted state in the Graph in RAM, and Graph on Disk with the help of the Storage Manager.
+The signed document is then forwarded to the Log Manager for logging. Concurrently, the Graph Manager updates the 2WAY Graph in RAM and synchronizes changes with the Graph on Disk via the Storage Manager to reflect the updated or down-voted state.
 
 By preserving all objects and utilizing mechanisms for updating, deleting, or down-voting, the 2WAY system allows users to filter and prioritize data according to their own preferences and judgments. This ensures a more personalized and user-centric experience, where each individual can curate their digital environment without permanently removing information that might be relevant to others.
 
@@ -874,41 +884,39 @@ While the current proof-of-concept does not support automatic removal of objects
 
 ### 2.5.4 Querying Objects
 
-To query objects within the 2WAY system, users initiate requests through the frontend interface, which communicates with the backend's Object Manager via API calls. These API calls contain JSON documents specifying the parameters for the desired query, including the type of object and the degree of separation from the user's zeroth degree (their public key). By default, the system queries and returns the latest version of only the up-voted objects, ensuring that users receive the most relevant data.
+In the 2WAY system, users initiate object queries through the frontend interface, which communicates with the backend's Graph Manager via API calls. These API calls include JSON documents that specify parameters such as object type, degree of separation from the user's zeroth degree (their public key), and voting status. By default, the system retrieves and returns up-voted objects, ensuring users receive the most relevant data.
 
-Here is an example of a JSON document for querying up-voted objects:
-
-```json
-{
-  "object": "attribute",
-  "app_id": "twoway, connections",
-  "signing_key": "user_public_key",
-  "degree": 2,
-  "vote": 1,
-  "latest": 1
-}
-```
-
-Upon receiving this JSON document, the Object Manager retrieves the relevant nodes from the Graph Manager and queries data from the database based on the specified parameters. The queried data is then returned to the frontend for user interaction.
-
-If a user wishes to query down-voted objects, they can specify the vote parameter accordingly. Here's an example of a JSON document for querying down-voted objects:
+Here is an example JSON document for querying up-voted objects:
 
 ```json
 {
   "object": "attribute",
-  "app_id": "twoway, connections",
-  "signing_key": "user_public_key",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "degree": 2,
-  "vote": 0,
-  "latest": 0
+  "vote": 1
 }
 ```
 
-By setting the "vote" parameter to "0", the system will retrieve the latest versions of down-voted objects, allowing users to access data that they or others might have found less relevant or disagreed with. This functionality provides a comprehensive view of the data landscape within the 2WAY system, accommodating different perspectives and preferences.
+Upon receiving this JSON document, the Graph Manager processes the request by first identifying relevant nodes within the Graph in RAM. It then queries data from the database based on the specified parameters. The queried data is subsequently returned to the frontend for user interaction.
 
-Upon receiving these JSON documents, the Object Manager processes the request by first interacting with the Graph Manager to identify the relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager. The system ensures that the queried objects match the specified parameters, including object type, degree of separation, and vote status, before returning the data to the frontend.
+For querying down-voted objects, users can adjust the "vote" parameter accordingly. Here's an example JSON document for querying down-voted objects:
 
-This approach to querying objects ensures that users can access the most relevant and up-to-date information by default, while still providing the flexibility to explore a broader range of data as needed. By supporting queries for both up-voted and down-voted objects, the 2WAY system offers a balanced and user-centric method for data retrieval, enhancing overall user experience and data discoverability.
+```json
+{
+  "object": "attribute",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
+  "degree": 2,
+  "vote": 0
+}
+```
+
+Setting the "vote" parameter to "0" retrieves the latest versions of down-voted objects, enabling users to access data that they or others have considered less relevant or disagreed with. This feature provides a comprehensive view of the data landscape within the 2WAY system, accommodating diverse perspectives and preferences.
+
+Upon receiving these JSON documents, the Graph Manager processes the request directly, ensuring that the queried objects match the specified parameters, including object type, degree of separation, and vote status. The Graph Manager retrieves and returns accurate data from the database, maintaining consistency and relevance in the retrieved information.
+
+By supporting queries for both up-voted and down-voted objects, the 2WAY system offers a balanced approach to data retrieval. This approach enhances user experience by delivering relevant and up-to-date information by default, while also allowing users the flexibility to explore broader data sets as needed. It underscores the system's commitment to user-centric design and comprehensive data management capabilities.
 
 <br>
 
@@ -921,8 +929,8 @@ Below is an example of a JSON document for filtering objects based on specific c
 ```json
 {
   "object": "attribute",
-  "app_id": "twoway, connections",
-  "signing_key": "user_public_key",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "criteria": {
     "type": "email",
     "value": "example@email.com",
@@ -932,7 +940,7 @@ Below is an example of a JSON document for filtering objects based on specific c
 }
 ```
 
-Upon receiving this JSON document, the Object Manager applies the specified filtering criteria to the queried data, returning only the objects that match the given criteria. This enables users to efficiently retrieve and analyze data based on their specific requirements.
+Upon receiving this JSON document, the Graph Manager applies the specified filtering criteria to the queried data, returning only the objects that match the given criteria. This enables users to efficiently retrieve and analyze data based on their specific requirements.
 
 ### Filtering by Ratings
 
@@ -941,10 +949,10 @@ To filter objects based on Ratings, users can specify criteria for Ratings in th
 ```json
 {
   "object": "rating",
-  "app_id": "twoway, connections",
-  "signing_key": "user_public_key",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "criteria": {
-    "min_score": "1",
+    "min_score": "6",
     "scale": "out-of-10",
     "degree": 1,
     "vote": 1
@@ -963,8 +971,8 @@ Here is a more extensive and UX-friendly search query example that demonstrates 
 ```json
 {
   "object": "attribute",
-  "app_id": "twoway, connections",
-  "signing_key": "user_public_key",
+  "signer": "user_id",
+  "app_id": "hashed_app_identifier",
   "degree": 2,
   "criteria": {
     "type": "phone_number",
@@ -1003,7 +1011,7 @@ Here is a more extensive and UX-friendly search query example that demonstrates 
   - **exclude_parents**: Excludes objects associated with specific Parents ("people with bad taste in food").
   - **degree**: 0, limiting "exclude_parents" objects to those signed by the user, in the zeroth degree.
 
-Upon receiving this JSON document, the Object Manager processes the request by first interacting with the Graph Manager to identify relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager, applying all specified filtering criteria before returning the data to the frontend.
+Upon receiving this JSON document, the Graph Manager processes the request by first identifying relevant nodes within the Graph in RAM. It then uses the resulting record IDs to query data from the database with the help of the Storage Manager, applying all specified filtering criteria before returning the data to the frontend.
 
 This approach to filtering objects ensures that users can refine their queries to retrieve the most relevant and useful information, tailored to their specific needs and preferences. By supporting complex filtering criteria, the 2WAY system offers a robust and flexible method for data retrieval, enhancing overall user experience and data discoverability.
 
