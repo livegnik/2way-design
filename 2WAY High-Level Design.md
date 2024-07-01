@@ -1412,7 +1412,7 @@ Alternatively, users could streamline their data retrieval process by formulatin
 
 While this proof-of-concept focuses on querying nodes based on public key attributes and their degrees of separation, future versions of 2WAY could incorporate more advanced querying capabilities. This might include filtering based on additional attributes or incorporating more complex relationship criteria. However, such enhancements are beyond the scope of this proof-of-concept.
 
-In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a streamlined process that leverages the Object Manager to handle user queries efficiently. By specifying query parameters and filtering criteria through JSON documents, the system ensures that users receive accurate and relevant data from the in-memory graph, enhancing the overall user experience.
+In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a streamlined process that leverages the Graph Manager to handle user queries efficiently. By specifying query parameters and filtering criteria through JSON documents, the system ensures that users receive accurate and relevant data from the in-memory graph, enhancing the overall user experience.
 
 <br><br>
 
