@@ -1395,49 +1395,6 @@ In this query:
 
 Executing this query would retrieve additional data from the Graph on Disk, specifically the full names associated with each record ID that was returned in the initial query. This approach allows for a layered exploration of connected data within the 2WAY system, leveraging relationships defined by Attribute types and their hierarchical structure to enrich the user's data retrieval experience.
 
-Alternatively, users can streamline their data retrieval process by formulating a more comprehensive query that incorporates both initial data retrieval and subsequent related data exploration. For example, instead of querying each individual node sequentially, a single query can be designed to retrieve all relevant attributes and their associated data in one go. Building on the previous example, the following JSON document represents a consolidated query that fetches both the "first_name" attributes and their corresponding "full_name" attributes based on their relationship hierarchy within the Graph in RAM:
-
-```json
-{
-  "object": "attribute",
-  "signer": "user_id",
-  "app_id": "hashed_app_identifier",
-  "criteria": {
-    "type": "first_name",
-    "value": "Alice",
-    "degree": 2,
-    "vote": 1
-  },
-  "related_criteria": [
-    {
-      "type": "full_name",
-      "parent": {
-        "type": "pubkey",
-        "degree": 1
-      }
-    }
-  ]
-}
-```
-
-In this JSON document:
-- `object` specifies the type of object being queried, which is an `attribute`.
-- `signer` identifies the user who initiated the query.
-- `app_id` is the hashed identifier for the application.
-- `criteria` contains specific parameters for filtering the initial query:
-  - `type` specifies the type of attribute being queried, in this case, `first_name`.
-  - `value` indicates the value to filter by, which is `Alice`.
-  - `degree` denotes the degree of separation for the query, set to `2`.
-  - `vote` specifies the relevance or importance of the attribute, set to `1`.
-
-- `related_criteria` is an array that specifies additional queries to fetch related data:
-  - Within `related_criteria`, each object represents a query for related attributes, such as `full_name`.
-  - `parent` identifies the hierarchical relationship:
-    - `type` specifies that the parent is a `pubkey` attribute.
-    - `degree` indicates the degree of separation for the parent query, set to `1`.
-
-Executing this consolidated query retrieves both the "first_name" attributes associated with nodes within two degrees of separation from the user's public key and their corresponding "full_name" attributes. This approach enhances efficiency by reducing multiple queries into a single request, leveraging the hierarchical structure defined within the 2WAY system to provide comprehensive data retrieval capabilities.
-
 #### Future Enhancements
 
 While this proof-of-concept focuses on querying nodes based on public key attributes and their degrees of separation, future versions of 2WAY could incorporate more advanced querying capabilities. This might include filtering based on additional attributes or incorporating more complex relationship criteria. However, such enhancements are beyond the scope of this proof-of-concept.
