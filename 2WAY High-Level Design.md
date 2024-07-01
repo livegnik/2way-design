@@ -1448,7 +1448,7 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 
 <br>
 
-## 2.12 Log Manager <a name="28-log-manager"></a>
+## 2.8 Log Manager <a name="28-log-manager"></a>
 
 ### 2.12.1 Introduction to the Log Manager
 
@@ -1462,7 +1462,7 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 
 <br>
 
-## 2.9 State Manager
+## 2.X State Manager
 
 ### 2.9.1 Introduction to the State Manager
 
@@ -1474,7 +1474,7 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 
 <br>
 
-## 2.10 Network Manager <a name="29-network-manager"></a>
+## 2.9 Network Manager <a name="29-network-manager"></a>
 
 ### 2.10.1 Introduction to the Network Manager
 
@@ -1542,7 +1542,7 @@ Tor integration, etc
 
 <br>
 
-## 2.11 DoS Guard Manager
+## 2.X DoS Guard Manager
 
 ### 2.11.1 Introduction to the DoS Guard Manager
 
