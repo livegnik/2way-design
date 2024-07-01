@@ -1318,6 +1318,8 @@ This query effectively retrieves data from the Graph on Disk based on the user's
 
 The Graph Manager formats this data and sends it back to the frontend interface for user interaction. An example of the JSON document representing the query results might look like this:
 
+Certainly! Here's an explanation for the provided JSON document:
+
 ```json
 {
   "query_result": [
@@ -1361,9 +1363,21 @@ The Graph Manager formats this data and sends it back to the frontend interface 
 }
 ```
 
-In this example JSON document, the query results consist of nodes representing the first name "Alice" that are within two degrees of separation from the user's public key and have been upvoted. Each entry in the `query_result` array includes essential information such as the record ID, type, value, degree of separation, timestamp, and hash of the document. This data provides a snapshot of the attributes associated with nodes in the Graph in RAM that match the specified criteria.
+This JSON document, `query_result`, contains an array of JSON objects representing attribute data retrieved from the Graph in RAM in response to a user query. Here's a breakdown of each key field:
 
-To further explore related data, such as the full names associated with each record returned earlier, another query can be formulated using the `Parent` attribute relationship. For instance, a query could be structured as follows:
+- `signer`: Indicates the user identifier (`user_id`) who initiated the query.
+- `type`: Specifies the type of attribute being queried, which is `first_name`.
+- `value`: Represents the specific value associated with the attribute, in this case, "Alice".
+- `vote`: Denotes the relevance or importance of the attribute, set to `1`.
+- `degree`: Indicates the degree of separation for each attribute from the user's node within the Graph in RAM. For the entries provided:
+  - The first object has a degree of `1`, indicating it is directly connected to the user.
+  - The subsequent objects have a degree of `2`, indicating they are two degrees away from the user.
+- `timestamp`: Represents the timestamp when each attribute data was recorded or updated, using Unix time (`1648062030` and `1648062040` in this example).
+- `hash`: Provides the hash of the document, ensuring data integrity and security.
+
+In this example JSON document, the query results consist of Attributes representing the first name "Alice" that are within two degrees of separation from the user's public key and have been upvoted. Each entry in the `query_result` array includes essential information such as the signer, type, value, degree of separation, timestamp, and hash of the document. This data provides a snapshot of the Attributes associated with nodes in the Graph in RAM that match the specified criteria.
+
+To further explore related data, such as the full names associated with each signer returned earlier, another query can be formulated using the `Parent` attribute relationship. For instance, a query could be structured as follows:
 
 ```json
 {
@@ -1371,29 +1385,28 @@ To further explore related data, such as the full names associated with each rec
   "signer": "user_id",
   "app_id": "hashed_app_identifier",
   "criteria": {
-    "type": "full_name",
+    "child_type": "full_name",
     "parent": {
       "type": "pubkey",
-      "value": "",
-      "degree": 1,
-      "connections": [34, 56, 78, 102]
+      "child_id": [34, 56, 78, 102]
     }
   }
 }
 ```
 
-In this query:
+In this JSON document:
 - `object` specifies the type of object being queried, which is an `attribute`.
 - `signer` identifies the user who initiated the query.
-- `app_id` is the hashed identifier for the application.
+- `app_id` is the hashed identifier for the application for security purposes.
 - `criteria` specifies the parameters for filtering:
-  - `type` denotes the type of Attribute being queried, specifically `full_name`.
-  - `parent` identifies the parent Attribute relationship:
-    - `type` specifies that the parent is a `pubkey` Attribute.
-    - `degree` indicates the degree of separation for the parent query, set to `1`.
-    - `connections` is an array of record IDs representing the `pubkey` Attributes retrieved from the previous query results.
+  - `child_type` denotes the type of child attribute being queried, specifically `full_name`.
+  - `parent` identifies the parent attribute relationship:
+    - `type` specifies that the parent is a `pubkey` attribute.
+    - `child_id` is an array of record IDs representing the `pubkey` attributes retrieved from the previous query results.
 
-Executing this query would retrieve additional data from the Graph on Disk, specifically the full names associated with each record ID that was returned in the initial query. This approach allows for a layered exploration of connected data within the 2WAY system, leveraging relationships defined by Attribute types and their hierarchical structure to enrich the user's data retrieval experience.
+Executing this query would retrieve additional data from the Graph on Disk, specifically the full names associated with each signer's pubkey attribute that was returned in the initial query. This approach allows for a layered exploration of connected data within the 2WAY system, leveraging relationships defined by attribute types and their hierarchical structure to enrich the user's data retrieval experience.
+
+Alternatively, users could streamline their data retrieval process by formulating a more comprehensive query that incorporates both initial data retrieval and subsequent related data exploration.
 
 #### Future Enhancements
 
