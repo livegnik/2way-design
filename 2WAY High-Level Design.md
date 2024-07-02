@@ -1420,127 +1420,158 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 
 ## 2.6 Storage Manager <a name="26-storage-manager"></a>
 
-### 2.7.1 Introduction to the Storage Manager
+### 2.6.1 Introduction to the Storage Manager
 
-### 2.7.2 Storage Engine
+### 2.6.2 Storage Engine
 
-#### 2.7.2.1 Create Database and Tables
+#### 2.6.2.1 Create Database and Tables
 
-#### 2.7.2.2 Storage and Retrieval
+#### 2.6.2.2 Storage and Retrieval
 
 <br>
 
 ## 2.7 Key Manager <a name="27-key-manager"></a>
 
-### 2.8.1 Introduction to the Key Manager
+### 2.7.1 Introduction to the Key Manager
 
-### 2.8.2 Key Engine
+### 2.7.2 Key Engine
 
-#### 2.8.2.1 Generate Keys
+#### 2.7.2.1 Generate Keys
 
-#### 2.8.2.2 Verify Signatures
+#### 2.7.2.2 Verify Signatures
 
-#### 2.8.2.3 Sign Messages
+#### 2.7.2.3 Sign Messages
 
-#### 2.8.2.4 Encrypt Messages
+#### 2.7.2.4 Encrypt Messages
 
-#### 2.8.2.5 Decrypt Messages
+#### 2.7.2.5 Decrypt Messages
 
-### 2.8.3 Revocation and Re-Issuance
+### 2.7.3 Revocation and Re-Issuance
 
 <br>
 
 ## 2.8 Log Manager <a name="28-log-manager"></a>
 
-### 2.12.1 Introduction to the Log Manager
+### 2.8.1 Introduction to the Log Manager
 
-### 2.12.2 Log Engine
+### 2.8.2 Log Engine
 
-#### 2.12.2.1 Logging Failed Operations
+#### 2.8.2.1 Logging Failed Operations
 
-#### 2.12.2.2 Logging Failed Bastion Messages
+#### 2.8.2.2 Logging Failed Bastion Messages
 
-#### 2.12.2.3 Logging Failed Incoming Messages
+#### 2.8.2.3 Logging Failed Incoming Messages
 
 <br>
 
 ## 2.9 Network Manager <a name="29-network-manager"></a>
 
 ### 2.9.1 Introduction to the Network Manager
+An overview of the Network Manager's role within the 2WAY system, detailing its importance in managing network connections, ensuring data integrity, and facilitating communication between nodes.
 
 ### 2.9.2 Networking
+Explanation of the networking fundamentals used in the 2WAY system, including protocols, network topologies, and the mechanisms used for node discovery and data routing.
 
 ### 2.9.3 Establishing Connections
+Details on how connections are established between nodes, including the handshake process, encryption protocols, and authentication mechanisms.
 
 ### 2.9.4 State Engine and Data Synchronization
 
 #### 2.9.4.1 Introduction to the State Manager
+Overview of the State Manager, describing its role in maintaining and synchronizing the state across the network.
 
 #### 2.9.4.2 State Engine
+Technical details on the State Engine, including how it processes state changes, manages state conflicts, and ensures consistency.
 
 #### 2.9.4.3 Querying States
+Methods for querying the current state of the network or specific nodes, including API endpoints and data formats.
 
 #### 2.9.4.4 Sharing States
+Mechanisms for sharing state information between nodes, including synchronization protocols and data dissemination strategies.
 
 ### 2.9.5 Network Engine
 
 #### 2.9.5.1 Introduction to the Network Engine
+Overview of the Network Engine, highlighting its role in managing network services and ensuring efficient communication.
 
 #### 2.9.5.2 Creating Onion Services
+Step-by-step guide to creating Onion Services for anonymous and secure communication within the network.
 
 #### 2.9.5.3 Starting Onion Services
+Instructions on how to start Onion Services, including configuration options and common issues.
 
 #### 2.9.5.4 Stopping Onion Services
+Procedure for safely stopping Onion Services without disrupting ongoing communication.
 
 #### 2.9.5.5 Revoking Onion Services
+Details on how to revoke Onion Services, including security considerations and best practices.
 
 #### 2.9.5.6 Closing Sockets
+Explanation of socket management, including how to gracefully close sockets to avoid data loss.
 
 #### 2.9.5.7 Receiving Messages
+Technical details on how the Network Engine handles incoming messages, including parsing, validation, and processing.
 
 #### 2.9.5.8 Sending Messages
+Overview of the message-sending process, including formatting, encryption, and delivery assurance.
 
 ### 2.9.7 Bastion Engine
 
 #### 2.9.7.1 Introduction to the Bastion Engine
+An introduction to the Bastion Engine, describing its role in fortifying the network against attacks and ensuring robust security.
 
 #### 2.9.7.2 Receiving Messages
+Details on how the Bastion Engine processes incoming messages, including threat detection and response mechanisms.
 
 ### 2.9.8 Incoming Engine
 
 #### 2.9.8.1 Introduction to the Incoming Engine
+Overview of the Incoming Engine, highlighting its importance in handling inbound network traffic.
 
 #### 2.9.8.2 Receiving Messages
+Technical details on how the Incoming Engine processes incoming messages, including filtering, queuing, and routing.
 
 ### 2.9.9 Outgoing Engine
 
 #### 2.9.9.1 Introduction to the Outgoing Engine
+Introduction to the Outgoing Engine, explaining its role in managing outbound network traffic.
 
 #### 2.9.9.2 Sending Messages
+Overview of the process for sending messages through the Outgoing Engine, including scheduling, prioritization, and delivery confirmation.
 
 ### 2.9.10 Network Startup Engine
 
 #### 2.9.10.1 Introduction to the Network Startup Engine
+Overview of the Network Startup Engine, describing its role in initializing network connections and services.
 
 #### 2.9.10.2 Creating and Solving Client Puzzles
+Details on the use of client puzzles for preventing DoS attacks, including how they are created and solved during the startup process.
 
 #### 2.9.10.3 Starting Onion Services
+Instructions on how to initiate Onion Services during network startup, including configuration and troubleshooting.
 
 #### 2.9.10.4 Connecting with First Degree Connections
+Explanation of how the system establishes connections with first-degree nodes during startup, ensuring reliable and secure initial networking.
 
 ### 2.9.11 DoS Guard Manager
 
 #### 2.9.11.1 Introduction to the DoS Guard Manager
+Overview of the DoS Guard Manager, highlighting its importance in protecting the network from denial-of-service attacks.
 
 #### 2.9.11.2 Introduction to the Client Puzzle Engine
+Introduction to the Client Puzzle Engine, explaining how it generates puzzles to mitigate DoS attacks.
 
 #### 2.9.11.3 Creating and Solving Client Puzzles
+Technical details on the creation and solving of client puzzles, including algorithms and complexity considerations.
 
 #### 2.9.11.4 Querying and Verifying Client Puzzle Challenges and Solutions
+Methods for querying and verifying client puzzle challenges and solutions to ensure their effectiveness in preventing DoS attacks.
 
 #### 2.9.11.5 DoS Guard Engine
+Overview of the DoS Guard Engine, describing its role in monitoring and responding to potential DoS attacks.
 
-#### 2.9.11.6 Receiving Bastion Alarms
+#### 2.9.11.6 Receiving Bastion Engine Alarms
+Explanation of how the DoS Guard Manager processes alarms from the Bastion Engine and coordinates defensive actions.
 
 <br><br>
 
