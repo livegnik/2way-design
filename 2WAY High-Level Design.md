@@ -701,7 +701,7 @@ The Graph Manager synchronizes the Graph in RAM with the Server Graph during sys
 
 For query operations, the Graph Manager retrieves nodes by degree of separation from the user's public key within the Server Graph. Users query the Graph Manager to obtain table record IDs of relevant nodes for efficient data exploration.
 
-The proof-of-concept focuses on storing record IDs of public key Attributes with `app_id` `0e532062ea04fa80e54a0c3cda66f72c7c173f20b73f72541210da8a_attributes` as a SHA2 hash in the table `0e532062ea04fa80e54a0c3cda66f72c7c173f20b73f72541210da8a_attributes`. For example, if Alice signs her own public key, it is stored as an Attribute with the record ID `1`, and a corresponding node is added to the Graph in RAM. If Alice adds Bob's public key as an Attribute with record ID `34`, a node and edge are added to the Graph in RAM. When a `pubkey` Attribute is down-voted, the node and edge are removed, unless edges from other nodes remain.
+The proof-of-concept focuses on storing record IDs of public key Attributes with `app_id` `0e532062ea04fa80e54a0c3cda66f72c7c173f20b73f72541210da8a` as a SHA2 hash in the table `0e532062ea04fa80e54a0c3cda66f72c7c173f20b73f72541210da8a_attributes`. For example, if Alice signs her own public key, it is stored as an Attribute with the record ID `1`, and a corresponding node is added to the Graph in RAM. If Alice adds Bob's public key as an Attribute with record ID `34`, a node and edge are added to the Graph in RAM. When a `pubkey` Attribute is down-voted, the node and edge are removed, unless edges from other nodes remain.
 
 Future versions may allow adding and removing other Attributes or Parents to and from the Graph in RAM, but this is beyond the proof-of-concept's scope.
 
