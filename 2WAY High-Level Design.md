@@ -26,7 +26,9 @@
   2.8 [Log Manager](#28-log-manager)<br>
   2.9 [Network Manager](#29-network-manager)<br>
 
-1. [Practical Examples](#practical-examples)
+3. [Practical Examples](#practical-examples)
+
+3. [Conclusion](#conclusion)
 
 <br><br><br>
 
@@ -1556,46 +1558,104 @@ Tor integration, etc
 
 <br>
 
-## 3.1 Introduction to the Practical Examples
+## 3.X Introduction to the Practical Examples
 
 <br>
 
-## 3.2 Managing Contacts
+## 3.X Installing 2WAY
 
 <br>
 
-## 3.3 Messaging
+## 3.X Managing Contacts
 
 <br>
 
-## 3.4 Social
+## 3.X Synchronizing Data
 
 <br>
 
-## 3.5 Solving for Sybil Attacks
+## 3.X Key Revocation, Re-Issuance, and Propagation
 
 <br>
 
-## 3.6 Markets
+## 3.X Zero Knowledge Proofs
 
 <br>
 
-## 3.7 Verifying Binaries
+## 3.X Private Messaging
 
 <br>
 
-## 3.8 Key Revocation, Re-Issuance, and Propagation
+## 3.X Social Feed
 
 <br>
 
-## 
+## 3.X Solving for Sybil Attacks
 
 <br>
 
+## 3.X Wallet Plugin
+
+<br>
+
+## 3.X Verifying Binaries
+
+<br>
+
+## 3.X Market Plugin
+
+<br>
+
+## 3.X P2P Advertising
+
+<br>
+
+## 3.X Collaborative Document Editing Plugin
+
+<br>
+
+## 3.X IoT Device Management
+
+<br>
+
+## 3.X Document Notarization
+
+<br>
+
+## 3.X Decentralized Finance
+
+<br>
+
+## 3.X Access Control Systems
+
+<br>
+
+## 3.X Real Estate Transactions
+
+<br>
+
+## 3.X Event Ticketing Systems
+
+<br>
+
+## 3.X Resource Sharing Networks
+
+<br>
+
+## 3.X Video Gaming
+
+<br><br>
+
+# 4 Conclusion <a name="conclusion"></a>
 
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
 
