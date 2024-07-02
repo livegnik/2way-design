@@ -1466,91 +1466,85 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 
 ## 2.X State Manager
 
-### 2.9.1 Introduction to the State Manager
-
-### 2.9.2 State Engine
-
-#### 2.9.2.1 Querying States
-
-#### 2.9.2.2 Sharing States
-
 <br>
 
 ## 2.9 Network Manager <a name="29-network-manager"></a>
 
-### 2.10.1 Introduction to the Network Manager
+### 2.9.1 Introduction to the Network Manager
 
-### 2.10.2 Networking
+### 2.9.2 Networking
 
-Tor integration, etc
+### 2.9.3 Establishing Connections
 
-### 2.10.3 Establishing Connections
+### 2.9.4 State Engine and Data Synchronization
 
-### 2.10.4 Data Synchronization
+#### 2.9.4.1 Introduction to the State Manager
 
-### 2.10.5 Network Engine
+#### 2.9.4.2 State Engine
 
-#### 2.10.5.1 Introduction to the Network Engine
+#### 2.9.4.3 Querying States
 
-#### 2.10.5.2 Creating Onion Services
+#### 2.9.4.4 Sharing States
 
-#### 2.10.5.3 Starting Onion Services
+### 2.9.5 Network Engine
 
-#### 2.10.5.4 Stopping Onion Services
+#### 2.9.5.1 Introduction to the Network Engine
 
-#### 2.10.5.5 Revoking Onion Services
+#### 2.9.5.2 Creating Onion Services
 
-#### 2.10.5.6 Closing Sockets
+#### 2.9.5.3 Starting Onion Services
 
-#### 2.10.5.7 Receiving Messages
+#### 2.9.5.4 Stopping Onion Services
 
-#### 2.10.5.8 Sending Messages
+#### 2.9.5.5 Revoking Onion Services
 
-### 2.10.6 Client Puzzle Engine
+#### 2.9.5.6 Closing Sockets
 
-#### 2.10.6.1 Introduction to the Client Puzzle Engine
+#### 2.9.5.7 Receiving Messages
 
-#### 2.10.6.2 Creating and Solving Client Puzzles
+#### 2.9.5.8 Sending Messages
 
-#### 2.10.6.3 Querying and Verifying Client Puzzle Challenges and Solutions
+### 2.9.7 Bastion Engine
 
-### 2.10.7 Bastion Engine
+#### 2.9.7.1 Introduction to the Bastion Engine
 
-#### 2.10.7.1 Introduction to the Bastion Engine
+#### 2.9.7.2 Receiving Messages
 
-#### 2.10.7.2 Receiving Messages
+### 2.9.8 Incoming Engine
 
-### 2.10.8 Incoming Engine
+#### 2.9.8.1 Introduction to the Incoming Engine
 
-#### 2.10.8.1 Introduction to the Incoming Engine
+#### 2.9.8.2 Receiving Messages
 
-#### 2.10.8.2 Receiving Messages
+### 2.9.9 Outgoing Engine
 
-### 2.10.9 Outgoing Engine
+#### 2.9.9.1 Introduction to the Outgoing Engine
 
-#### 2.10.9.1 Introduction to the Outgoing Engine
+#### 2.9.9.2 Sending Messages
 
-#### 2.10.9.2 Sending Messages
+### 2.9.10 Network Startup Engine
 
-### 2.10.10 Network Startup Engine
+#### 2.9.10.1 Introduction to the Network Startup Engine
 
-#### 2.10.10.1 Introduction to the Network Startup Engine
+#### 2.9.10.2 Creating and Solving Client Puzzles
 
-#### 2.10.10.2 Creating and Solving Client Puzzles
+#### 2.9.10.3 Starting Onion Services
 
-#### 2.10.10.3 Starting Onion Services
+#### 2.9.10.4 Connecting with First Degree Connections
 
-#### 2.10.10.4 Connecting with First Degree Connections
+### 2.9.11 DoS Guard Manager
 
-<br>
+#### 2.9.11.1 Introduction to the DoS Guard Manager
 
-## 2.X DoS Guard Manager
+#### 2.9.11.2 Introduction to the Client Puzzle Engine
 
-### 2.11.1 Introduction to the DoS Guard Manager
+#### 2.9.11.3 Creating and Solving Client Puzzles
 
-### 2.11.2 DoS Guard Engine
+#### 2.9.11.4 Querying and Verifying Client Puzzle Challenges and Solutions
 
-#### 2.11.2.1 Receiving Bastion Alarms
+#### 2.9.11.5 DoS Guard Engine
+
+#### 2.9.11.6 Receiving Bastion Alarms
 
 <br><br>
 
