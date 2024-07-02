@@ -1558,91 +1558,113 @@ Tor integration, etc
 
 <br>
 
-## 3.X Introduction to the Practical Examples
+## 3.1 Introduction to the Practical Examples
+This section provides a high-level overview of the various practical applications of the 2WAY system, highlighting its versatility and potential across different industries and use cases.
 
 <br>
 
-## 3.X Installing 2WAY
+## 3.2 Installing 2WAY
+Step-by-step guide to installing the 2WAY system, including prerequisites, installation steps, and troubleshooting tips to ensure a smooth setup process.
 
 <br>
 
-## 3.X Managing Contacts
+## 3.3 Managing Contacts
+Explanation of how to manage contacts within the 2WAY system, including adding, editing, and removing contacts, as well as organizing them into groups. This includes user management of the user's own personas.
 
 <br>
 
-## 3.X Synchronizing Data
+## 3.4 Synchronizing Data
+Guide on how to synchronize data across multiple devices and platforms using the 2WAY system, ensuring data consistency and availability, with the help of P2P networking, the 2WAY Graph, and e2e encrypted communications with the help of collected "pubkey" and "onion" Attributes stored in the Graph, ACLs, and the Network Manager.
 
 <br>
 
-## 3.X Key Revocation, Re-Issuance, and Propagation
+## 3.5 Key Revocation, Re-Issuance, and Propagation
+Detailed scenarios and examples of when and why key revocation and re-issuance are necessary, and how the 2WAY system handles these processes securely through a multi-sig mechanism where 2 out of 3 alarm keys can signal to their contacts that one or more keys belonging to a user have been compromised.
 
 <br>
 
-## 3.X Zero Knowledge Proofs
+## 3.6 Zero Knowledge Proofs
+Explanation of zero-knowledge proofs, their significance in the 2WAY system, and practical examples of their implementation for privacy-preserving verification.
 
 <br>
 
-## 3.X Private Messaging
+## 3.7 Private Messaging
+How to implement private messaging within the 2WAY system, focusing on encryption, message integrity, and privacy.
 
 <br>
 
-## 3.X Social Feed
+## 3.8 Social Feed
+Technical implementation and user interface design for creating a social feed within the 2WAY system, including real-time updates and interaction features.
 
 <br>
 
-## 3.X Solving for Sybil Attacks
+## 3.9 Solving for Sybil Attacks
+Case studies and specific methods used by the 2WAY system to address and mitigate Sybil attacks, ensuring network integrity and trust, with the help of visualizing the User Graph.
 
 <br>
 
-## 3.X Wallet Plugin
+## 3.10 Wallet Plugin
+Implementation of a wallet plugin within the 2WAY system, covering both cryptocurrency wallets and digital identity wallets, with a focus on security and ease of use.
 
 <br>
 
-## 3.X Verifying Binaries
+## 3.11 Verifying Binaries
+Automated binary verification processes using the 2WAY system to ensure software integrity and authenticity before installation or execution.
 
 <br>
 
-## 3.X Market Plugin
+## 3.12 Market Plugin
+Creating a decentralized market plugin within the 2WAY system, enabling secure and trustless transactions between users.
 
 <br>
 
-## 3.X P2P Advertising
+## 3.13 P2P Advertising
+Implementation of peer-to-peer advertising within the 2WAY system, focusing on decentralized ad networks and user-to-user advertising.
 
 <br>
 
-## 3.X Collaborative Document Editing
+## 3.14 Collaborative Document Editing
+Guide on implementing real-time collaborative document editing within the 2WAY system, including conflict resolution strategies and user management.
 
 <br>
 
-## 3.X IoT Device Management
+## 3.15 IoT Device Management
+Managing IoT devices using the 2WAY system, including device registration, communication protocols, and security measures.
 
 <br>
 
-## 3.X Document Notarization
+## 3.16 Document Notarization
+Technical and legal aspects of document notarization within the 2WAY system, ensuring authenticity and tamper-proof records.
 
 <br>
 
-## 3.X Decentralized Finance
+## 3.17 Decentralized Finance
+Exploration of decentralized finance (DeFi) applications within the 2WAY system, such as lending, trading, and insurance, highlighting their implementation and benefits.
 
 <br>
 
-## 3.X Access Control Systems
+## 3.18 Access Control Systems
+Implementing digital and physical access control systems using the 2WAY system, ensuring secure and efficient access management.
 
 <br>
 
-## 3.X Real Estate Transactions
+## 3.19 Real Estate Transactions
+Using the 2WAY system for real estate transactions, including smart contracts and the role of blockchain technology in ensuring secure and transparent property transfers.
 
 <br>
 
-## 3.X Event Ticketing Systems
+## 3.20 Event Ticketing Systems
+Addressing challenges in event ticketing, such as counterfeit tickets, using the 2WAY system to implement secure and verifiable ticketing solutions.
 
 <br>
 
-## 3.X Resource Sharing Networks
+## 3.21 Resource Sharing Networks
+Examples of resource-sharing networks within the 2WAY system, such as shared computing resources, storage, and bandwidth, and how they are managed and monetized.
 
 <br>
 
-## 3.X Video Gaming
+## 3.22 Video Gaming
+Exploration of 2WAY system applications in video gaming, focusing on in-game assets, player identities, and secure transactions.
 
 <br><br>
 
