@@ -1464,10 +1464,6 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 
 <br>
 
-## 2.X State Manager
-
-<br>
-
 ## 2.9 Network Manager <a name="29-network-manager"></a>
 
 ### 2.9.1 Introduction to the Network Manager
