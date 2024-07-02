@@ -1448,12 +1448,6 @@ In summary, the Storage Manager is an indispensable element of the 2WAY system, 
 
 ## 2.7 Key Manager <a name="27-key-manager"></a>
 
-To improve the introduction to the Key Manager based on best practices, we can enhance clarity, completeness, and the inclusion of more technical details relevant to cryptographic management. Here’s an improved version:
-
----
-
-## 2.7 Key Manager <a name="27-key-manager"></a>
-
 ### 2.7.1 Introduction to the Key Manager
 
 The Key Manager within the 2WAY system is designed to securely generate, manage, and utilize cryptographic keys for users, underpinning the system's robust security architecture. It facilitates a range of cryptographic operations such as key generation, signature verification, message signing, encryption, and decryption, ensuring the integrity, authenticity, and confidentiality of user interactions.
