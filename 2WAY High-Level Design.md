@@ -1422,6 +1422,22 @@ In conclusion, querying nodes from the Graph in RAM in the 2WAY system is a stre
 
 ### 2.6.1 Introduction to the Storage Manager
 
+The Storage Manager in the 2WAY system is a pivotal component designed to manage the efficient storage and retrieval of data from the Graph on Disk. Its primary role is to interface between the Graph in RAM, which handles dynamic and transient data, and the persistent storage layer, ensuring that data integrity, accessibility, and performance are maintained across the system. This section delves into the fundamental operations and architecture of the Storage Manager, elucidating its significance within the 2WAY system.
+
+At its core, the Storage Manager is responsible for persisting data that is critical for long-term access and analysis. This includes user attributes, relationships, and various metadata that constitute the Graph in RAM. When users interact with the system, the Graph Manager first processes their queries in RAM, utilizing the fast, in-memory graph structures to provide immediate responses. However, for any data that needs to be persisted, referenced later, or queried with more complex criteria, the Storage Manager comes into play, managing the transition between volatile and non-volatile storage.
+
+When a user initiates a query, the Graph Manager retrieves relevant nodes from the Graph in RAM, focusing on the specified degrees of separation and filtering criteria. For instance, a user might request nodes within two degrees of separation that represent public key attributes and have been upvoted. Once the Graph Manager identifies these nodes, represented as record IDs, the Storage Manager takes over to fetch the comprehensive data from the Graph on Disk. This two-tiered approach leverages the speed of in-memory processing while ensuring the durability and richness of disk-based storage.
+
+The Storage Manager uses a sophisticated indexing system to quickly locate and retrieve the necessary data. Each record ID from the Graph in RAM corresponds to an entry in the disk storage, where detailed information about attributes, such as public keys, names, and other user-defined properties, is stored. This allows the Storage Manager to efficiently assemble the full dataset required by the user's query. For example, if the initial query returned nodes with record IDs [34, 56, 78, 102], the Storage Manager would use these IDs to pull detailed records from the Graph on Disk, including timestamps, votes, and any other relevant metadata.
+
+Furthermore, the Storage Manager is equipped to handle complex queries that involve hierarchical relationships between attributes. Consider a scenario where a user wishes to retrieve full names associated with specific public key attributes returned in a previous query. The Storage Manager can interpret and execute nested queries that define parent-child relationships between attributes. By processing these relationships, it can link public key attributes to their associated full names or any other related data, providing a comprehensive view of the interconnected attributes stored within the system.
+
+The robustness of the Storage Manager also extends to ensuring data integrity and consistency. It implements various mechanisms to safeguard against data corruption and to maintain synchronization between the Graph in RAM and the Graph on Disk. This is crucial in a system like 2WAY, where real-time updates and historical data need to coexist seamlessly. By maintaining a coherent and synchronized state across different storage layers, the Storage Manager guarantees that the data users interact with is both current and accurate.
+
+In summary, the Storage Manager is an indispensable element of the 2WAY system, bridging the gap between transient in-memory data and persistent disk storage. It provides the necessary infrastructure to store, retrieve, and manage complex user data efficiently, ensuring that the system can handle both immediate query responses and long-term data persistence. By managing the detailed attributes and relationships within the Graph on Disk, the Storage Manager supports the system's overarching goal of delivering a responsive, reliable, and scalable user experience.
+
+<br>
+
 ### 2.6.2 Storage Engine
 
 #### 2.6.2.1 Create Database and Tables
@@ -1711,15 +1727,11 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 
 
 [ ] Improve "2.5 Object Manager"
-
 [ ] Messages appended --> updated in database and can be logged to Log Manager
 [ ] Latest message --> Update database records to newest state and log messages to Log Manager
-
 [ ] Add "Modify Objects" between "2.5.2 Creating Objects" and "2.5.3 Hiding Objects"
-
 [ ] "signing_key" --> "signer": "user_id"
 [ ] ""5,9,12,13,14"," to array such as "[5,9,12]"
-
 [ ] Capitalize all objects (attributes, parents, edges, ratings)
 [ ] Add user_id description
 [ ] Change user_public_key to user_id where needed
