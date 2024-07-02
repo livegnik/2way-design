@@ -1610,7 +1610,7 @@ Tor integration, etc
 
 <br>
 
-## 3.X Collaborative Document Editing Plugin
+## 3.X Collaborative Document Editing
 
 <br>
 
