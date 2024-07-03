@@ -1320,8 +1320,6 @@ This query effectively retrieves data from the Graph on Disk based on the user's
 
 The Graph Manager formats this data and sends it back to the frontend interface for user interaction. An example of the JSON document representing the query results might look like this:
 
-Certainly! Here's an explanation for the provided JSON document:
-
 ```json
 {
   "query_result": [
