@@ -1440,9 +1440,11 @@ In summary, the Storage Manager is an indispensable element of the 2WAY system, 
 
 ### 2.6.2 Storage Engine
 
-#### 2.6.2.1 Create Database and Tables
+### 2.6.3 Creating Databases and Tables
 
-#### 2.6.2.2 Storage and Retrieval
+### 2.6.4 Data Storage and Manipulation
+
+### 2.6.5 Data Retrieval
 
 <br>
 
@@ -1468,19 +1470,17 @@ In summary, the Key Manager is a pivotal component of the 2WAY system, providing
 
 <br>
 
-### 2.7.2 Key Engine
+### 2.7.2 Generate Keys
 
-#### 2.7.2.1 Generate Keys
+### 2.7.3 Verify Signatures
 
-#### 2.7.2.2 Verify Signatures
+### 2.7.4 Sign Messages
 
-#### 2.7.2.3 Sign Messages
+### 2.7.5 Encrypt Messages
 
-#### 2.7.2.4 Encrypt Messages
+### 2.7.6 Decrypt Messages
 
-#### 2.7.2.5 Decrypt Messages
-
-### 2.7.3 Revocation and Re-Issuance
+### 2.7.7 Revocation and Re-Issuance of Keys
 
 <br>
 
@@ -1508,13 +1508,11 @@ In summary, the Log Manager is an indispensable component of the 2WAY system, pr
 
 <br>
 
-### 2.8.2 Log Engine
+### 2.8.2 Logging Failed Operations
 
-#### 2.8.2.1 Logging Failed Operations
+### 2.8.3 Logging Failed Bastion Messages
 
-#### 2.8.2.2 Logging Failed Bastion Messages
-
-#### 2.8.2.3 Logging Failed Incoming Messages
+### 2.8.4 Logging Failed Incoming Messages
 
 <br>
 
