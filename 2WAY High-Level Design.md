@@ -1488,6 +1488,26 @@ In summary, the Key Manager is a pivotal component of the 2WAY system, providing
 
 ### 2.8.1 Introduction to the Log Manager
 
+The Log Manager is a critical component of the 2WAY system, designed to ensure the integrity, reliability, and security of the platform by meticulously recording and managing logs of various operational activities. It functions as the central repository for all logging activities, capturing detailed information about system events, including successful operations, errors, warnings, and other significant occurrences. This comprehensive logging mechanism is essential for maintaining the system's health, troubleshooting issues, and providing a reliable audit trail for security and compliance purposes.
+
+In the 2WAY system, the Log Manager interfaces seamlessly with various components, including the Network Manager and its Bastion Engine, the Storage Manager, the Key Manager, and other subsystems. It ensures that all significant events, particularly those involving failed operations, failed Bastion messages, and failed incoming and outgoing messages, are accurately logged and stored for future reference.
+
+One of the primary roles of the Log Manager is to handle logging for failed operations within the system. Failed operations can encompass a wide range of issues, from minor warnings to critical errors that may impact system functionality. By logging these events, the Log Manager provides valuable insights into system performance, helping administrators identify and resolve issues promptly. This logging capability is instrumental in maintaining the overall stability and reliability of the 2WAY platform.
+
+Another crucial aspect of the Log Manager's functionality is the logging of failed Bastion messages. The Bastion Engine, a vital part of the Network Manager, plays a pivotal role in establishing secure connections between servers. It employs client-puzzle challenges to authenticate first-degree network connections, dynamically adjusting the difficulty of these puzzles based on the number of incoming connections to mitigate Denial of Service (DoS) attacks. When a client-puzzle challenge fails or a Bastion message does not get delivered, the Log Manager records these events, ensuring that any issues in the authentication process are documented for analysis and troubleshooting.
+
+In addition to Bastion message logging, the Log Manager also captures logs of failed incoming and outgoing messages handled by the Network Manager. Once a connection is authenticated via the Bastion Engine, subsequent communications are managed by the Incoming Engine and Outgoing Engine. These engines handle message delivery, ensuring that data is transmitted securely and reliably between users and servers. Any failures in this message delivery process, whether due to network issues, server errors, or other disruptions, are meticulously logged by the Log Manager. This logging ensures that administrators have a clear view of message flow within the system and can address any communication problems that arise.
+
+The Log Manager adheres to best practices in logging and monitoring, ensuring that logs are comprehensive, secure, and easily accessible for authorized personnel. Logs are typically timestamped and include detailed metadata, such as the source of the log entry, the nature of the event, and any relevant contextual information. This level of detail is crucial for effective troubleshooting and forensic analysis, enabling administrators to trace issues back to their root cause and implement corrective measures.
+
+Security is a paramount concern in the design of the Log Manager. Logs often contain sensitive information, and it is essential to protect them against unauthorized access and tampering. The Log Manager employs robust security measures, including encryption and access controls, to safeguard log data. These measures ensure that only authorized personnel can access logs and that the integrity of the log data is maintained at all times.
+
+Furthermore, the Log Manager supports integration with external monitoring and alerting systems. By providing real-time log data to these systems, the Log Manager enables proactive monitoring of the 2WAY platform. Administrators can set up alerts for specific events or patterns, allowing them to respond swiftly to potential issues and mitigate risks before they escalate into significant problems.
+
+In summary, the Log Manager is an indispensable component of the 2WAY system, providing comprehensive logging capabilities that enhance system reliability, security, and operational transparency. By meticulously recording failed operations, failed Bastion messages, and failed incoming and outgoing messages, the Log Manager ensures that administrators have the information they need to maintain the health and performance of the platform. Its adherence to best practices in logging and security further solidifies its role as a cornerstone of the 2WAY system's infrastructure.
+
+<br>
+
 ### 2.8.2 Log Engine
 
 #### 2.8.2.1 Logging Failed Operations
