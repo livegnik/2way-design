@@ -1777,22 +1777,12 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 
 
 
-[ ] Improve "2.5 Object Manager"
-[ ] Messages appended --> updated in database and can be logged to Log Manager
-[ ] Latest message --> Update database records to newest state and log messages to Log Manager
-[ ] Add "Modify Objects" between "2.5.2 Creating Objects" and "2.5.3 Hiding Objects"
-[ ] "signing_key" --> "signer": "user_id"
-[ ] ""5,9,12,13,14"," to array such as "[5,9,12]"
+[ ] Improve "2.5 Graph Manager"
+[ ] Implement Notifications
+[ ] ACL -> Give permissions to pubkey or parent
 [ ] Capitalize all objects (attributes, parents, edges, ratings)
-[ ] Add user_id description
-[ ] Change user_public_key to user_id where needed
-[ ] Querying Objects --> Vote = empty to query both up and down-voted objects
-[ ] Improve all the JSON documents where needed
 [ ] Breakdown all the JSON documents like under "2.5.5 Filtering Objects"
-[ ] 2.5.4 "latest" not described, 1 = latest object version and 0 = all object versions
-[ ] Add "latest" to "2.5.5 Filtering Objects"
-[ ] Change database schema to prevent plugin name collision in table name
-
+[ ] Replace "" with `` where necessary
 
 
 
@@ -1815,4 +1805,13 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 [X] Plugin cryptographic key-pairs, objects, and permissions
 [X] Improve "2.4.1 Introduction to the Database Schema"
 [X] Add frontend schema to "2.4 Database Schema"
+[X] Merge 2.5 Object Manager and 2.6 Graph Manager into 2.5 Graph Manager
+[X] Messages appended --> updated in database and can be logged to Log Manager
+[X] Latest message --> Update database records to newest state and log messages to Log Manager
+[X] "signing_key" --> "signer": "user_id"
+[X] ""5,9,12,13,14"," to array such as "[5,9,12]"
+[X] Add user_id description
+[X] Change user_public_key to user_id where needed
+[X] Improve all the JSON documents where needed
+[X] Change database schema to prevent plugin name collision in table name
 
