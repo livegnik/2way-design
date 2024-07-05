@@ -1796,10 +1796,6 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 [ ] Replace "" with `` where necessary
 <br>
 
-
-<br><br><br><br>
-
-
 ### Done:
 
 [X] Rename Message Manager to Object Manager
