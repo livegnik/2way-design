@@ -1778,6 +1778,8 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 
 
 [ ] Improve "2.5 Graph Manager"
+[ ] Add "action" to JSON documents in 2.5.7 Changes to Graph in RAM
+[ ] Change ""query_result": { "degrees": [" to ""query_result": {" in 2.5.8 Querying Nodes from RAM and Associated Data
 [ ] Add "parent_details" to query
 [ ] Implement Notifications
 [ ] ACL -> Give permissions to pubkey or parent
