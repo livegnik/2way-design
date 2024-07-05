@@ -1778,43 +1778,82 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 
 
 [ ] Improve "2.5 Graph Manager"
+<br>
 [ ] Add "action" to JSON documents in 2.5.7 Changes to Graph in RAM
+<br>
 [ ] Change ""query_result": { "degrees": [" to ""query_result": {" in 2.5.8 Querying Nodes from RAM and Associated Data
+<br>
 [ ] Add "parent_details" to query
+<br>
 [ ] Implement Notifications
+<br>
 [ ] ACL -> Give permissions to pubkey or parent
+<br>
 [ ] Capitalize all objects (attributes, parents, edges, ratings)
+<br>
 [ ] Breakdown all the JSON documents like under "2.5.5 Filtering Objects"
+<br>
 [ ] Replace "" with `` where necessary
+<br>
 
+
+<br><br><br><br>
 
 
 [X] Rename Message Manager to Object Manager
+<br>
 [X] ",." --> "",.
+<br>
 [X] Remove mentions of ACL Manager
+<br>
 [X] Remove mentions of State Manager
+<br>
 [X] PoC, proof-of-concept
+<br>
 [X] Change "2WAY" to "twoway" where needed
+<br>
 [X] Change "Contacts" to "connections" where needed
+<br>
 [X] public key, pubkey, "pubkey"
+<br>
 [X] Add Library plugin paragraph to "1.4 Pre-Installed Plugins"
+<br>
 [X] Improve "2.3 2WAY Objects"
+<br>
 [X] Remove mentions of Denial of Service (DoS) Guard Manager
+<br>
 [X] node --> server, where relevant
+<br>
 [X] Improve "1. Frontend"
+<br>
 [X] Improve "2.1 Introduction to the Backend"
+<br>
 [X] Improve "2.2 Graph"
+<br>
 [X] Log Manager --> JSON document should contain "created", "modified", or "deleted"
+<br>
 [X] Plugin cryptographic key-pairs, objects, and permissions
+<br>
 [X] Improve "2.4.1 Introduction to the Database Schema"
+<br>
 [X] Add frontend schema to "2.4 Database Schema"
+<br>
 [X] Merge 2.5 Object Manager and 2.6 Graph Manager into 2.5 Graph Manager
+<br>
 [X] Messages appended --> updated in database and can be logged to Log Manager
+<br>
 [X] Latest message --> Update database records to newest state and log messages to Log Manager
+<br>
 [X] "signing_key" --> "signer": "user_id"
+<br>
 [X] ""5,9,12,13,14"," to array such as "[5,9,12]"
+<br>
 [X] Add user_id description
+<br>
 [X] Change user_public_key to user_id where needed
+<br>
 [X] Improve all the JSON documents where needed
+<br>
 [X] Change database schema to prevent plugin name collision in table name
+<br>
 
