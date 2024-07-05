@@ -1778,6 +1778,7 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 
 
 [ ] Improve "2.5 Graph Manager"
+[ ] Add "parent_details" to query
 [ ] Implement Notifications
 [ ] ACL -> Give permissions to pubkey or parent
 [ ] Capitalize all objects (attributes, parents, edges, ratings)
