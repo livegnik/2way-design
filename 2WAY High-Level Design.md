@@ -1775,7 +1775,7 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 
 ## Tasks
 
-### To Do
+### To Do:
 
 [ ] Improve "2.5 Graph Manager"
 <br>
