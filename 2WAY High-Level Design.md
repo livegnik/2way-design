@@ -1777,23 +1777,23 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 
 ### To Do:
 
-[ ] Improve "2.5 Graph Manager"
+[  ] Improve "2.5 Graph Manager"
 <br>
-[ ] Add "action" to JSON documents in 2.5.7 Changes to Graph in RAM
+[  ] Add "action" to JSON documents in 2.5.7 Changes to Graph in RAM
 <br>
-[ ] Change ""query_result": { "degrees": [" to ""query_result": {" in 2.5.8 Querying Nodes from RAM and Associated Data
+[  ] Change ""query_result": { "degrees": [" to ""query_result": {" in 2.5.8 Querying Nodes from RAM and Associated Data
 <br>
-[ ] Add "parent_details" to query
+[  ] Add "parent_details" to query
 <br>
-[ ] Implement Notifications
+[  ] Implement Notifications
 <br>
-[ ] ACL -> Give permissions to pubkey or parent
+[  ] ACL -> Give permissions to pubkey or parent
 <br>
-[ ] Capitalize all objects (attributes, parents, edges, ratings)
+[  ] Capitalize all objects (attributes, parents, edges, ratings)
 <br>
-[ ] Breakdown all the JSON documents like under "2.5.5 Filtering Objects"
+[  ] Breakdown all the JSON documents like under "2.5.5 Filtering Objects"
 <br>
-[ ] Replace "" with `` where necessary
+[  ] Replace "" with `` where necessary
 <br>
 
 ### Done:
