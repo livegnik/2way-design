@@ -1775,7 +1775,9 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 
 
 
+### To Do
 
+<br><br>
 
 [ ] Improve "2.5 Graph Manager"
 <br>
@@ -1799,6 +1801,10 @@ Exploration of 2WAY system applications in video gaming, focusing on in-game ass
 
 <br><br><br><br>
 
+
+Done:
+
+<br><br>
 
 [X] Rename Message Manager to Object Manager
 <br>
